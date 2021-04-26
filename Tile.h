@@ -9,7 +9,19 @@ typedef char Colour;
 typedef int Shape;
 
 class Tile {
+
 public:
+
+   // Constructor 
+   Tile(Colour colour, Shape shape);
+
+   // Getter methods
+   Colour getColour();
+   Shape getShape();
+
+private:
+
+   // Class variables
    Colour colour;
    Shape  shape;
 };
