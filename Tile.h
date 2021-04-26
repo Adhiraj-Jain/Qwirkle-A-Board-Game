@@ -1,4 +1,3 @@
-
 #ifndef ASSIGN2_TILE_H
 #define ASSIGN2_TILE_H
 
@@ -12,18 +11,18 @@ class Tile {
 
 public:
 
-   // Constructor 
-   Tile(Colour colour, Shape shape);
+    // Constructor
+    Tile(Colour colour, Shape shape);
 
-   // Getter methods
-   Colour getColour();
-   Shape getShape();
+    // Getter methods
+    Colour getColour();
+    Shape getShape();
 
 private:
 
-   // Class variables
-   Colour colour;
-   Shape  shape;
+    // Class variables
+    Colour colour;
+    Shape shape;
 };
 
 #endif // ASSIGN2_TILE_H

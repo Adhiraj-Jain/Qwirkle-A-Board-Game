@@ -1,3 +1,4 @@
 qwirkle
 *.o
 .idea/
+.vscode
