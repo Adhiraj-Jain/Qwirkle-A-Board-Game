@@ -1,6 +1,7 @@
 #include "QwirkleGameEngine.h"
 #include <iostream>
 #include <string>
+#include "input-util.h"
 
 QwirkleGameEngine::~QwirkleGameEngine()
 {
@@ -36,14 +37,8 @@ int QwirkleGameEngine::mainMenu()
     return selection;
 }
 
-int QwirkleGameEngine::mainMenuSelection()
-{
-    //This is temporary for now - Will let Ryan do all the real User Input.
-    int input = 0;
-    std::cout << "> ";
-    std::cin >> input;
-
-    return input;
+int QwirkleGameEngine::mainMenuSelection(){
+    return input_util::getOptionUserInput(4);
 }
 
 void QwirkleGameEngine::newGame()
