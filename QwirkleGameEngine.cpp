@@ -1,7 +1,7 @@
 #include "QwirkleGameEngine.h"
 #include <iostream>
 #include <string>
-#include "input-util.h"
+#include "input_util.h"
 
 #define TEAM_SIZE 4
 
