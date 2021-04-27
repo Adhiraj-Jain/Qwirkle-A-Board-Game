@@ -1,6 +1,9 @@
 #include "QwirkleGameEngine.h"
 #include <iostream>
 #include <string>
+#include "input_util.h"
+
+#define TEAM_SIZE 4
 
 QwirkleGameEngine::~QwirkleGameEngine()
 {
@@ -36,14 +39,8 @@ int QwirkleGameEngine::mainMenu()
     return selection;
 }
 
-int QwirkleGameEngine::mainMenuSelection()
-{
-    //This is temporary for now - Will let Ryan do all the real User Input.
-    int input = 0;
-    std::cout << "> ";
-    std::cin >> input;
-
-    return input;
+int QwirkleGameEngine::mainMenuSelection(){
+    return input_util::getOptionUserInput(4);
 }
 
 void QwirkleGameEngine::newGame()
@@ -60,19 +57,18 @@ void QwirkleGameEngine::loadGame()
 
 void QwirkleGameEngine::credits()
 {
-    int team_size = 4;
-    std::string team_members[team_size] = {"Jainam Doshi", "Adhiraj Jain", "Ryan Samarakoon", "Muhib Hasan"};
-    std::string student_id[team_size] = {"s3825891", "s3821245", "s3844545", "s3850034"};
-    std::string email_address[team_size] = {"s3825891@student.rmit.edu.au", "s3821245@student.rmit.edu.au", "s3844545@student.rmit.edu.au", "s3850034@student.rmit.edu.au"};
+    std::string team_members[TEAM_SIZE] = {"Jainam Doshi", "Adhiraj Jain", "Ryan Samarakoon", "Muhib Hasan"};
+    std::string student_id[TEAM_SIZE] = {"s3825891", "s3821245", "s3844545", "s3850034"};
+    std::string email_address[TEAM_SIZE] = {"s3825891@student.rmit.edu.au", "s3821245@student.rmit.edu.au", "s3844545@student.rmit.edu.au", "s3850034@student.rmit.edu.au"};
 
     std::cout << "----------------------------------------" << std::endl;
 
-    for (int member = 0; member < team_size; member++)
+    for (int member = 0; member < TEAM_SIZE; member++)
     {
         std::cout << "Name: " << team_members[member] << std::endl;
         std::cout << "Student ID: " << student_id[member] << std::endl;
         std::cout << "Email:  " << email_address[member] << std::endl;
-        if (member != team_size - 1)
+        if (member != TEAM_SIZE - 1)
             std::cout << std::endl;
     }
 
