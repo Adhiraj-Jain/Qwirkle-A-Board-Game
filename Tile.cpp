@@ -12,4 +12,3 @@ Shape Tile::getShape() {
 Colour Tile::getColour() {
     return colour;
 }
-
