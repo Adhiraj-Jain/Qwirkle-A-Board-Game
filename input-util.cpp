@@ -35,15 +35,14 @@ int input_util::getOptionUserInput(int max) {
 }
 
 std::string input_util::getStringInput(std::regex regex) {
-    std::string input = "";
+    std::string input;
     bool valid = false;
     while (!valid) {
         std::cout << "> " << std::flush;
         std::cin >> input;
         // check if input matches given regex
-        std::cmatch match;
-        std::regex_match(input, match, regex);
-        if (match.empty()) {
+        bool found = std::regex_search(input, regex);
+        if (!found) {
             std::cout << "Invalid input" << std::endl;
         } else valid = true;
     }
