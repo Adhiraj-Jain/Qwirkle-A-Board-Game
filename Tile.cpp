@@ -12,3 +12,7 @@ Shape Tile::getShape() {
 Colour Tile::getColour() {
     return colour;
 }
+
+std::string Tile::toString() {
+    return this->colour + std::to_string(this->shape);
+}

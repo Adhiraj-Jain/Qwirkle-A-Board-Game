@@ -5,14 +5,14 @@ LinkedList::LinkedList() {
    this->head = nullptr;
    this->tail = nullptr;
    this->length = 0;
-   // TODO
 }
 
 LinkedList::~LinkedList() {
-   while (this->head != nullptr)    {
+   while (this->head != nullptr) {
       Node* curr = head;
       head = head->next;
       delete curr;
+
    }
    this->head = nullptr;
 }
@@ -28,9 +28,9 @@ int LinkedList::size() {
 Tile* LinkedList::getTile(int index) {
    Tile* tile = nullptr;
    // Check for linkedlist and if index is within range or not.
-   if (!this->isEmpty() && index >= 0 && index < this->size())    {
+   if (!this->isEmpty() && index >= 0 && index < this->size()) {
       Node* curr = head;
-      while (index > 0)       {
+      while (index > 0) {
          curr = curr->next;
          index--;
       }
@@ -41,12 +41,12 @@ Tile* LinkedList::getTile(int index) {
 
 // This method will always add Tile at the back of the LinkedList.
 void LinkedList::addTile(Tile* tile) {
-   if (tile != nullptr)    {
+   if (tile != nullptr) {
       Node* newNode = new Node(tile, nullptr);
-      if (this->isEmpty())       {
+      if (this->isEmpty()) {
          this->head = newNode;
       }
-      else       {
+      else {
          this->tail->next = newNode;
       }
       this->tail = newNode;
@@ -60,22 +60,22 @@ Node* LinkedList::getHead() {
 
 void LinkedList::deleteTile(int index) {
    Tile* tile = nullptr;
-   if (!this->isEmpty() && index >= 0 && index < this->size())    {
+   if (!this->isEmpty() && index >= 0 && index < this->size()) {
       Node* curr = head;
       Node* prev = nullptr;
 
       // loop till you reach at the desired index.
-      while (index > 0)       {
+      while (index > 0) {
          prev = curr;
          curr = curr->next;
          index--;
       }
       // Check if the index is at head position or not.
-      if (prev == nullptr)       {
+      if (prev == nullptr) {
          tile = head->tile;
          this->head = this->head->next;
       }
-      else       {
+      else {
          tile = curr->tile;
          curr = curr->next;
          prev->next = curr;
@@ -84,3 +84,20 @@ void LinkedList::deleteTile(int index) {
    this->length--;
    delete tile;
 }
+
+std::string LinkedList::toString() {
+   std::string result = "";
+
+   // Get and converts each tile in the list to a string
+   for (int index = 0; index < this->length; index++) {
+      result = result + this->getTile(index)->toString();
+
+      // Does not produce a comma after the last tile
+      if (index + 1 != this->length) {
+         result = result + ",";
+      }
+   }
+
+   return result + "\n";
+}
+

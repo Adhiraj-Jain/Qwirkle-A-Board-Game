@@ -2,20 +2,24 @@
 #define ASSIGN2_GAME_H
 
 #include <vector>
+#include <string>
+#include "Player.h"
+#include "GameBoard.h"
+#include "LinkedList.h"
 
-class GameBoard;
-class LinkedList;
-class Player;
+// class GameBoard;
+// class LinkedList;
+// class Player;
 class Tile;
 
 class Game {
 public:
 
     // Constructor to create a new Game
-    Game(std::vector<Player*> players);
+    Game(std::vector<Player*>* players);
 
     // Constructor to create a loaded Game
-    Game(std::vector<Player*> players, Player* currentPlayer, GameBoard* board, LinkedList* tileBag);
+    Game(std::vector<Player*>* players, Player* currentPlayer, GameBoard* board, LinkedList* tileBag);
 
     // Destructor
     ~Game();
@@ -33,7 +37,10 @@ public:
     Player* getCurrentPlayer();
     GameBoard* getBoard();
     LinkedList* getTileBag();
-    std::vector<Player*> getPlayers();
+    std::vector<Player*>* getPlayers();
+
+    // toString method
+    std::string toString();
 
 
 private:
@@ -41,7 +48,7 @@ private:
     // Class Variables
     GameBoard* board;
     LinkedList* tileBag;
-    std::vector<Player*> players;
+    std::vector<Player*>* players;
     Player* currentPlayer;
 
     // Helper methods

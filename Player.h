@@ -2,8 +2,9 @@
 #define ASSIGN2_PLAYER_H
 
 #include <string>
+#include "LinkedList.h"
 
-class LinkedList;
+// class LinkedList;
 class Tile;
 
 class Player {
@@ -27,13 +28,20 @@ public:
 
     // Getter methods
     std::string getName();
+    int getScore();
     LinkedList* getHand();
 
+    // Setter method
+    void setScore(int score);
+
+    // ToString method
+    std::string toString();
 
 private:
 
     // Class Variables
     std::string name;
+    int score;
     LinkedList* hand;
 
 };
