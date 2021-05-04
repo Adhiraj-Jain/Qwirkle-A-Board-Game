@@ -6,6 +6,16 @@
 //     this->currentWidth = 0;
 // }
 
+// GameBoard::GameBoard(int height, int width) {
+//     this->currentHeight = height;
+//     this->currentWidth = width;
+// }
+
+// GameBoard::~GameBoard() {}
+
+// bool GameBoard::placeTile(Tile* tile, char row, int col) { return true; }
+
+
 // The following code is used to test saving a game
 // std::vector<std::string>* GameBoard::allTilesWithPos() {
 //     std::vector<std::string>* vec = new std::vector<std::string>();

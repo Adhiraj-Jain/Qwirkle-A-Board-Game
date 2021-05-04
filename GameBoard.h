@@ -13,17 +13,20 @@ public:
     // Constructor
     GameBoard();
 
+    //Overloaded Constructor
+    GameBoard(int currentHeight, int currentWidth);
+
     // Destructor
     ~GameBoard();
 
     // Places a tile at the given row and col index
     // Returns true if there was no tile present at the given index
     // Returns false if a tile was present the given index
-    bool placeTile(Tile* tile, int row, int col);
+    bool placeTile(Tile* tile, char row, int col);
 
     // Returns a tile at the given row and col
     // Returns nullptr if tile not found
-    Tile* getTile(int row, int col);
+    Tile* getTile(char row, int col);
 
     // Getter methods
     std::vector<std::vector<Tile*>>* getBoard();

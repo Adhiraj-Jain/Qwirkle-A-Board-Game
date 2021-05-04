@@ -9,6 +9,8 @@
 //     this->currentPlayer = players->at(0);
 // }
 
+// Game::~Game() {}
+
 std::string Game::toString() {
     std::string results = "";
 

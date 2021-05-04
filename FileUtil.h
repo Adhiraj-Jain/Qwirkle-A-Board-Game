@@ -4,13 +4,11 @@
 #include <memory>
 #include <fstream>
 #include "Game.h"
-<<<<<<< HEAD
 #include "Player.h"
 #include "LinkedList.h"
-=======
-
-// class Game;
->>>>>>> 6456d411df87456745a61ead013d88fac18275f9
+#include "TileCodes.h"
+#include "GameBoard.h"
+#include "Tile.h"
 
 class FileUtil {
 
@@ -25,10 +23,11 @@ public:
 
 private:
     std::string giveLine(std::fstream& inputFile);
-    bool giveTilesList(std::string tileList);
+    bool giveTilesList(std::string tileList, LinkedList* tilList);
     bool isNameCorrect(std::string name);
     bool isTileCorrect(std::string tile);
-    bool getPlayerData(Player* player, std::fstream& inputFile)
+    bool getPlayerData(Player* player, std::fstream& inputFile);
+    bool getBoard(GameBoard* gameBoard, std::fstream& inputFile);
 };
 
 #endif // ASSIGN2_FILE_UTIL_H

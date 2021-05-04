@@ -14,3 +14,11 @@ std::string Player::getName() {
 std::string Player::toString() {
     return this->name + "\n" + std::to_string(this->score) + "\n" + this->hand->toString();
 }
+
+LinkedList* Player::getHand() {
+    return this->hand;
+}
+
+void Player::setScore(int score) {
+    this->score = score;
+}
