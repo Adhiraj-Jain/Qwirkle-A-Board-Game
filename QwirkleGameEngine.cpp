@@ -2,6 +2,7 @@
 #include <iostream>
 #include <string>
 #include "input_util.h"
+#include "FileUtil.h"
 
 #define TEAM_SIZE 4
 
@@ -51,6 +52,8 @@ void QwirkleGameEngine::newGame()
 
 void QwirkleGameEngine::loadGame()
 {
+    file_util* fileUtil = new file_util();
+    fileUtil->loadGame("inputFile.txt",nullptr);
     //Load Game Functionality - will leave it for those who do it
     std::cout << "Temp Load Game - ALL GOOD" << std::endl; //Delete this when starting to implement loadGame
 }
