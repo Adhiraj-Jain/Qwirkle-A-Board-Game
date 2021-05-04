@@ -2,6 +2,7 @@
 #define ASSIGN2_GAMEBOARD_H
 
 #include <vector>
+#include <string>
 
 class Tile;
 
@@ -26,11 +27,22 @@ public:
 
     // Getter methods
     std::vector<std::vector<Tile*>>* getBoard();
+    int getCurrentHight();
+    int getCurrentWidth();
+
+    // toString method
+    std::string toString();
+
 
 private:
 
     // Class variables
     std::vector<std::vector<Tile*>>* board;
+    int currentHeight;
+    int currentWidth;
+
+    // Returns a vector of strings of format <tile color><tile shape>@<row index><col index>
+    std::vector<std::string>* allTilesWithPos();
 };
 
 
