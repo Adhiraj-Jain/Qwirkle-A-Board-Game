@@ -6,12 +6,12 @@
 
 class Game;
 
-class file_util {
+class FileUtil {
 
 public:
 
     bool loadGame(std::string fileName, std::shared_ptr<Game> game);
-    bool saveGame(std::string fileName, std::unique_ptr<Game> game);
+    bool saveGame(std::string fileName, std::shared_ptr<Game> game);
 
 private:
 
