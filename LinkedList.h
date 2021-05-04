@@ -3,6 +3,7 @@
 #define ASSIGN2_LINKEDLIST_H
 
 #include "Node.h"
+#include <string>
 
 class LinkedList {
 public:
@@ -11,7 +12,7 @@ public:
    LinkedList();
 
    //Copy Constructor
-   LinkedList(LinkedList &Other);
+   LinkedList(LinkedList& Other);
 
    //Destructor
    ~LinkedList();
@@ -33,6 +34,9 @@ public:
 
    // delete tile at index i
    void deleteTile(int i);
+
+   // To String method
+   std::string toString();
 
 private:
    // Point at the head of Linked List
