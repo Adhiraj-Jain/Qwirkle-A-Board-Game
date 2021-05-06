@@ -22,11 +22,15 @@ public:
     void saveGame(std::string fileName, std::shared_ptr<Game> game);
 
 private:
-    std::string giveLine(std::fstream& inputFile);
-    bool giveTilesList(std::string tileList, LinkedList* tilList);
-    bool isNameCorrect(std::string name);
-    bool isTileCorrect(std::string tile);
+    //Method to get all the data of the player passed.
     bool getPlayerData(Player* player, std::fstream& inputFile);
+    //Method to input tiles from the file and store in the linked list passed as params.
+    bool giveTilesList(std::string tileList, LinkedList* tilList);
+    //Method to check if the current tile is in correct format or not.
+    bool isTileCorrect(std::string tile);
+    //Method to check if the player name passed as param is in correct format or not.
+    bool isNameCorrect(std::string name);
+    // Method to get all the data of the Game board including board size and the current state.
     bool getBoard(GameBoard* gameBoard, std::fstream& inputFile);
 };
 
