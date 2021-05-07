@@ -22,3 +22,23 @@ LinkedList *Player::getHand() {
 void Player::setScore(int score) {
     this->score = score;
 }
+
+Player::~Player() {
+
+}
+
+Tile *Player::getTile(std::string tile) {
+    return nullptr;
+}
+
+void Player::addTile(std::string tile) {
+
+}
+
+void Player::addTile(Tile *tile) {
+
+}
+
+int Player::getScore() {
+    return 0;
+}

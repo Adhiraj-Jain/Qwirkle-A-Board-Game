@@ -8,44 +8,47 @@
 class LinkedList {
 public:
 
-   //Constructor
-   LinkedList();
+    //Constructor
+    LinkedList();
 
-   //Copy Constructor
-   LinkedList(LinkedList& Other);
+    //Copy Constructor
+    LinkedList(LinkedList &Other);
 
-   //Destructor
-   ~LinkedList();
+    //Destructor
+    ~LinkedList();
 
-   // Return length of LinkedList
-   int size();
+    // Return length of LinkedList
+    int size();
 
-   // return Tile at index i
-   Tile* getTile(int i);
+    // return Tile at index i
+    Tile *getTile(int i);
 
-   // Add tile 
-   void addTile(Tile* tile);
+    // Add tile
+    void addTile(Tile *tile);
 
-   //Check if LinkedList is empty or not.
-   bool isEmpty();
+    // Add a tile at index
+    void insert(Tile *tile);
 
-   // return head
-   Node* getHead();
+    //Check if LinkedList is empty or not.
+    bool isEmpty();
 
-   // delete tile at index i
-   void deleteTile(int i);
+    // return head
+    Node *getHead();
 
-   // To String method
-   std::string toString();
+    // delete tile at index i
+    void deleteTile(int i);
+
+    // To String method
+    std::string toString();
 
 private:
-   // Point at the head of Linked List
-   Node* head;
-   //Point at the tail of the Linked List
-   Node* tail;
+    // Point at the head of Linked List
+    Node *head;
+    //Point at the tail of the Linked List
+    Node *tail;
 
-   //Length of the Linked List
-   int length;
+    //Length of the Linked List
+    int length;
 };
 
 #endif // ASSIGN2_LINKEDLIST_H
