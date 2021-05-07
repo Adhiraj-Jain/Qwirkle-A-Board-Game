@@ -13,8 +13,7 @@ void QwirkleGameEngine::start() {
     int selection = mainMenu();
     std::cout << std::endl;
     std::cout << std::endl;
-    do
-    {
+    do {
         if (selection == NEW_GAME)
             newGame();
         else if (selection == LOAD_GAME)
@@ -40,8 +39,7 @@ int QwirkleGameEngine::mainMenu() {
     return selection;
 }
 
-int QwirkleGameEngine::mainMenuSelection()
-{
+int QwirkleGameEngine::mainMenuSelection() {
     return input_util::getOptionUserInput(4);
 }
 
@@ -55,8 +53,7 @@ void QwirkleGameEngine::newGame() {
 
     //WILL HAVE TO CHANGE PLAYER FROM A SMART POINTER TO A RAW POINTER FOR TESTING!!
 
-    for (int player = 0; player < playerSize; player++)
-    {
+    for (int player = 0; player < playerSize; player++) {
         std::cout << "Enter a name for player " << player << "uppercase characters only" << std::endl;
         std::string creatingPlayerInput = input_util::getStringInput(std::regex("^[A-Z]+$"));
         std::shared_ptr<Player> creatingPlayer = std::make_shared<Player>(creatingPlayerInput);
@@ -81,9 +78,10 @@ void QwirkleGameEngine::loadGame() {
 }
 
 void QwirkleGameEngine::credits() {
-    std::string team_members[TEAM_SIZE] = { "Jainam Doshi", "Adhiraj Jain", "Ryan Samarakoon", "Muhib Hasan" };
-    std::string student_id[TEAM_SIZE] = { "s3825891", "s3821245", "s3844545", "s3850034" };
-    std::string email_address[TEAM_SIZE] = { "s3825891@student.rmit.edu.au", "s3821245@student.rmit.edu.au", "s3844545@student.rmit.edu.au", "s3850034@student.rmit.edu.au" };
+    std::string team_members[TEAM_SIZE] = {"Jainam Doshi", "Adhiraj Jain", "Ryan Samarakoon", "Muhib Hasan"};
+    std::string student_id[TEAM_SIZE] = {"s3825891", "s3821245", "s3844545", "s3850034"};
+    std::string email_address[TEAM_SIZE] = {"s3825891@student.rmit.edu.au", "s3821245@student.rmit.edu.au",
+                                            "s3844545@student.rmit.edu.au", "s3850034@student.rmit.edu.au"};
 
     std::cout << "----------------------------------------" << std::endl;
 

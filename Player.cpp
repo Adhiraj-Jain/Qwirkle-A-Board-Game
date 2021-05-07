@@ -7,13 +7,11 @@ Player::Player(std::string name) {
     this->hand = new LinkedList();
 }
 
-std::string Player::getName()
-{
+std::string Player::getName() {
     return this->name;
 }
 
-std::string Player::toString()
-{
+std::string Player::toString() {
     return this->name + "\n" + std::to_string(this->score) + "\n" + this->hand->toString();
 }
 

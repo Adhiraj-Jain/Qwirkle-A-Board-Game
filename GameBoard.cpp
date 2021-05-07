@@ -13,12 +13,12 @@ GameBoard::GameBoard(int height, int width) {
 
 GameBoard::~GameBoard() {}
 
-bool GameBoard::placeTile(Tile* tile, char row, int col) { return true; }
+bool GameBoard::placeTile(Tile *tile, char row, int col) { return true; }
 
 
 // The following code is used to test saving a game
-std::vector<std::string>* GameBoard::allTilesWithPos() {
-    std::vector<std::string>* vec = new std::vector<std::string>();
+std::vector<std::string> *GameBoard::allTilesWithPos() {
+    std::vector<std::string> *vec = new std::vector<std::string>();
     vec->push_back("B4@B2");
     vec->push_back("B6@B3");
 
@@ -30,7 +30,7 @@ std::string GameBoard::toString() {
 
 
     // Gets all the tiles in the board with their positions
-    std::vector<std::string>* tilesWithPos = this->allTilesWithPos();
+    std::vector<std::string> *tilesWithPos = this->allTilesWithPos();
 
     // Appends each string from the vector to the result
     for (unsigned int index = 0; index < tilesWithPos->size(); index++) {

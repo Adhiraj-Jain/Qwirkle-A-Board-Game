@@ -18,18 +18,20 @@ public:
     ~Player();
 
     // Returns a Tile from the player's hand with the given string value of the tile
-    Tile* getTile(std::string tile);
+    Tile *getTile(std::string tile);
 
     // Adds a Tile to the player's hand with the given string value of the tile
     void addTile(std::string tile);
 
     // Adds a Tile to the player's hand with the given tile
-    void addTile(Tile* tile);
+    void addTile(Tile *tile);
 
     // Getter methods
     std::string getName();
+
     int getScore();
-    LinkedList* getHand();
+
+    LinkedList *getHand();
 
     // Setter method
     void setScore(int score);
@@ -42,7 +44,7 @@ private:
     // Class Variables
     std::string name;
     int score;
-    LinkedList* hand;
+    LinkedList *hand;
 
 };
 

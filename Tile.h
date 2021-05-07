@@ -19,6 +19,7 @@ public:
 
     // Getter methods
     Colour getColour();
+
     Shape getShape();
 
     // ToString method

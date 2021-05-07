@@ -15,8 +15,7 @@
 // class Player;
 class Tile;
 
-class Game
-{
+class Game {
 public:
     // Constructor to create a new Game
     Game(std::vector<Player *> *players);
@@ -38,8 +37,11 @@ public:
 
     // Getter Methods
     Player *getCurrentPlayer();
+
     GameBoard *getBoard();
+
     LinkedList *getTileBag();
+
     std::vector<Player *> *getPlayers();
 
     // toString method
@@ -65,8 +67,11 @@ private:
 
     //Initialize when creating a new game
     void shuffleTileBag();
+
     void setUpPlayerHands();
+
     void createBoard();
+
     void createTileBag();
 };
 

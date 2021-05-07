@@ -11,11 +11,13 @@ namespace input_util {
      * @return
      */
     int getOptionUserInput(int max);
+
     /**
      * Blocking function which asks a user for a number input
      * @return number user entered
      */
     int getIntInput();
+
     /**
      * Blocking function to get string input from the user which much match the given regex
      * @param regex regex to check against
