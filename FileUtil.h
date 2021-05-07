@@ -10,7 +10,7 @@
 #include "GameBoard.h"
 #include "Tile.h"
 
-class FileUtil {
+namespace FileUtil {
 
 public:
 
