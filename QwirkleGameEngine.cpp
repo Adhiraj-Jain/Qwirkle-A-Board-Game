@@ -14,14 +14,17 @@ void QwirkleGameEngine::start()
     int selection = mainMenu();
     std::cout << std::endl;
     std::cout << std::endl;
-    if (selection == NEW_GAME)
-        newGame();
-    else if (selection == LOAD_GAME)
-        loadGame();
-    else if (selection == CREDITS)
-        credits();
-    else if (selection == QUIT)
-        quit();
+    do
+    {
+        if (selection == NEW_GAME)
+            newGame();
+        else if (selection == LOAD_GAME)
+            loadGame();
+        else if (selection == CREDITS)
+            credits();
+        else if (selection == QUIT)
+            quit();
+    } while (selection == CREDITS);
 }
 
 int QwirkleGameEngine::mainMenu()
@@ -39,7 +42,8 @@ int QwirkleGameEngine::mainMenu()
     return selection;
 }
 
-int QwirkleGameEngine::mainMenuSelection(){
+int QwirkleGameEngine::mainMenuSelection()
+{
     return input_util::getOptionUserInput(4);
 }
 
@@ -47,6 +51,9 @@ void QwirkleGameEngine::newGame()
 {
     std::cout << "Starting a New Game" << std::endl;
     //New Game Functionality - will leave it for those who have do it.
+    //Make Players
+    //Initialize the game (calling the first constructor of the game) - initialize method.
+    //game.start()
 }
 
 void QwirkleGameEngine::loadGame()
@@ -74,7 +81,6 @@ void QwirkleGameEngine::credits()
 
     std::cout << "----------------------------------------" << std::endl;
     std::cout << std::endl;
-    start(); //call again - watch video demo
 }
 
 void QwirkleGameEngine::quit()

@@ -25,6 +25,8 @@ public:
 
    // Add tile 
    void addTile(Tile* tile);
+   // Add a tile at index
+   void insert(Tile* tile);
 
    //Check if LinkedList is empty or not.
    bool isEmpty();
