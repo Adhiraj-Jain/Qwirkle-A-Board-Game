@@ -2,29 +2,11 @@
 #include <iostream>
 #include <limits>
 
-int input_util::getIntInput()
-{
-    int input = -1;
-    bool valid = false;
-    while (!valid)
-    {
-        std::cout << "> " << std::flush;
-        std::cin >> input;
-        // if the std hasn't struggled dumping the int value
-        if (std::cin.good())
-        {
-            valid = true;
-        }
-        else
-        {
-            //something went wrong, we reset the buffer's state to good
-            std::cin.clear();
-            //and empty it
-            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-            std::cout << "Given input is not a number" << std::endl;
-        }
-    }
-    return input;
+int input_util::getIntInput() {
+    std::string in = getStringInput(std::regex("^\\d+$"), "Given input is not a number");
+    int ret = 0;
+    std::stringstream(in) >> ret;
+    return ret;
 }
 
 int input_util::getOptionUserInput(int max)
@@ -42,7 +24,7 @@ int input_util::getOptionUserInput(int max)
     return input;
 }
 
-std::string input_util::getStringInput(std::regex regex)
+std::string input_util::getStringInput(const std::regex &regex, const std::string &error)
 {
     std::string input;
     bool valid = false;
@@ -54,7 +36,7 @@ std::string input_util::getStringInput(std::regex regex)
         bool found = std::regex_search(input, regex);
         if (!found)
         {
-            std::cout << "Invalid input" << std::endl;
+            std::cout << error << std::endl;
         }
         else
             valid = true;
