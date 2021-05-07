@@ -21,13 +21,15 @@ void FileUtil::saveGame(std::string fileName, std::shared_ptr<Game> game) {
 std::shared_ptr<Game> FileUtil::loadGame(std::string fileName) {
 
     // Counter for all players.
-    std::vector<Player*>* players = new std::vector<Player*>;
+    std::shared_ptr<std::vector<std::shared_ptr<Player>>> players = std::make_shared<std::vector<std::shared_ptr<Player>>>();
+
     //Counter for current state of Board
-    GameBoard* gameBoard = new GameBoard();
+    std::shared_ptr<GameBoard> gameBoard;
     //Counter for current Player
-    Player* currPlayer;
+    std::shared_ptr<Player>currPlayer;
     // Counter for current tileBag.
-    LinkedList* tileBag = new LinkedList();
+    std::shared_ptr<LinkedList> tileBag;
+
     // Counter to check if the loading is a success or not
     bool success = true;
     //To get line from the input file
@@ -45,7 +47,7 @@ std::shared_ptr<Game> FileUtil::loadGame(std::string fileName) {
             //Check if the name is in ASCII text means contains all letters.
             if (isNameCorrect(line)) {
                 //Create a player object
-                Player* player = new Player(line);
+                std::shared_ptr<Player> player = std::make_shared<Player>(line);
                 //Calling getPlayerData() to get the data of this player.
                 getPlayerData(player, inputFile);
                 //Pushing this player into vector array of players.
@@ -76,7 +78,7 @@ std::shared_ptr<Game> FileUtil::loadGame(std::string fileName) {
     if (success) {
         getline(inputFile, line);
         if (isNameCorrect(line))
-            currPlayer = new Player(line);
+            currPlayer = std::make_shared<Player>(line);
         else
             success = false;
     }
@@ -95,7 +97,7 @@ std::shared_ptr<Game> FileUtil::loadGame(std::string fileName) {
 }
 
 
-bool FileUtil::getPlayerData(Player* player, std::fstream& inputFile) {
+bool FileUtil::getPlayerData(std::shared_ptr<Player> player, std::fstream& inputFile) {
 
     std::string line = "";
     //To keep the current state of input
@@ -126,7 +128,7 @@ bool FileUtil::getPlayerData(Player* player, std::fstream& inputFile) {
 }
 
 
-bool FileUtil::giveTilesList(std::string tileList, LinkedList* tileLL) {
+bool FileUtil::giveTilesList(std::string tileList, std::shared_ptr<LinkedList> tileLL) {
     bool isCorrect = true;
     std::string tile = "";
     //Traverse over the line to find all the tiles.
@@ -142,7 +144,7 @@ bool FileUtil::giveTilesList(std::string tileList, LinkedList* tileLL) {
                 isCorrect = false;
             else
                 //If the tile is in correct format then store it in the tileLL
-                tileLL->addTile(new Tile((char)tile[0], (int)tile[1]));
+                tileLL->addTile(std::make_shared<Tile>((char)tile[0], (int)tile[1]));
             //Clear the current tile.
             tile = "";
         }
@@ -185,7 +187,7 @@ bool FileUtil::isNameCorrect(std::string name) {
     return isCorrect;
 }
 
-bool FileUtil::getBoard(GameBoard* gameBoard, std::fstream& inputFile) {
+bool FileUtil::getBoard(std::shared_ptr<GameBoard> gameBoard, std::fstream& inputFile) {
     bool success = true;
     std::string line = "";
     getline(inputFile, line);
@@ -207,10 +209,8 @@ bool FileUtil::getBoard(GameBoard* gameBoard, std::fstream& inputFile) {
 
     //If earlier input was a success
     if (success) {
-        //Delete the gameboard to which it was pointing to.
-        delete gameBoard;
         //initialising a new game board object.
-        gameBoard = new GameBoard(boardSize[0], boardSize[1]);
+        gameBoard = std::make_shared<GameBoard>(boardSize[0], boardSize[1]);
     }
     // Take input for the current state of the board i.e., currently placed tiles on the board.
     getline(inputFile, line);
@@ -228,14 +228,14 @@ bool FileUtil::getBoard(GameBoard* gameBoard, std::fstream& inputFile) {
         else if (line[index] == ',' && placetile.size() == size) {
             //if the tile input is completed.
             //Create a new tile.
-            Tile* tile = new Tile((char)placetile[0], (int)placetile[1]);
+            std::shared_ptr<Tile> tile = std::make_shared<Tile>((char)placetile[0], (int)placetile[1]);
             //Place the tile in the game board with the given row and col.
             if (!gameBoard->placeTile(tile, (char)placetile[3], (int)placetile[4])) {
                 //If placing a tile was not a success.
                 success = false;
             }
             //delete the tile.
-            delete tile;
+            // delete tile;
             //Clear the data for next tile.
             placetile = "";
         }

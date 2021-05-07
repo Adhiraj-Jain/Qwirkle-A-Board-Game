@@ -3,8 +3,10 @@
 
 #include <vector>
 #include <string>
+#include <memory>
+#include "Tile.h"
 
-class Tile;
+// class Tile;
 
 class GameBoard {
 
@@ -22,14 +24,14 @@ public:
     // Places a tile at the given row and col index
     // Returns the score after place the tile to the give index
     // Returns -1 cannot be added to the given index
-    int placeTile(Tile* tile, char row, int col);
+    int placeTile(std::shared_ptr<Tile> tile, char row, int col);
 
     // Returns a tile at the given row and col
     // Returns nullptr if tile not found
-    Tile* getTile(char row, int col);
+    std::shared_ptr<Tile> getTile(char row, int col);
 
     // Getter methods
-    std::vector<std::vector<Tile*>>* getBoard();
+    std::shared_ptr<std::vector<std::shared_ptr<std::vector<std::shared_ptr<Tile>>>>> getBoard();
 
     int getCurrentHight();
 
@@ -42,12 +44,12 @@ public:
 private:
 
     // Class variables
-    std::vector<std::vector<Tile*>>* board;
+    std::shared_ptr<std::vector<std::shared_ptr<std::vector<std::shared_ptr<Tile>>>>> board;
     int currentHeight;
     int currentWidth;
 
     // Returns a vector of strings of format <tile color><tile shape>@<row index><col index>
-    std::vector<std::string>* allTilesWithPos();
+    std::shared_ptr<std::vector<std::string>> allTilesWithPos();
 };
 
 

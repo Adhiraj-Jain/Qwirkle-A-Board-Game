@@ -1,14 +1,14 @@
 #include "Game.h"
 
-// The following code is used to test saving a game
-Game::Game(std::vector<Player *> *players) {
+
+Game::Game(std::shared_ptr<std::vector<std::shared_ptr<Player>>> players) {
     this->players = players;
-    this->board = new GameBoard();
-    this->tileBag = new LinkedList();
+    this->board = std::make_shared<GameBoard>();
+    this->tileBag = std::make_shared<LinkedList>();
     this->currentPlayer = players->at(0);
 }
 
-Game::Game(std::vector<Player *> *players, Player *currentPlayer, GameBoard *board, LinkedList *tileBag) {
+Game::Game(std::shared_ptr<std::vector<std::shared_ptr<Player>>> players, std::shared_ptr<Player> currentPlayer, std::shared_ptr<GameBoard> board, std::shared_ptr<LinkedList> tileBag) {
     this->players = players;
     this->currentPlayer = currentPlayer;
     this->board = board;
@@ -38,18 +38,18 @@ std::string Game::toString() {
     return results;
 }
 
-void Game::setTileBag(LinkedList *newTileBag) {
+void Game::setTileBag(std::shared_ptr<LinkedList> newTileBag) {
     this->tileBag = newTileBag;
 }
 
 void Game::createTileBag() {
-    Colour colours[] = {RED, ORANGE, YELLOW, GREEN, BLUE, PURPLE};
-    Shape shapes[] = {CIRCLE, STAR_4, DIAMOND, SQUARE, STAR_6, CLOVER};
+    Colour colours[] = { RED, ORANGE, YELLOW, GREEN, BLUE, PURPLE };
+    Shape shapes[] = { CIRCLE, STAR_4, DIAMOND, SQUARE, STAR_6, CLOVER };
 
     //First we would have to create the tile bag
     for (int colour = 0; colour < COLOURS_SIZE; colour++) {
         for (int shape = 0; shape < SHAPES_SIZE; shape++) {
-            Tile *currentTile = new Tile(colours[colour], shapes[shape]); //convert this into a shared pointer probably.
+            std::shared_ptr<Tile> currentTile = std::make_shared<Tile>(colours[colour], shapes[shape]); //convert this into a shared pointer probably.
             getTileBag()->addTile(currentTile);
         }
     }
@@ -84,7 +84,7 @@ void Game::setUpPlayerHands() {
         //pick out 6 tiles for the player
         for (unsigned int tiles = 0; tiles < 6; tiles++) {
             //select the tile
-            Tile *tilePicked = getTileBag()->getTile(0); //will perhaps change into a shared pointer
+            std::shared_ptr<Tile> tilePicked = getTileBag()->getTile(0); //will perhaps change into a shared pointer
             //add the tile to the persons hand.
             getPlayers()->at(0)->addTile(tilePicked);
             //remove the tile from the tilebag (this is convinient that we are removing the first tiles from the tilebag)
@@ -102,7 +102,7 @@ bool Game::isQwirkle() {
     return false;
 }
 
-void Game::playerPlaces(Tile *tile, int row, int col) {
+void Game::playerPlaces(std::shared_ptr<Tile> tile, int row, int col) {
 
 }
 
@@ -110,23 +110,23 @@ Game::~Game() {
 
 }
 
-Player *Game::getCurrentPlayer() {
+std::shared_ptr<Player> Game::getCurrentPlayer() {
     return nullptr;
 }
 
-GameBoard *Game::getBoard() {
+std::shared_ptr<GameBoard> Game::getBoard() {
     return nullptr;
 }
 
-LinkedList *Game::getTileBag() {
+std::shared_ptr<LinkedList> Game::getTileBag() {
     return nullptr;
 }
 
-std::vector<Player *> *Game::getPlayers() {
+std::shared_ptr<std::vector<std::shared_ptr<Player>>> Game::getPlayers() {
     return nullptr;
 }
 
-void Game::playerReplaces(Tile *tile) {
+void Game::playerReplaces(std::shared_ptr<Tile> tile) {
 
 }
 

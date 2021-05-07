@@ -4,7 +4,7 @@
 Player::Player(std::string name) {
     this->name = name;
     this->score = 0;
-    this->hand = new LinkedList();
+    this->hand = std::make_shared<LinkedList>();
 }
 
 std::string Player::getName() {
@@ -15,7 +15,7 @@ std::string Player::toString() {
     return this->name + "\n" + std::to_string(this->score) + "\n" + this->hand->toString();
 }
 
-LinkedList *Player::getHand() {
+std::shared_ptr<LinkedList> Player::getHand() {
     return this->hand;
 }
 
@@ -27,7 +27,7 @@ Player::~Player() {
 
 }
 
-Tile *Player::getTile(std::string tile) {
+std::shared_ptr<Tile> Player::getTile(std::string tile) {
     return nullptr;
 }
 
@@ -35,7 +35,7 @@ void Player::addTile(std::string tile) {
 
 }
 
-void Player::addTile(Tile *tile) {
+void Player::addTile(std::shared_ptr<Tile> tile) {
 
 }
 

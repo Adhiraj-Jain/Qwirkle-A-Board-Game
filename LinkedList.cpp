@@ -8,13 +8,13 @@ LinkedList::LinkedList() {
 }
 
 LinkedList::~LinkedList() {
-    while (this->head != nullptr) {
-        Node *curr = head;
-        head = head->next;
-        delete curr;
+    // while (this->head != nullptr) {
+    //     std::shared_ptr<Node> curr = head;
+    //     head = head->next;
+    //     delete curr;
 
-    }
-    this->head = nullptr;
+    // }
+    // this->head = nullptr;
 }
 
 bool LinkedList::isEmpty() {
@@ -25,11 +25,11 @@ int LinkedList::size() {
     return this->length;
 }
 
-Tile *LinkedList::getTile(int index) {
-    Tile *tile = nullptr;
+std::shared_ptr<Tile> LinkedList::getTile(int index) {
+    std::shared_ptr<Tile> tile = nullptr;
     // Check for linkedlist and if index is within range or not.
     if (!this->isEmpty() && index >= 0 && index < this->size()) {
-        Node *curr = head;
+        std::shared_ptr<Node> curr = head;
         while (index > 0) {
             curr = curr->next;
             index--;
@@ -40,12 +40,13 @@ Tile *LinkedList::getTile(int index) {
 }
 
 // This method will always add Tile at the back of the LinkedList.
-void LinkedList::addTile(Tile *tile) {
+void LinkedList::addTile(std::shared_ptr<Tile> tile) {
     if (tile != nullptr) {
-        Node *newNode = new Node(tile, nullptr);
+        std::shared_ptr<Node> newNode = std::make_shared<Node>(tile, nullptr);
         if (this->isEmpty()) {
             this->head = newNode;
-        } else {
+        }
+        else {
             this->tail->next = newNode;
         }
         this->tail = newNode;
@@ -53,15 +54,16 @@ void LinkedList::addTile(Tile *tile) {
     }
 }
 
-Node *LinkedList::getHead() {
+std::shared_ptr<Node> LinkedList::getHead() {
     return this->head;
 }
 
 void LinkedList::deleteTile(int index) {
-    Tile *tile = nullptr;
+    std::shared_ptr<Tile> tile = nullptr;
+
     if (!this->isEmpty() && index >= 0 && index < this->size()) {
-        Node *curr = head;
-        Node *prev = nullptr;
+        std::shared_ptr<Node> curr = head;
+        std::shared_ptr<Node> prev = nullptr;
 
         // loop till you reach at the desired index.
         while (index > 0) {
@@ -73,14 +75,14 @@ void LinkedList::deleteTile(int index) {
         if (prev == nullptr) {
             tile = head->tile;
             this->head = this->head->next;
-        } else {
+        }
+        else {
             tile = curr->tile;
             curr = curr->next;
             prev->next = curr;
         }
     }
     this->length--;
-    delete tile;
 }
 
 std::string LinkedList::toString() {

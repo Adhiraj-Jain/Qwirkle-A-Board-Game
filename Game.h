@@ -7,21 +7,22 @@
 #include "GameBoard.h"
 #include "LinkedList.h"
 #include "TileCodes.h"
+#include "Tile.h"
 #include <memory>
 #include <random>
 
 // class GameBoard;
 // class LinkedList;
 // class Player;
-class Tile;
+// class Tile;
 
 class Game {
 public:
     // Constructor to create a new Game
-    Game(std::vector<Player *> *players);
+    Game(std::shared_ptr<std::vector<std::shared_ptr<Player>>> players);
 
     // Constructor to create a loaded Game
-    Game(std::vector<Player *> *players, Player *currentPlayer, GameBoard *board, LinkedList *tileBag);
+    Game(std::shared_ptr<std::vector<std::shared_ptr<Player>>> players, std::shared_ptr<Player> currentPlayer, std::shared_ptr<GameBoard> board, std::shared_ptr<LinkedList> tileBag);
 
     // Destructor
     ~Game();
@@ -30,35 +31,32 @@ public:
     bool isQwirkle();
 
     // The given tile is added to the tile bag and the new tile is added to the current player's hands
-    void playerReplaces(Tile *tile);
+    void playerReplaces(std::shared_ptr<Tile> tile);
 
     // The given tile is added to the board and a new tile is added to the current player's hand
-    void playerPlaces(Tile *tile, int row, int col);
+    void playerPlaces(std::shared_ptr<Tile> tile, int row, int col);
 
     // Getter Methods
-    Player *getCurrentPlayer();
-
-    GameBoard *getBoard();
-
-    LinkedList *getTileBag();
-
-    std::vector<Player *> *getPlayers();
+    std::shared_ptr<Player> getCurrentPlayer();
+    std::shared_ptr<GameBoard> getBoard();
+    std::shared_ptr<LinkedList> getTileBag();
+    std::shared_ptr<std::vector<std::shared_ptr<Player>>> getPlayers();
 
     // toString method
     std::string toString();
 
     //Setter Methods
-    void setTileBag(LinkedList *newTileBag);
+    void setTileBag(std::shared_ptr<LinkedList> newTileBag);
 
     //initialize method
     void initiation();
 
 private:
     // Class Variables
-    GameBoard *board;
-    LinkedList *tileBag;
-    std::vector<Player *> *players;
-    Player *currentPlayer;
+    std::shared_ptr<GameBoard> board;
+    std::shared_ptr<LinkedList> tileBag;
+    std::shared_ptr<std::vector<std::shared_ptr<Player>>> players;
+    std::shared_ptr<Player> currentPlayer;
 
     // Helper methods
 
@@ -67,11 +65,8 @@ private:
 
     //Initialize when creating a new game
     void shuffleTileBag();
-
     void setUpPlayerHands();
-
     void createBoard();
-
     void createTileBag();
 };
 

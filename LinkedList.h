@@ -4,6 +4,7 @@
 
 #include "Node.h"
 #include <string>
+#include <memory>
 
 class LinkedList {
 public:
@@ -12,7 +13,7 @@ public:
     LinkedList();
 
     //Copy Constructor
-    LinkedList(LinkedList &Other);
+    LinkedList(LinkedList& Other);
 
     //Destructor
     ~LinkedList();
@@ -21,19 +22,16 @@ public:
     int size();
 
     // return Tile at index i
-    Tile *getTile(int i);
+    std::shared_ptr<Tile> getTile(int i);
 
     // Add tile
-    void addTile(Tile *tile);
-
-    // Add a tile at index
-    void insert(Tile *tile);
+    void addTile(std::shared_ptr<Tile> tile);
 
     //Check if LinkedList is empty or not.
     bool isEmpty();
 
     // return head
-    Node *getHead();
+    std::shared_ptr<Node> getHead();
 
     // delete tile at index i
     void deleteTile(int i);
@@ -43,9 +41,9 @@ public:
 
 private:
     // Point at the head of Linked List
-    Node *head;
+    std::shared_ptr<Node> head;
     //Point at the tail of the Linked List
-    Node *tail;
+    std::shared_ptr<Node> tail;
 
     //Length of the Linked List
     int length;

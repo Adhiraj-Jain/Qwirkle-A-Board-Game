@@ -64,8 +64,8 @@ void QwirkleGameEngine::newGame() {
 
     //Initialize the game (calling the first constructor of the game) - initialize method.
     // TODO dont do null ptr
-    std::shared_ptr<Game> newGame = std::make_shared<Game>(nullptr);
-    newGame->initiation();
+    // std::shared_ptr<Game> newGame = std::make_shared<Game>(nullptr);
+    // newGame->initiation();
     //game.start()
 }
 
@@ -78,10 +78,10 @@ void QwirkleGameEngine::loadGame() {
 }
 
 void QwirkleGameEngine::credits() {
-    std::string team_members[TEAM_SIZE] = {"Jainam Doshi", "Adhiraj Jain", "Ryan Samarakoon", "Muhib Hasan"};
-    std::string student_id[TEAM_SIZE] = {"s3825891", "s3821245", "s3844545", "s3850034"};
-    std::string email_address[TEAM_SIZE] = {"s3825891@student.rmit.edu.au", "s3821245@student.rmit.edu.au",
-                                            "s3844545@student.rmit.edu.au", "s3850034@student.rmit.edu.au"};
+    std::string team_members[TEAM_SIZE] = { "Jainam Doshi", "Adhiraj Jain", "Ryan Samarakoon", "Muhib Hasan" };
+    std::string student_id[TEAM_SIZE] = { "s3825891", "s3821245", "s3844545", "s3850034" };
+    std::string email_address[TEAM_SIZE] = { "s3825891@student.rmit.edu.au", "s3821245@student.rmit.edu.au",
+                                            "s3844545@student.rmit.edu.au", "s3850034@student.rmit.edu.au" };
 
     std::cout << "----------------------------------------" << std::endl;
 

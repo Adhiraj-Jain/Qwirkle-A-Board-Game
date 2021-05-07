@@ -3,9 +3,11 @@
 
 #include <string>
 #include "LinkedList.h"
+#include "Tile.h"
+#include <memory>
 
 // class LinkedList;
-class Tile;
+// class Tile;
 
 class Player {
 
@@ -18,20 +20,20 @@ public:
     ~Player();
 
     // Returns a Tile from the player's hand with the given string value of the tile
-    Tile *getTile(std::string tile);
+    std::shared_ptr<Tile> getTile(std::string tile);
 
     // Adds a Tile to the player's hand with the given string value of the tile
     void addTile(std::string tile);
 
     // Adds a Tile to the player's hand with the given tile
-    void addTile(Tile *tile);
+    void addTile(std::shared_ptr<Tile> tile);
 
     // Getter methods
     std::string getName();
 
     int getScore();
 
-    LinkedList *getHand();
+    std::shared_ptr<LinkedList> getHand();
 
     // Setter method
     void setScore(int score);
@@ -44,7 +46,7 @@ private:
     // Class Variables
     std::string name;
     int score;
-    LinkedList *hand;
+    std::shared_ptr<LinkedList> hand;
 
 };
 
