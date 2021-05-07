@@ -127,7 +127,7 @@ bool FileUtil::giveTilesList(std::string tileList, LinkedList* tileLL) {
   bool isCorrect = true;
   std::string tile = "";
   //Traverse over the line to find all the tiles.
-  for (int i = 0;i < tileList.size() && isCorrect;i++) {
+  for (unsigned int i = 0;i < tileList.size() && isCorrect;i++) {
     //If the current char is not a comma.
     if (tileList[i] != ',')
       //Add the char into string tile.
@@ -170,7 +170,7 @@ bool FileUtil::isTileCorrect(std::string tile) {
 bool FileUtil::isNameCorrect(std::string name) {
   bool isCorrect = true;
   //loop over each of letter of the string
-  for (int index = 0;index < name.size() && isCorrect;index++) {
+  for (unsigned int index = 0;index < name.size() && isCorrect;index++) {
     //Check if the current letter is in correct range or not.
     if (!('A' <= name[index] && name[index] <= 'Z') ||
       !('a' <= name[index] && name[index] <= 'z')) {
@@ -188,7 +188,7 @@ bool FileUtil::getBoard(GameBoard* gameBoard, std::fstream& inputFile) {
   //Integer array to store dimensions of the game board.
   int boardSize[2];
   //Loop over the line got through input stream.
-  for (int i = 0, j = 0;i < line.size() && success;i++) {
+  for (unsigned int i = 0, j = 0;i < line.size() && success;i++) {
     if (line[i] != ',') {
       //Store the dimension into integer array
       boardSize[j] = (int)line[i];
@@ -214,7 +214,7 @@ bool FileUtil::getBoard(GameBoard* gameBoard, std::fstream& inputFile) {
   const int size = 5;
   std::string placetile = "";
   //Loop till end of line or the input format till that point is correct.
-  for (int index = 0;index < line.size() && success;index++) {
+  for (unsigned int index = 0;index < line.size() && success;index++) {
     //Check for comma and a white space.
     if (line[index] != ',' && line[index] != ' ') {
       //If not then add the character in the string.

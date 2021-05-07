@@ -10,7 +10,7 @@
 #include "GameBoard.h"
 #include "Tile.h"
 
-namespace FileUtil {
+class FileUtil {
 
 public:
 
@@ -23,15 +23,19 @@ public:
 
 private:
     //Method to get all the data of the player passed.
-    bool getPlayerData(Player* player, std::fstream& inputFile);
+    bool getPlayerData(Player *player, std::fstream &inputFile);
+
     //Method to input tiles from the file and store in the linked list passed as params.
-    bool giveTilesList(std::string tileList, LinkedList* tilList);
+    bool giveTilesList(std::string tileList, LinkedList *tilList);
+
     //Method to check if the current tile is in correct format or not.
     bool isTileCorrect(std::string tile);
+
     //Method to check if the player name passed as param is in correct format or not.
     bool isNameCorrect(std::string name);
+
     // Method to get all the data of the Game board including board size and the current state.
-    bool getBoard(GameBoard* gameBoard, std::fstream& inputFile);
+    bool getBoard(GameBoard *gameBoard, std::fstream &inputFile);
 };
 
 #endif // ASSIGN2_FILE_UTIL_H

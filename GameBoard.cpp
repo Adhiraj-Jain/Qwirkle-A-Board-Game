@@ -11,9 +11,9 @@ GameBoard::GameBoard(int height, int width) {
     this->currentWidth = width;
 }
 
-// GameBoard::~GameBoard() {}
+GameBoard::~GameBoard() {}
 
-// bool GameBoard::placeTile(Tile* tile, char row, int col) { return true; }
+bool GameBoard::placeTile(Tile* tile, char row, int col) { return true; }
 
 
 // The following code is used to test saving a game

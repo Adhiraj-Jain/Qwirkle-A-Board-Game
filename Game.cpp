@@ -2,14 +2,14 @@
 
 
 // The following code is used to test saving a game
-// Game::Game(std::vector<Player*>* players) {
-//     this->players = players;
-//     this->board = new GameBoard();
-//     this->tileBag = new LinkedList();
-//     this->currentPlayer = players->at(0);
-// }
+Game::Game(std::vector<Player *> *players) {
+    this->players = players;
+    this->board = new GameBoard();
+    this->tileBag = new LinkedList();
+    this->currentPlayer = players->at(0);
+}
 
-// Game::~Game() {}
+Game::~Game() {}
 
 std::string Game::toString() {
     std::string results = "";
@@ -26,3 +26,5 @@ std::string Game::toString() {
 
     return results;
 }
+
+Game::Game(std::vector<Player *> *players, Player *currentPlayer, GameBoard *board, LinkedList *tileBag) { }
