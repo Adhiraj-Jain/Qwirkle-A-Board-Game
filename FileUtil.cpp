@@ -167,6 +167,7 @@ bool FileUtil::isTileCorrect(std::string tile) {
 }
 
 
+// TODO replace with regex
 bool FileUtil::isNameCorrect(std::string name) {
   bool isCorrect = true;
   //loop over each of letter of the string

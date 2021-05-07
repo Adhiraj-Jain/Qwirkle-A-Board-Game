@@ -50,7 +50,7 @@ void Game::setTileBag(LinkedList *newTileBag)
 
 void Game::createTileBag()
 {
-    Colour colours[] = {RED, ORANGE, YELLOW, GREEN, BLUE, PURPLE, '/0'};
+    Colour colours[] = {RED, ORANGE, YELLOW, GREEN, BLUE, PURPLE};
     Shape shapes[] = {CIRCLE, STAR_4, DIAMOND, SQUARE, STAR_6, CLOVER};
 
     //First we would have to create the tile bag
@@ -91,10 +91,10 @@ void Game::setUpPlayerHands()
 {
     //TODO
     //Go through every player
-    for (int player = 0; player < getPlayers()->size(); player++)
+    for (unsigned int player = 0; player < getPlayers()->size(); player++)
     {
         //pick out 6 tiles for the player
-        for (int tiles = 0; tiles < 6; tiles++)
+        for (unsigned int tiles = 0; tiles < 6; tiles++)
         {
             //select the tile
             Tile *tilePicked = getTileBag()->getTile(0); //will perhaps change into a shared pointer
@@ -110,4 +110,40 @@ void Game::createBoard()
 {
     //TODO
     //how would I go about doing this?? Will discuss in meeting
+}
+
+bool Game::isQwirkle() {
+    return false;
+}
+
+void Game::playerPlaces(Tile *tile, int row, int col) {
+
+}
+
+Game::~Game() {
+
+}
+
+Player *Game::getCurrentPlayer() {
+    return nullptr;
+}
+
+GameBoard *Game::getBoard() {
+    return nullptr;
+}
+
+LinkedList *Game::getTileBag() {
+    return nullptr;
+}
+
+std::vector<Player *> *Game::getPlayers() {
+    return nullptr;
+}
+
+void Game::playerReplaces(Tile *tile) {
+
+}
+
+void Game::nextPlayerTurn() {
+
 }
