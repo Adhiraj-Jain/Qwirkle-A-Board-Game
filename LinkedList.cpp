@@ -80,7 +80,6 @@ void LinkedList::deleteTile(int index) {
          curr = curr->next;
          prev->next = curr;
       }
-
    }
    this->length--;
    delete tile;
