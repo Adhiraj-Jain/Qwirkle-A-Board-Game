@@ -55,6 +55,9 @@ void QwirkleGameEngine::newGame()
     std::cout << std::endl;
     std::vector<std::shared_ptr<Player>> players;
     int playerSize = 2;
+
+    //WILL HAVE TO CHANGE PLAYER FROM A SMART POINTER TO A RAW POINTER FOR TESTING!!
+
     for (int player = 0; player < playerSize; player++)
     {
         std::cout << "Enter a name for player " << player << "uppercase characters only" << std::endl;
@@ -64,7 +67,7 @@ void QwirkleGameEngine::newGame()
         std::cout << std::endl;
     }
     std::cout << "Let's Play" << std::endl;
-    
+
     //Initialize the game (calling the first constructor of the game) - initialize method.
     std::shared_ptr<Game> newGame = std::make_shared<Game>(players);
     newGame->initiation();
