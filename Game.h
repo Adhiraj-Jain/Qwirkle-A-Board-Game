@@ -49,7 +49,7 @@ public:
     void setTileBag(LinkedList *newTileBag);
 
     //initialize method
-    void initialize();
+    void initiation();
 
 private:
     // Class Variables

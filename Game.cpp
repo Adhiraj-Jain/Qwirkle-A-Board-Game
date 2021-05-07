@@ -17,10 +17,12 @@ Game::Game(std::vector<Player *> *players, Player *currentPlayer, GameBoard *boa
     this->tileBag = tileBag;
 }
 
-Game::initialize()
+void Game::initiation()
 {
     createTileBag();
-    
+    shuffleTileBag();
+    setUpPlayerHands();
+    createBoard();
 }
 
 std::string Game::toString()
