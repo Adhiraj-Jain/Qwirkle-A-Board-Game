@@ -28,7 +28,7 @@ public:
     // Places a tile at the given row and col index
     // Returns the score after place the tile to the give index
     // Returns -1 cannot be added to the given index
-    int placeTile(SharedTile tile, char rowChar, int col);
+    int placeTile(const SharedTile& tile, char rowChar, int col);
 
     // Returns a tile at the given row and col
     // Returns nullptr if tile not found

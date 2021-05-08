@@ -1,5 +1,6 @@
 #include "Game.h"
 #include "input_util.h"
+#include "FileUtil.h"
 
 #include <utility>
 #include <iostream>
@@ -27,13 +28,15 @@ void Game::initiation() {
     createTileBag();   //DONE
     shuffleTileBag();  //DONE
     setUpPlayerHands();  //DONE
-    createBoard();
+    createBoard();  //DONE
 }
 
 void Game::start() {
+
     while (!isFinished()) {
+        auto lastPlayer = currentPlayer;
         std::cout << currentPlayer->getName() << ", it's your turn" << std::endl;
-        for (SharedPlayer player : *players) {
+        for (const SharedPlayer &player : *players) {
             std::cout << "Score for " + player->getName() << ": " << player->getScore() << std::endl;
         }
         board->displayBoard();
@@ -50,9 +53,39 @@ void Game::start() {
             }
             std::cout << std::endl;
         }
-        std::string input = input_util::getStringInput(std::regex(""));
+        // While player hasn't finished their turn
+        while (lastPlayer == currentPlayer) {
+            std::string input = input_util::getStringInput(std::regex(COMMAND_REGEX));
+            std::stringstream args = std::stringstream(input);
+            std::string command;
+            args >> command;
+            if (command == "save") {
+                std::string filename;
+                args >> filename;
+                try {
+                    FileUtil::saveGame(filename, this);
+                    std::cout << "Game saved successfully" << std::endl;
+                } catch (const std::exception &ex) {
+                    std::cout << "Failed to save: " << ex.what() << std::endl;
+                }
+            } else if (command == "place") {
+                std::string tileStr;
+                std::string pos;
+                args >> tileStr;
+                // do it twice to filter out the 'at'
+                args >> pos;
+                args >> pos;
+                Tile tile=Tile(tileStr[0], std::stoi(tileStr.substr(1)));
+                if (currentPlayer->hasTile(tile.getColour(), tile.getShape())) {
+                   // board->isValidTileToPlace();
+                    nextPlayerTurn();
+                } else std::cout << "Tile given isn't in your hand" << std::endl;
 
-
+            } else if (command == "replace") {
+                std::cout << "replacing..." << std::endl;
+                nextPlayerTurn();
+            }
+        }
     }
 }
 
@@ -126,6 +159,7 @@ void Game::setUpPlayerHands() {
 
 void Game::createBoard() {
     //TODO
+    // board->displayBoard();
 
 }
 
@@ -158,7 +192,15 @@ void Game::playerReplaces(std::shared_ptr<Tile> tile) {
 
 }
 
-void Game::nextPlayerTurn() {
-
+SharedPlayer Game::nextPlayerTurn() {
+    SharedPlayer newCurrentPlayer = nullptr;
+    for (unsigned int i = 0; i < players->size() && newCurrentPlayer == nullptr; i++) {
+        auto player = players->at(i);
+        if (player == currentPlayer) {
+            currentPlayer = players->at((i + 1) % players->size());
+            newCurrentPlayer = currentPlayer;
+        }
+    }
+    return newCurrentPlayer;
 }
 

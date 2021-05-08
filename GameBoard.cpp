@@ -15,10 +15,6 @@ GameBoard::GameBoard() {
     }
 }
 
-bool GameBoard::isValidTileToPlace(SharedTile tile, char row, int col) {
-    return true;
-}
-
 int GameBoard::mapCharToRow(char target) {
     return (int)target - 65;
 }
@@ -39,7 +35,7 @@ std::shared_ptr<std::vector<std::string>> GameBoard::allTilesWithPos() {
     return nullptr;
 }
 
-int GameBoard::placeTile(SharedTile tile, char rowChar, int col) {
+int GameBoard::placeTile(const SharedTile& tile, char rowChar, int col) {
     int score = -1;
     int row = this->mapCharToRow(rowChar);
 
@@ -64,6 +60,11 @@ int GameBoard::placeTile(SharedTile tile, char rowChar, int col) {
     }
     return score;
 }
+
+bool GameBoard::isValidTileToPlace(SharedTile tile, char row, int col) {
+    return false;
+}
+
 
 int GameBoard::calculateScore(int row, int col) {
     int score = 0;
@@ -144,7 +145,51 @@ std::string GameBoard::toString() {
 }
 
 void GameBoard::displayBoard() {
+    //printing the numbers
+    std::cout << "   ";
+    for (unsigned int col = 0; col < board->size(); col++) {
+        std::cout << col;
+        if (col >= 10)
+            std::cout << " ";
+        else if (col != board->size() - 1 && col < 10)
+            std::cout << "  ";
+    }
+
+    std::cout << std::endl;
+
+    //printing the dashed lines
+    std::cout << "  ";
+    for (unsigned int col = 0; col < board->size(); col++) {
+        if (col == 0)
+            std::cout << "----";
+        else
+            std::cout << "---";
+    }
+
+    std::cout << std::endl;
+    //printing the tiles
+    for (unsigned int row = 0; row < board->size(); row++) {
+
+        std::cout << (char)(row + 65) << " |";
+        for (unsigned int col = 0; col < board->size(); col++) {
+            if (getTile(row, col) == nullptr) {
+                std::cout << "  |";
+            }
+            else {
+                std::cout << getTile(row, col)->toString() << "|";
+            }
+        }
+        std::cout << std::endl;
+    }
+
+    //    0  1  2  3  4  5
+    //   -------------------
+    // A |  |  |  |  |  |  |
+    // B |  |  |  |  |  |  |
+    // C |  |  |  |  |  |  |
+    // D |  |  |  |  |  |  |
+    // E |  |  |  |  |  |  |
+    // F |  |  |  |  |  |  |
 
 }
-
 

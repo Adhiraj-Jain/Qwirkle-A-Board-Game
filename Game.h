@@ -72,8 +72,11 @@ private:
 
     // Helper methods
 
-    //Switches the currentPlayer to the next player
-    void nextPlayerTurn();
+    /**
+     * Moves the game to the next player turn
+     * @return the next player
+     */
+    SharedPlayer nextPlayerTurn();
 
     //Initialize when creating a new game
     void shuffleTileBag();
