@@ -5,7 +5,8 @@
 int input_util::getIntInput() {
     std::string in = getStringInput(std::regex("^\\d+$"), "Given input is not a number");
     int ret = 0;
-    std::stringstream(in) >> ret;
+    auto stream = std::stringstream(in);
+    stream >> ret;
     return ret;
 }
 

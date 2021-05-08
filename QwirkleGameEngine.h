@@ -23,9 +23,6 @@ public:
     //methods pertaining to the main menu.
     int mainMenu();
 
-    //this method below could be temporary - will leave it to Ryan on how he wants to take in User Input For the Main Menu.
-    int mainMenuSelection();
-
     void newGame();
 
     void loadGame();
