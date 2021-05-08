@@ -16,10 +16,6 @@ GameBoard::GameBoard() {
 
 }
 
-bool GameBoard::isValidTileToPlace(SharedTile tile, char row, int col) {
-    return true;
-}
-
 int GameBoard::mapCharToRow(char target) {
     return (int)target - 65;
 }
@@ -40,13 +36,14 @@ std::shared_ptr<std::vector<std::string>> GameBoard::allTilesWithPos() {
     return nullptr;
 }
 
-int GameBoard::placeTile(SharedTile tile, char rowChar, int col) {
+int GameBoard::placeTile(const SharedTile& tile, char rowChar, int col) {
     int score = -1;
     int row = this->mapCharToRow(rowChar);
 
     if (row <= MAX_BOARD_SIZE && col <= MAX_BOARD_SIZE) {
 
-        if (this->getTile(row, col) == nullptr && this->isValidTileToPlace(tile, row, col)) {
+        // TODO color type mismatch
+        if (this->getTile(row, col) == nullptr && this->isValidTileToPlace(*tile, row, col)) {
 
             this->board->at(row)->at(col) = tile;
             score = this->calculateScore(row, col);
@@ -62,6 +59,11 @@ int GameBoard::placeTile(SharedTile tile, char rowChar, int col) {
     }
     return score;
 }
+
+bool GameBoard::isValidTileToPlace(const Tile &tile, char row, int col) {
+    return false;
+}
+
 
 int GameBoard::calculateScore(int row, int col) {
 
@@ -165,5 +167,4 @@ void GameBoard::displayBoard() {
 // F |  |  |  |  |  |  |
 
 }
-
 

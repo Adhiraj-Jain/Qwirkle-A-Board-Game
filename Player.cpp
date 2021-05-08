@@ -19,6 +19,18 @@ std::shared_ptr<LinkedList> Player::getHand() {
     return this->hand;
 }
 
+bool Player::hasTile(Colour color, Shape shape) {
+    bool found = false;
+    for (int i = 0; i < hand->size() && !found; i++) {
+        auto tile = hand->getTile(i);
+        if (tile->getColour() == color && tile->getShape() == shape) {
+            found = true;
+        }
+
+    }
+    return found;
+}
+
 void Player::setScore(int score) {
     this->score = score;
 }

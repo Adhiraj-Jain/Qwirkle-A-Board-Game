@@ -30,6 +30,10 @@ public:
 
     int getScore();
 
+    /**
+     * Whether the player has the given tile on hand
+     */
+    bool hasTile(Colour color, Shape shape);
     std::shared_ptr<LinkedList> getHand();
 
     // Setter method

@@ -28,7 +28,6 @@ void Game::initiation() {
     createTileBag();   //DONE
     shuffleTileBag();  //DONE
     setUpPlayerHands();  //DONE
-    std::cout << "CURRENT BOARD" << std::endl;
     createBoard();  //DONE
 }
 
@@ -37,7 +36,7 @@ void Game::start() {
     while (!isFinished()) {
         auto lastPlayer = currentPlayer;
         std::cout << currentPlayer->getName() << ", it's your turn" << std::endl;
-        for (SharedPlayer player : *players) {
+        for (const SharedPlayer &player : *players) {
             std::cout << "Score for " + player->getName() << ": " << player->getScore() << std::endl;
         }
         board->displayBoard();
@@ -54,6 +53,7 @@ void Game::start() {
             }
             std::cout << std::endl;
         }
+        // While player hasn't finished their turn
         while (lastPlayer == currentPlayer) {
             std::string input = input_util::getStringInput(std::regex(COMMAND_REGEX));
             std::stringstream args = std::stringstream(input);
@@ -69,9 +69,22 @@ void Game::start() {
                     std::cout << "Failed to save: " << ex.what() << std::endl;
                 }
             } else if (command == "place") {
-                std::cout << "Placing..." << std::endl;
-            } else if (command == "replace")
+                std::string tileStr;
+                std::string pos;
+                args >> tileStr;
+                // do it twice to filter out the 'at'
+                args >> pos;
+                args >> pos;
+                Tile tile=Tile(tileStr[0], std::stoi(tileStr.substr(1)));
+                if (currentPlayer->hasTile(tile.getColour(), tile.getShape())) {
+                   // board->isValidTileToPlace();
+                    nextPlayerTurn();
+                } else std::cout << "Tile given isn't in your hand" << std::endl;
+
+            } else if (command == "replace") {
                 std::cout << "replacing..." << std::endl;
+                nextPlayerTurn();
+            }
         }
     }
 }
@@ -146,8 +159,7 @@ void Game::setUpPlayerHands() {
 
 void Game::createBoard() {
     //TODO
-    //display initial board
-    board->displayBoard();
+    // board->displayBoard();
 
 }
 
@@ -180,7 +192,15 @@ void Game::playerReplaces(std::shared_ptr<Tile> tile) {
 
 }
 
-void Game::nextPlayerTurn() {
-
+SharedPlayer Game::nextPlayerTurn() {
+    SharedPlayer newCurrentPlayer = nullptr;
+    for (unsigned int i = 0; i < players->size() && newCurrentPlayer == nullptr; i++) {
+        auto player = players->at(i);
+        if (player == currentPlayer) {
+            currentPlayer = players->at((i + 1) % players->size());
+            newCurrentPlayer = currentPlayer;
+        }
+    }
+    return newCurrentPlayer;
 }
 
