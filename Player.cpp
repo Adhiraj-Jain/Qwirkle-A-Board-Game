@@ -31,11 +31,8 @@ std::shared_ptr<Tile> Player::getTile(std::string tile) {
     return nullptr;
 }
 
-void Player::addTile(std::string tile) {
-
-}
-
-void Player::addTile(std::shared_ptr<Tile> tile) {
+void Player::addTile(SharedTile tile) {
+    hand->addTile(std::move(tile));
 
 }
 

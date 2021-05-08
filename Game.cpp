@@ -1,4 +1,5 @@
 #include "Game.h"
+#include "input_util.h"
 
 #include <utility>
 #include <iostream>
@@ -35,10 +36,21 @@ void Game::start() {
         for (SharedPlayer player : *players) {
             std::cout << "Score for " + player->getName() << ": " << player->getScore() << std::endl;
         }
-        //board->displayBoard();
+        board->displayBoard();
         std::cout << "Your hand is" << std::endl;
-        std::string input=input_util::getStringInput()
+        auto hand = currentPlayer->getHand();
+        if (hand->isEmpty())
+            std::cout << "<no items>" << std::endl;
+        else
+            for (int i = 0; i < hand->size(); i++) {
+                auto handTile = hand->getTile(i);
+                std::cout << handTile->getColour() << handTile->getShape()
+                          // if last element, don't put a comma at the end
+                          << (i == hand->size() - 1 ? "," : "")
+                          << std::endl;
+            }
 
+        std::string input = input_util::getStringInput(std::regex(""));
 
 
     }
@@ -100,24 +112,21 @@ void Game::shuffleTileBag() {
 }
 
 void Game::setUpPlayerHands() {
-    //TODO
     //Go through every player
     for (SharedPlayer player : *players) {
         //pick out 6 tiles for the player
         for (int tiles = 0; tiles < 6; tiles++) {
             //select the tile
-            std::shared_ptr<Tile> tilePicked = tileBag->getTile(0); //will perhaps change into a shared pointer
+            SharedTile tilePicked = tileBag->deleteTile(0); //will perhaps change into a shared pointer
             //add the tile to the persons hand.
-            players->at(0)->addTile(tilePicked);
-            //remove the tile from the tilebag (this is convinient that we are removing the first tiles from the tilebag)
-            tileBag->deleteTile(0);
+            player->addTile(tilePicked);
         }
     }
 }
 
 void Game::createBoard() {
     //TODO
-    
+
 }
 
 bool Game::isFinished() {
