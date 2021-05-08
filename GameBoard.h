@@ -43,7 +43,7 @@ public:
     std::string toString();
 
     //read in board.
-    void readBoard();
+    void displayBoard();
 
 private:
 
