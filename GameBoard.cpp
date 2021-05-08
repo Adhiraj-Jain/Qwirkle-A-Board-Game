@@ -1,13 +1,17 @@
 #include "GameBoard.h"
 
+#include <iostream>
+
 GameBoard::GameBoard() {
 
     this->currentHeight = 0;
     this->currentWidth = 0;
 
-    this->charToIntMap = std::make_shared<std::map<char, int>>();
-    for (int i = 0; i < MAX_BOARD_SIZE; i++) {
+    this->board = std::make_shared<std::vector<std::shared_ptr<std::vector<SharedTile>>>>();
 
+    for (int i = 0; i < MAX_BOARD_SIZE; i++) {
+        std::shared_ptr<std::vector<SharedTile>> row = std::make_shared<std::vector<SharedTile>>(MAX_BOARD_SIZE, nullptr);
+        board->push_back(row);
     }
 
 }
