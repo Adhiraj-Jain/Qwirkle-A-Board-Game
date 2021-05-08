@@ -5,11 +5,12 @@
 #include <vector>
 #include <string>
 #include <memory>
-#include <map>
 
 typedef std::shared_ptr<Tile> SharedTile;
 
 #define MAX_BOARD_SIZE 26
+#define QWIRKLE_LENGTH 6
+#define QWIRKLE_POINTS 6
 
 class GameBoard {
 
@@ -35,7 +36,6 @@ public:
 
     // Getter methods
     std::shared_ptr<std::vector<std::shared_ptr<std::vector<SharedTile>>>> getBoard();
-
     int getCurrentHight();
     int getCurrentWidth();
 
@@ -51,19 +51,26 @@ private:
     std::shared_ptr<std::vector<std::shared_ptr<std::vector<SharedTile>>>> board;
     int currentHeight;
     int currentWidth;
-    std::shared_ptr<std::map<char, int>> charToIntMap;
 
     // Returns a vector of strings of format <tile color><tile shape>@<row index><col index>
     std::shared_ptr<std::vector<std::string>> allTilesWithPos();
 
+    // Returns an integer from 0-25 for characters A-Z
     int mapCharToRow(char target);
 
+    // Returns a score for the tile add at given index
     int calculateScore(int row, int col);
 
+    // Validates if the tile at the given index if a legal placement
+    // Returns true if legal, false if illegal
     bool isValidTileToPlace(SharedTile tile, char row, int col);
 
+    // This method collects all the Tiles from all four directions of the given index
+    // i.e. it returns all the Tiles in (left, right, up, down) of the given row and col
     std::shared_ptr<std::vector<std::shared_ptr<std::vector<SharedTile>>>> getAllTilesIn4Direction(int row, int col);
 
+    // This method collects all the Tiles from one direction of the given index
+    // The changeInRow and ChangeInCol specifies the direction
     std::shared_ptr<std::vector<SharedTile>> getAllTilesIn1Direction(int row, int col, int changeInRow, int changeInCol);
 };
 

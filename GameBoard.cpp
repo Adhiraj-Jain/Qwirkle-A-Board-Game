@@ -13,7 +13,6 @@ GameBoard::GameBoard() {
         std::shared_ptr<std::vector<SharedTile>> row = std::make_shared<std::vector<SharedTile>>(MAX_BOARD_SIZE, nullptr);
         board->push_back(row);
     }
-
 }
 
 bool GameBoard::isValidTileToPlace(SharedTile tile, char row, int col) {
@@ -25,7 +24,7 @@ int GameBoard::mapCharToRow(char target) {
 }
 
 SharedTile GameBoard::getTile(int row, int col) {
-    return nullptr;
+    return this->board->at(row)->at(col);
 }
 
 GameBoard::GameBoard(int height, int width) {
@@ -44,17 +43,20 @@ int GameBoard::placeTile(SharedTile tile, char rowChar, int col) {
     int score = -1;
     int row = this->mapCharToRow(rowChar);
 
+    // Checks if the row and col is not out of the board dimensions
     if (row <= MAX_BOARD_SIZE && col <= MAX_BOARD_SIZE) {
 
+        // Checks if there is no tile at row and col, and checks if that tile is legal to place at row and col
+        // If the validation is true, then it will place the tile and calculate the score 
         if (this->getTile(row, col) == nullptr && this->isValidTileToPlace(tile, row, col)) {
 
             this->board->at(row)->at(col) = tile;
             score = this->calculateScore(row, col);
 
+            // Change current height and width
             if (row > this->currentHeight) {
                 this->currentHeight = row;
             }
-
             if (col > this->currentWidth) {
                 this->currentWidth = col;
             }
@@ -64,40 +66,64 @@ int GameBoard::placeTile(SharedTile tile, char rowChar, int col) {
 }
 
 int GameBoard::calculateScore(int row, int col) {
-
+    int score = 0;
     std::shared_ptr<std::vector<std::shared_ptr<std::vector<SharedTile>>>> allTilesIn4Direction = this->getAllTilesIn4Direction(row, col);
 
-    return -1;
+    // Iterates over the 4 directions (left, right, up, down)
+    for (const auto tilesIn1Direction : *allTilesIn4Direction) {
+        unsigned int size = tilesIn1Direction->size();
 
+        // If there is a tile in a direction then increase score by the size
+        if (size > 0) {
+
+            // This is Qwirkle! If a direction has 5 tiles, it add 6 points
+            if (size == QWIRKLE_LENGTH - 1) {
+                score += QWIRKLE_POINTS;
+            }
+            score += size + 1;
+        }
+    }
+
+    // This condition is true if there is only tile in the board
+    if (score == 0) {
+        score += 1;
+    }
+    return score;
 }
 
 
 std::shared_ptr<std::vector<std::shared_ptr<std::vector<SharedTile>>>> GameBoard::getAllTilesIn4Direction(int row, int col) {
 
-    std::shared_ptr<std::vector<SharedTile>> allTileOnLeft = this->getAllTilesIn1Direction(row, col, 0, 1);
-    std::shared_ptr<std::vector<SharedTile>> allTileOnRight = this->getAllTilesIn1Direction(row, col, 0, -1);
-    std::shared_ptr<std::vector<SharedTile>> allTileOnUp = this->getAllTilesIn1Direction(row, col, -1, 0);
-    std::shared_ptr<std::vector<SharedTile>> allTileOnDown = this->getAllTilesIn1Direction(row, col, 1, 0);
+    std::shared_ptr<std::vector<std::shared_ptr<std::vector<SharedTile>>>> tiles = std::make_shared<std::vector<std::shared_ptr<std::vector<SharedTile>>>>();
 
-    return nullptr;
+    // Get tiles from each direction and add it in a vector
+    tiles->push_back(this->getAllTilesIn1Direction(row, col, 0, 1));
+    tiles->push_back(this->getAllTilesIn1Direction(row, col, 0, -1));
+    tiles->push_back(this->getAllTilesIn1Direction(row, col, -1, 0));
+    tiles->push_back(this->getAllTilesIn1Direction(row, col, 1, 0));
+    return tiles;
 }
 
 std::shared_ptr<std::vector<SharedTile>> GameBoard::getAllTilesIn1Direction(int row, int col, int changeInRow, int changeInCol) {
 
-    std::shared_ptr<std::vector<SharedTile>> allLeftTiles = std::make_shared<std::vector<SharedTile>>();
+    std::shared_ptr<std::vector<SharedTile>> tiles = std::make_shared<std::vector<SharedTile>>();
+    row += changeInRow;
+    col += changeInCol;
     SharedTile currentTile = this->board->at(row)->at(col);
 
+    // Loop till the current tile is not a null_ptr (i.e. no more tiles to loop through in one direction)
     while (currentTile != nullptr) {
-
-        allLeftTiles->push_back(currentTile);
-        currentTile = this->board->at(row + changeInRow)->at(col + changeInCol);
+        tiles->push_back(currentTile);
+        row += changeInRow;
+        col += changeInCol;
+        currentTile = this->board->at(row)->at(col);
     }
-
-    return allLeftTiles;
-
+    return tiles;
 }
 
-
+std::shared_ptr<std::vector<std::shared_ptr<std::vector<SharedTile>>>> GameBoard::getBoard() {
+    return this->board;
+}
 
 std::string GameBoard::toString() {
     std::string result = std::to_string(this->currentHeight) + "," + std::to_string(this->currentWidth) + "\n";
