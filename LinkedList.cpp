@@ -18,7 +18,7 @@ int LinkedList::size() {
 }
 
 std::shared_ptr<Tile> LinkedList::getTile(int index) {
-    std::shared_ptr<Tile> tile = nullptr;
+    SharedTile tile = nullptr;
     // Check for linkedlist and if index is within range or not.
     if (!this->isEmpty() && index >= 0 && index < this->size()) {
         std::shared_ptr<Node> curr = head;
@@ -32,7 +32,7 @@ std::shared_ptr<Tile> LinkedList::getTile(int index) {
 }
 
 // This method will always add Tile at the back of the LinkedList.
-void LinkedList::addTile(std::shared_ptr<Tile> tile) {
+void LinkedList::addTile(SharedTile tile) {
     if (tile != nullptr) {
         std::shared_ptr<Node> newNode = std::make_shared<Node>(tile, nullptr);
         if (this->isEmpty()) {
@@ -50,8 +50,8 @@ std::shared_ptr<Node> LinkedList::getHead() {
     return this->head;
 }
 
-void LinkedList::deleteTile(int index) {
-    std::shared_ptr<Tile> tile = nullptr;
+SharedTile LinkedList::deleteTile(int index) {
+    SharedTile tile = nullptr;
 
     if (!this->isEmpty() && index >= 0 && index < this->size()) {
         std::shared_ptr<Node> curr = head;
@@ -75,6 +75,7 @@ void LinkedList::deleteTile(int index) {
         }
     }
     this->length--;
+    return tile;
 }
 
 std::string LinkedList::toString() {
