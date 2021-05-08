@@ -1,12 +1,15 @@
 #ifndef ASSIGN2_GAMEBOARD_H
 #define ASSIGN2_GAMEBOARD_H
 
+#include "Tile.h"
 #include <vector>
 #include <string>
 #include <memory>
-#include "Tile.h"
+#include <map>
 
 typedef std::shared_ptr<Tile> SharedTile;
+
+#define MAX_BOARD_SIZE 26
 
 class GameBoard {
 
@@ -34,7 +37,6 @@ public:
     std::shared_ptr<std::vector<std::shared_ptr<std::vector<SharedTile>>>> getBoard();
 
     int getCurrentHight();
-
     int getCurrentWidth();
 
     // toString method
@@ -49,9 +51,20 @@ private:
     std::shared_ptr<std::vector<std::shared_ptr<std::vector<SharedTile>>>> board;
     int currentHeight;
     int currentWidth;
+    std::shared_ptr<std::map<char, int>> charToIntMap;
 
     // Returns a vector of strings of format <tile color><tile shape>@<row index><col index>
     std::shared_ptr<std::vector<std::string>> allTilesWithPos();
+
+    int mapCharToRow(char target);
+
+    int calculateScore(int row, int col);
+
+    bool isValidTileToPlace(std::shared_ptr<Tile> tile, char row, int col);
+
+    std::shared_ptr<std::vector<std::shared_ptr<std::vector<std::shared_ptr<Tile>>>>> getAllTilesIn4Direction(int row, int col);
+
+    std::shared_ptr<std::vector<std::shared_ptr<Tile>>> getAllTilesOnLeft(int row, int col);
 };
 
 
