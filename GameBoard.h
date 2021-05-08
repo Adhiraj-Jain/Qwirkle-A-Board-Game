@@ -6,7 +6,7 @@
 #include <memory>
 #include "Tile.h"
 
-// class Tile;
+typedef std::shared_ptr<Tile> SharedTile;
 
 class GameBoard {
 
@@ -24,14 +24,14 @@ public:
     // Places a tile at the given row and col index
     // Returns the score after place the tile to the give index
     // Returns -1 cannot be added to the given index
-    int placeTile(std::shared_ptr<Tile> tile, char row, int col);
+    int placeTile(SharedTile tile, char row, int col);
 
     // Returns a tile at the given row and col
     // Returns nullptr if tile not found
-    std::shared_ptr<Tile> getTile(char row, int col);
+    SharedTile getTile(char row, int col);
 
     // Getter methods
-    std::shared_ptr<std::vector<std::shared_ptr<std::vector<std::shared_ptr<Tile>>>>> getBoard();
+    std::shared_ptr<std::vector<std::shared_ptr<std::vector<SharedTile>>>> getBoard();
 
     int getCurrentHight();
 
@@ -46,7 +46,7 @@ public:
 private:
 
     // Class variables
-    std::shared_ptr<std::vector<std::shared_ptr<std::vector<std::shared_ptr<Tile>>>>> board;
+    std::shared_ptr<std::vector<std::shared_ptr<std::vector<SharedTile>>>> board;
     int currentHeight;
     int currentWidth;
 

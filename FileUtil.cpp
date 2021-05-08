@@ -1,6 +1,6 @@
 #include "FileUtil.h"
 
-void FileUtil::saveGame(std::string fileName, std::shared_ptr<Game> game) {
+void FileUtil::saveGame(std::string fileName, const std::shared_ptr<Game>& game) {
 
     // Finds and opens the file for writing
     std::fstream outfile;
@@ -10,8 +10,8 @@ void FileUtil::saveGame(std::string fileName, std::shared_ptr<Game> game) {
     std::string gameString = game->toString();
 
     // Writing character by character into the file
-    for (unsigned int i = 0; i < gameString.size(); i++) {
-        outfile.put(gameString.at(i));
+    for (char i : gameString) {
+        outfile.put(i);
     }
 
     outfile.close();
@@ -20,7 +20,7 @@ void FileUtil::saveGame(std::string fileName, std::shared_ptr<Game> game) {
 std::shared_ptr<Game> FileUtil::loadGame(std::string fileName) {
 
     // Counter for all players.
-    std::shared_ptr<std::vector<std::shared_ptr<Player>>> players = std::make_shared<std::vector<std::shared_ptr<Player>>>();
+    std::vector<std::shared_ptr<Player>> players = std::vector<std::shared_ptr<Player>>();
 
     //Counter for current state of Board
     std::shared_ptr<GameBoard> gameBoard;
@@ -50,7 +50,7 @@ std::shared_ptr<Game> FileUtil::loadGame(std::string fileName) {
                 //Calling getPlayerData() to get the data of this player.
                 getPlayerData(player, inputFile);
                 //Pushing this player into vector array of players.
-                players->push_back(player);
+                players.push_back(player);
             }
             else
                 //If the name is not in ASCII text.
@@ -85,7 +85,7 @@ std::shared_ptr<Game> FileUtil::loadGame(std::string fileName) {
     //Close the file.
     inputFile.close();
 
-    //If the inputs from file was successfull
+    //If the inputs from file was successful
     std::shared_ptr<Game> game = nullptr;
     if (success) {
         // Initialize the game with the new params.

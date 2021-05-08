@@ -1,20 +1,22 @@
 #include "Game.h"
 
+#include <utility>
+
 
 Game::Game(const std::vector<SharedPlayer> &players) {
-    this->players = players;
+    this->players = std::make_shared<std::vector<SharedPlayer>>(players);
     this->board = std::make_shared<GameBoard>();
     this->tileBag = std::make_shared<LinkedList>();
-    this->currentPlayer = players->at(0);
+    this->currentPlayer = players.at(0);
 }
 
 Game::Game(const std::vector<SharedPlayer> &players, SharedPlayer currentPlayer, std::shared_ptr<GameBoard> board,
            std::shared_ptr<LinkedList> tileBag) {
     // clone given player vector
     this->players = std::make_shared<std::vector<SharedPlayer>>(players);
-    this->currentPlayer = currentPlayer;
-    this->board = board;
-    this->tileBag = tileBag;
+    this->currentPlayer = std::move(currentPlayer);
+    this->board = std::move(board);
+    this->tileBag = std::move(tileBag);
 }
 
 void Game::initiation() {
@@ -28,8 +30,8 @@ std::string Game::toString() {
     std::string results = "";
 
     // Getting a string format of all the players in the game
-    for (unsigned int index = 0; index < this->players->size(); index++) {
-        results = results + this->players->at(index)->toString();
+    for (SharedPlayer player : *players) {
+        results = results + player->toString();
     }
 
     // Getting a string format of the board, tileBag and the current player's name
@@ -41,7 +43,7 @@ std::string Game::toString() {
 }
 
 void Game::setTileBag(std::shared_ptr<LinkedList> newTileBag) {
-    this->tileBag = newTileBag;
+    this->tileBag = std::move(newTileBag);
 }
 
 void Game::createTileBag() {
@@ -72,9 +74,8 @@ void Game::shuffleTileBag() {
     std::shuffle(std::begin(tileVector), std::end(tileVector), std::default_random_engine());
 
     std::shared_ptr<LinkedList> newTileBag = std::make_shared<LinkedList>();
-
-    for (int tile = 0; tile < tileVector.size(); tile++) {
-        newTileBag->addTile(tileVector.at(tile));
+    for (const auto& tile : tileVector) {
+        newTileBag->addTile(tile);
     }
 
     //Then add them back into a new LinkedList and put all values of the vector back inside the tileBag and then setTileBag LinkedList at the end.
@@ -84,9 +85,9 @@ void Game::shuffleTileBag() {
 void Game::setUpPlayerHands() {
     //TODO
     //Go through every player
-    for (unsigned int player = 0; player < getPlayers()->size(); player++) {
+    for (SharedPlayer player : *players) {
         //pick out 6 tiles for the player
-        for (unsigned int tiles = 0; tiles < 6; tiles++) {
+        for (int tiles = 0; tiles < 6; tiles++) {
             //select the tile
             std::shared_ptr<Tile> tilePicked = getTileBag()->getTile(0); //will perhaps change into a shared pointer
             //add the tile to the persons hand.
