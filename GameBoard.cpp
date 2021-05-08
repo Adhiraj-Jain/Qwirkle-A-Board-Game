@@ -15,8 +15,9 @@ GameBoard::GameBoard() {
 bool GameBoard::isValidTileToPlace(SharedTile tile, char row, int col) {
     return true;
 }
+
 int GameBoard::mapCharToRow(char target) {
-    return -1;
+    return (int) target - 65;
 }
 
 SharedTile GameBoard::getTile(char row, int col) {
@@ -105,5 +106,8 @@ std::string GameBoard::toString() {
     return result + "\n";
 }
 
+void GameBoard::displayBoard() {
+    
+}
 
 
