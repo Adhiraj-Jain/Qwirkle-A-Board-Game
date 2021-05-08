@@ -39,8 +39,7 @@ std::string GameBoard::toString() {
 }
 
 //perhaps temporary
-void GameBoard::readBoard()
-{
+void GameBoard::readBoard() {
     
 }
 
