@@ -23,7 +23,7 @@ void QwirkleGameEngine::start() {
             credits();
         else if (selection == QUIT)
             quit();
-    } while (selection != CREDITS);
+    } while (selection != CREDITS && selection != QUIT);
 }
 
 int QwirkleGameEngine::mainMenu() {
@@ -56,7 +56,7 @@ void QwirkleGameEngine::newGame() {
         std::cout << std::endl;
     }
     std::cout << "Let's Play" << std::endl;
-
+    std::cout<<std::endl;
     //Initialize the game (calling the first constructor of the game) - initialize method.
     std::shared_ptr<Game> newGame = std::make_shared<Game>(players);
     newGame->initiation();

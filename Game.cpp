@@ -28,7 +28,8 @@ void Game::initiation() {
     createTileBag();   //DONE
     shuffleTileBag();  //DONE
     setUpPlayerHands();  //DONE
-    createBoard();
+    std::cout << "CURRENT BOARD" << std::endl;
+    createBoard();  //DONE
 }
 
 void Game::start() {
@@ -145,6 +146,8 @@ void Game::setUpPlayerHands() {
 
 void Game::createBoard() {
     //TODO
+    //display initial board
+    board->displayBoard();
 
 }
 
