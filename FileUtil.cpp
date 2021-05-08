@@ -1,6 +1,6 @@
 #include "FileUtil.h"
 
-void FileUtil::saveGame(std::string fileName, const std::shared_ptr<Game>& game) {
+void FileUtil::saveGame(std::string fileName, Game *game) {
 
     // Finds and opens the file for writing
     std::fstream outfile;

@@ -1,5 +1,6 @@
 #include "Game.h"
 #include "input_util.h"
+#include "FileUtil.h"
 
 #include <utility>
 #include <iostream>
@@ -31,7 +32,9 @@ void Game::initiation() {
 }
 
 void Game::start() {
+
     while (!isFinished()) {
+        auto lastPlayer = currentPlayer;
         std::cout << currentPlayer->getName() << ", it's your turn" << std::endl;
         for (SharedPlayer player : *players) {
             std::cout << "Score for " + player->getName() << ": " << player->getScore() << std::endl;
@@ -50,14 +53,25 @@ void Game::start() {
             }
             std::cout << std::endl;
         }
-        std::string command = input_util::getStringInput(std::regex(COMMAND_REGEX));
-        if (command.find("save") == 0) {
-            std::cout << "Saving...." << std::endl;
-        } else if (command.find("place") == 0) {
-            std::cout << "Placing..." << std::endl;
-        } else if (command.find("replace") == 0)
-            std::cout << "replacing..." << std::endl;
-
+        while (lastPlayer == currentPlayer) {
+            std::string input = input_util::getStringInput(std::regex(COMMAND_REGEX));
+            std::stringstream args = std::stringstream(input);
+            std::string command;
+            args >> command;
+            if (command == "save") {
+                std::string filename;
+                args >> filename;
+                try {
+                    FileUtil::saveGame(filename, this);
+                    std::cout << "Game saved successfully" << std::endl;
+                } catch (const std::exception &ex) {
+                    std::cout << "Failed to save: " << ex.what() << std::endl;
+                }
+            } else if (command == "place") {
+                std::cout << "Placing..." << std::endl;
+            } else if (command == "replace")
+                std::cout << "replacing..." << std::endl;
+        }
     }
 }
 
