@@ -22,9 +22,6 @@ public:
     // Returns a Tile from the player's hand with the given string value of the tile
     std::shared_ptr<Tile> getTile(std::string tile);
 
-    // Adds a Tile to the player's hand with the given string value of the tile
-    void addTile(std::string tile);
-
     // Adds a Tile to the player's hand with the given tile
     void addTile(std::shared_ptr<Tile> tile);
 

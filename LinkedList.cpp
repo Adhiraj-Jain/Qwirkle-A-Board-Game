@@ -17,7 +17,7 @@ int LinkedList::size() {
     return this->length;
 }
 
-std::shared_ptr<Tile> LinkedList::getTile(int index) {
+SharedTile LinkedList::getTile(int index) {
     SharedTile tile = nullptr;
     // Check for linkedlist and if index is within range or not.
     if (!this->isEmpty() && index >= 0 && index < this->size()) {
