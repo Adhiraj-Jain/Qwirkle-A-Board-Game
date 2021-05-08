@@ -10,10 +10,11 @@
 QwirkleGameEngine::~QwirkleGameEngine() {}
 
 void QwirkleGameEngine::start() {
-    int selection = mainMenu();
+    int selection = 0;
     std::cout << std::endl;
     std::cout << std::endl;
     do {
+        selection = mainMenu();
         if (selection == NEW_GAME)
             newGame();
         else if (selection == LOAD_GAME)
@@ -22,7 +23,7 @@ void QwirkleGameEngine::start() {
             credits();
         else if (selection == QUIT)
             quit();
-    } while (selection == CREDITS);
+    } while (selection != CREDITS);
 }
 
 int QwirkleGameEngine::mainMenu() {
