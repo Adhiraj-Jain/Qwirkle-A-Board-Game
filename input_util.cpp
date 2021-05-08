@@ -28,7 +28,7 @@ std::string input_util::getStringInput(const std::regex &regex, const std::strin
     bool valid = false;
     while (!valid) {
         std::cout << "> " << std::flush;
-        std::cin >> input;
+        std::getline(std::cin, input);
         // check if input matches given regex
         bool found = std::regex_search(input, regex);
         if (!found) {

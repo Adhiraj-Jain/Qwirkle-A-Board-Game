@@ -50,8 +50,13 @@ void Game::start() {
             }
             std::cout << std::endl;
         }
-        std::string input = input_util::getStringInput(std::regex(""));
-
+        std::string command = input_util::getStringInput(std::regex(COMMAND_REGEX));
+        if (command.find("save") == 0) {
+            std::cout << "Saving...." << std::endl;
+        } else if (command.find("place") == 0) {
+            std::cout << "Placing..." << std::endl;
+        } else if (command.find("replace") == 0)
+            std::cout << "replacing..." << std::endl;
 
     }
 }

@@ -26,5 +26,6 @@
 #define STAR_6  5
 #define CLOVER  6
 
+#define COMMAND_REGEX "^(save|place [ROYGBP][1-6] at [A-F][0-5]|replace [ROYGBP][1-6])$"
 
 #endif // ASSIGN1_TILECODES_H
