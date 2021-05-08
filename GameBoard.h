@@ -31,7 +31,7 @@ public:
 
     // Returns a tile at the given row and col
     // Returns nullptr if tile not found
-    SharedTile getTile(char row, int col);
+    SharedTile getTile(int row, int col);
 
     // Getter methods
     std::shared_ptr<std::vector<std::shared_ptr<std::vector<SharedTile>>>> getBoard();
@@ -64,7 +64,7 @@ private:
 
     std::shared_ptr<std::vector<std::shared_ptr<std::vector<SharedTile>>>> getAllTilesIn4Direction(int row, int col);
 
-    std::shared_ptr<std::vector<SharedTile>> getAllTilesOnLeft(int row, int col);
+    std::shared_ptr<std::vector<SharedTile>> getAllTilesIn1Direction(int row, int col, int changeInRow, int changeInCol);
 };
 
 

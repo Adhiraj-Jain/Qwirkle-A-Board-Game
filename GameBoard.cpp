@@ -7,8 +7,8 @@ GameBoard::GameBoard() {
     this->currentHeight = 0;
     this->currentWidth = 0;
 
+    // Initializing the board with 26 x 26 space
     this->board = std::make_shared<std::vector<std::shared_ptr<std::vector<SharedTile>>>>();
-
     for (int i = 0; i < MAX_BOARD_SIZE; i++) {
         std::shared_ptr<std::vector<SharedTile>> row = std::make_shared<std::vector<SharedTile>>(MAX_BOARD_SIZE, nullptr);
         board->push_back(row);
@@ -21,7 +21,7 @@ bool GameBoard::isValidTileToPlace(SharedTile tile, char row, int col) {
 }
 
 int GameBoard::mapCharToRow(char target) {
-    return (int) target - 65;
+    return (int)target - 65;
 }
 
 SharedTile GameBoard::getTile(char row, int col) {
@@ -74,17 +74,24 @@ int GameBoard::calculateScore(int row, int col) {
 
 std::shared_ptr<std::vector<std::shared_ptr<std::vector<SharedTile>>>> GameBoard::getAllTilesIn4Direction(int row, int col) {
 
-    std::shared_ptr<std::vector<SharedTile>> allTileOnLeft = this->getAllTilesOnLeft(row, col);
-    std::shared_ptr<std::vector<SharedTile>> allTileOnRight;
-    std::shared_ptr<std::vector<SharedTile>> allTileOnUp;
-    std::shared_ptr<std::vector<SharedTile>> allTileOnDown;
+    std::shared_ptr<std::vector<SharedTile>> allTileOnLeft = this->getAllTilesIn1Direction(row, col, 0, 1);
+    std::shared_ptr<std::vector<SharedTile>> allTileOnRight = this->getAllTilesIn1Direction(row, col, 0, -1);
+    std::shared_ptr<std::vector<SharedTile>> allTileOnUp = this->getAllTilesIn1Direction(row, col, -1, 0);
+    std::shared_ptr<std::vector<SharedTile>> allTileOnDown = this->getAllTilesIn1Direction(row, col, 1, 0);
 
     return nullptr;
 }
 
-std::shared_ptr<std::vector<SharedTile>> GameBoard::getAllTilesOnLeft(int row, int col) {
+std::shared_ptr<std::vector<SharedTile>> GameBoard::getAllTilesOnLeft(int row, int col, int changeInRow, int changeInCol) {
 
     std::shared_ptr<std::vector<SharedTile>> allLeftTiles = std::make_shared<std::vector<SharedTile>>();
+    SharedTile currentTile = this->board->at(row)->at(col);
+
+    while (currentTile != nullptr) {
+
+        allLeftTiles->push_back(currentTile);
+        currentTile = this->board->at(row + changeInRow)->at(col + changeInCol);
+    }
 
     return allLeftTiles;
 
@@ -111,7 +118,7 @@ std::string GameBoard::toString() {
 }
 
 void GameBoard::displayBoard() {
-    
+
 }
 
 
