@@ -24,7 +24,7 @@ int GameBoard::mapCharToRow(char target) {
     return (int)target - 65;
 }
 
-SharedTile GameBoard::getTile(char row, int col) {
+SharedTile GameBoard::getTile(int row, int col) {
     return nullptr;
 }
 
@@ -82,7 +82,7 @@ std::shared_ptr<std::vector<std::shared_ptr<std::vector<SharedTile>>>> GameBoard
     return nullptr;
 }
 
-std::shared_ptr<std::vector<SharedTile>> GameBoard::getAllTilesOnLeft(int row, int col, int changeInRow, int changeInCol) {
+std::shared_ptr<std::vector<SharedTile>> GameBoard::getAllTilesIn1Direction(int row, int col, int changeInRow, int changeInCol) {
 
     std::shared_ptr<std::vector<SharedTile>> allLeftTiles = std::make_shared<std::vector<SharedTile>>();
     SharedTile currentTile = this->board->at(row)->at(col);
