@@ -6,6 +6,8 @@
 #include <string>
 #include <memory>
 
+typedef std::shared_ptr<Tile> SharedTile;
+
 class LinkedList {
 public:
 
@@ -22,10 +24,10 @@ public:
     int size();
 
     // return Tile at index i
-    std::shared_ptr<Tile> getTile(int i);
+    SharedTile getTile(int i);
 
     // Add tile
-    void addTile(std::shared_ptr<Tile> tile);
+    void addTile(SharedTile tile);
 
     //Check if LinkedList is empty or not.
     bool isEmpty();
@@ -34,7 +36,7 @@ public:
     std::shared_ptr<Node> getHead();
 
     // delete tile at index i
-    void deleteTile(int i);
+    SharedTile deleteTile(int i);
 
     // To String method
     std::string toString();
