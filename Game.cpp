@@ -1,15 +1,17 @@
 #include "Game.h"
 
 
-Game::Game(std::shared_ptr<std::vector<std::shared_ptr<Player>>> players) {
+Game::Game(const std::vector<SharedPlayer> &players) {
     this->players = players;
     this->board = std::make_shared<GameBoard>();
     this->tileBag = std::make_shared<LinkedList>();
     this->currentPlayer = players->at(0);
 }
 
-Game::Game(std::shared_ptr<std::vector<std::shared_ptr<Player>>> players, std::shared_ptr<Player> currentPlayer, std::shared_ptr<GameBoard> board, std::shared_ptr<LinkedList> tileBag) {
-    this->players = players;
+Game::Game(const std::vector<SharedPlayer> &players, SharedPlayer currentPlayer, std::shared_ptr<GameBoard> board,
+           std::shared_ptr<LinkedList> tileBag) {
+    // clone given player vector
+    this->players = std::make_shared<std::vector<SharedPlayer>>(players);
     this->currentPlayer = currentPlayer;
     this->board = board;
     this->tileBag = tileBag;
@@ -43,13 +45,14 @@ void Game::setTileBag(std::shared_ptr<LinkedList> newTileBag) {
 }
 
 void Game::createTileBag() {
-    Colour colours[] = { RED, ORANGE, YELLOW, GREEN, BLUE, PURPLE};
-    Shape shapes[] = { CIRCLE, STAR_4, DIAMOND, SQUARE, STAR_6, CLOVER};
+    Colour colours[] = {RED, ORANGE, YELLOW, GREEN, BLUE, PURPLE};
+    Shape shapes[] = {CIRCLE, STAR_4, DIAMOND, SQUARE, STAR_6, CLOVER};
 
     //First we would have to create the tile bag
     for (int colour = 0; colour < COLOURS_SIZE; colour++) {
         for (int shape = 0; shape < SHAPES_SIZE; shape++) {
-            std::shared_ptr<Tile> currentTile = std::make_shared<Tile>(colours[colour], shapes[shape]); //convert this into a shared pointer probably.
+            std::shared_ptr<Tile> currentTile = std::make_shared<Tile>(colours[colour],
+                                                                       shapes[shape]); //convert this into a shared pointer probably.
             getTileBag()->addTile(currentTile);
         }
     }
@@ -60,17 +63,17 @@ void Game::shuffleTileBag() {
     //First create all values into shared pointer vector quantities of Tiles
     std::vector<std::shared_ptr<Tile>> tileVector;
 
-    for(int tile = 0; tile < getTileBag()->size(); tile++) {
+    for (int tile = 0; tile < getTileBag()->size(); tile++) {
         std::shared_ptr<Tile> tempTile = getTileBag()->getTile(tile);
         tileVector.push_back(tempTile);
     }
 
-     //Then proceed to shuffle these Tiles
+    //Then proceed to shuffle these Tiles
     std::shuffle(std::begin(tileVector), std::end(tileVector), std::default_random_engine());
 
     std::shared_ptr<LinkedList> newTileBag = std::make_shared<LinkedList>();
 
-    for(int tile = 0; tile < tileVector.size(); tile++) {
+    for (int tile = 0; tile < tileVector.size(); tile++) {
         newTileBag->addTile(tileVector.at(tile));
     }
 
@@ -110,7 +113,7 @@ Game::~Game() {
 
 }
 
-std::shared_ptr<Player> Game::getCurrentPlayer() {
+SharedPlayer Game::getCurrentPlayer() {
     return nullptr;
 }
 
@@ -122,7 +125,7 @@ std::shared_ptr<LinkedList> Game::getTileBag() {
     return nullptr;
 }
 
-std::shared_ptr<std::vector<std::shared_ptr<Player>>> Game::getPlayers() {
+std::shared_ptr<std::vector<SharedPlayer>> Game::getPlayers() {
     return nullptr;
 }
 
@@ -133,3 +136,4 @@ void Game::playerReplaces(std::shared_ptr<Tile> tile) {
 void Game::nextPlayerTurn() {
 
 }
+

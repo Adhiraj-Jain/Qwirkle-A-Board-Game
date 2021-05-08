@@ -63,7 +63,7 @@ void QwirkleGameEngine::newGame() {
     std::cout << "Let's Play" << std::endl;
 
     //Initialize the game (calling the first constructor of the game) - initialize method.
-    std::shared_ptr<Game> newGame = std::make_shared<Game>();
+    std::shared_ptr<Game> newGame = std::make_shared<Game>(players);
     newGame->initiation();
     //game.start()
 }

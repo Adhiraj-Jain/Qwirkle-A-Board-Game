@@ -17,13 +17,16 @@
 // class Player;
 // class Tile;
 
+typedef std::shared_ptr<Player> SharedPlayer;
+
 class Game {
 public:
     // Constructor to create a new Game
-    Game(std::shared_ptr<std::vector<std::shared_ptr<Player>>> players);
+    Game(const std::vector<SharedPlayer> &players);
 
     // Constructor to create a loaded Game
-    Game(std::shared_ptr<std::vector<std::shared_ptr<Player>>> players, std::shared_ptr<Player> currentPlayer, std::shared_ptr<GameBoard> board, std::shared_ptr<LinkedList> tileBag);
+    Game(const std::vector<SharedPlayer> &players, SharedPlayer currentPlayer, std::shared_ptr<GameBoard> board,
+         std::shared_ptr<LinkedList> tileBag);
 
     // Destructor
     ~Game();
@@ -38,10 +41,13 @@ public:
     void playerPlaces(std::shared_ptr<Tile> tile, int row, int col);
 
     // Getter Methods
-    std::shared_ptr<Player> getCurrentPlayer();
+    SharedPlayer getCurrentPlayer();
+
     std::shared_ptr<GameBoard> getBoard();
+
     std::shared_ptr<LinkedList> getTileBag();
-    std::shared_ptr<std::vector<std::shared_ptr<Player>>> getPlayers();
+
+    std::shared_ptr<std::vector<SharedPlayer>> getPlayers();
 
     // toString method
     std::string toString();
@@ -56,8 +62,8 @@ private:
     // Class Variables
     std::shared_ptr<GameBoard> board;
     std::shared_ptr<LinkedList> tileBag;
-    std::shared_ptr<std::vector<std::shared_ptr<Player>>> players;
-    std::shared_ptr<Player> currentPlayer;
+    std::shared_ptr<std::vector<SharedPlayer>> players;
+    SharedPlayer currentPlayer;
 
     // Helper methods
 
@@ -66,7 +72,9 @@ private:
 
     //Initialize when creating a new game
     void shuffleTileBag();
+
     void setUpPlayerHands();
+
     void createBoard();
     void createTileBag();
 };
