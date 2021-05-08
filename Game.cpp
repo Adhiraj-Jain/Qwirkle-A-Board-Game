@@ -41,15 +41,15 @@ void Game::start() {
         auto hand = currentPlayer->getHand();
         if (hand->isEmpty())
             std::cout << "<no items>" << std::endl;
-        else
+        else {
             for (int i = 0; i < hand->size(); i++) {
                 auto handTile = hand->getTile(i);
                 std::cout << handTile->getColour() << handTile->getShape()
                           // if last element, don't put a comma at the end
-                          << (i == hand->size() - 1 ? "," : "")
-                          << std::endl;
+                          << (i == hand->size() - 1 ? "" : ",");
             }
-
+            std::cout << std::endl;
+        }
         std::string input = input_util::getStringInput(std::regex(""));
 
 
@@ -60,14 +60,14 @@ std::string Game::toString() {
     std::string results = "";
 
     // Getting a string format of all the players in the game
-    for (SharedPlayer player : *players) {
-        results = results + player->toString();
+    for (const SharedPlayer &player : *players) {
+        results += player->toString();
     }
 
     // Getting a string format of the board, tileBag and the current player's name
-    results = results + this->board->toString();
-    results = results + this->tileBag->toString();
-    results = results + this->currentPlayer->getName();
+    results += this->board->toString();
+    results += this->tileBag->toString();
+    results += this->currentPlayer->getName();
 
     return results;
 }
@@ -113,7 +113,7 @@ void Game::shuffleTileBag() {
 
 void Game::setUpPlayerHands() {
     //Go through every player
-    for (SharedPlayer player : *players) {
+    for (const SharedPlayer &player : *players) {
         //pick out 6 tiles for the player
         for (int tiles = 0; tiles < 6; tiles++) {
             //select the tile
