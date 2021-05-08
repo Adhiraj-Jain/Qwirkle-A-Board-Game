@@ -96,8 +96,6 @@ void Game::setUpPlayerHands() {
 
 void Game::createBoard() {
     //TODO
-
-
 }
 
 bool Game::isQwirkle() {
