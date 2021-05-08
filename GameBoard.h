@@ -7,7 +7,7 @@
 #include <memory>
 #include <map>
 
-// class Tile;
+typedef std::shared_ptr<Tile> SharedTile;
 
 #define MAX_BOARD_SIZE 26
 
@@ -31,7 +31,7 @@ public:
 
     // Returns a tile at the given row and col
     // Returns nullptr if tile not found
-    std::shared_ptr<Tile> getTile(char row, int col);
+    SharedTile getTile(char row, int col);
 
     // Getter methods
     std::shared_ptr<std::vector<std::shared_ptr<std::vector<std::shared_ptr<Tile>>>>> getBoard();
@@ -41,11 +41,13 @@ public:
     // toString method
     std::string toString();
 
+    //read in board.
+    void readBoard();
 
 private:
 
     // Class variables
-    std::shared_ptr<std::vector<std::shared_ptr<std::vector<std::shared_ptr<Tile>>>>> board;
+    std::shared_ptr<std::vector<std::shared_ptr<std::vector<SharedTile>>>> board;
     int currentHeight;
     int currentWidth;
     std::shared_ptr<std::map<char, int>> charToIntMap;

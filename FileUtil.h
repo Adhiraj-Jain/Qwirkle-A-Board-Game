@@ -9,6 +9,7 @@
 #include "TileCodes.h"
 #include "GameBoard.h"
 #include "Tile.h"
+#include <regex>
 
 class FileUtil {
 
@@ -20,7 +21,7 @@ public:
     std::shared_ptr<Game> loadGame(std::string fileName);
 
     // Saves the game's data in the file in the given file name
-    void saveGame(std::string fileName, std::shared_ptr<Game> game);
+    void saveGame(std::string fileName, const std::shared_ptr<Game>& game);
 
 private:
     //Method to get all the data of the player passed.
