@@ -30,9 +30,10 @@ public:
 
     // Destructor
     ~Game();
-
-    // Returns true if the game has reach Qwirkle, false otherwise
-    bool isQwirkle();
+    /**
+     * Whether the game has finished and there's a winner
+     */
+    bool isFinished();
 
     // The given tile is added to the tile bag and the new tile is added to the current player's hands
     void playerReplaces(std::shared_ptr<Tile> tile);
@@ -57,6 +58,10 @@ public:
 
     //initialize method
     void initiation();
+    /**
+     * Blocking method which starts the game and doesn't return until the game is finished.
+     */
+    void start();
 
 private:
     // Class Variables
