@@ -9,6 +9,7 @@
 #include "TileCodes.h"
 #include "GameBoard.h"
 #include "Tile.h"
+#include <regex>
 
 class FileUtil {
 

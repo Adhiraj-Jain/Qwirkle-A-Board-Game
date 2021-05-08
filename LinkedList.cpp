@@ -7,15 +7,7 @@ LinkedList::LinkedList() {
     this->length = 0;
 }
 
-LinkedList::~LinkedList() {
-    // while (this->head != nullptr) {
-    //     std::shared_ptr<Node> curr = head;
-    //     head = head->next;
-    //     delete curr;
-
-    // }
-    // this->head = nullptr;
-}
+LinkedList::~LinkedList() {}
 
 bool LinkedList::isEmpty() {
     return (this->size() == 0);

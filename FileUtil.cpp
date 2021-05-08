@@ -14,7 +14,6 @@ void FileUtil::saveGame(std::string fileName, std::shared_ptr<Game> game) {
         outfile.put(gameString.at(i));
     }
 
-    // Closing the file
     outfile.close();
 }
 
@@ -46,7 +45,7 @@ std::shared_ptr<Game> FileUtil::loadGame(std::string fileName) {
             getline(inputFile, line);
             //Check if the name is in ASCII text means contains all letters.
             if (isNameCorrect(line)) {
-                //Create a player object
+
                 std::shared_ptr<Player> player = std::make_shared<Player>(line);
                 //Calling getPlayerData() to get the data of this player.
                 getPlayerData(player, inputFile);
@@ -149,7 +148,6 @@ bool FileUtil::giveTilesList(std::string tileList, std::shared_ptr<LinkedList> t
             tile = "";
         }
     }
-    //Return
     return isCorrect;
 }
 
@@ -167,22 +165,14 @@ bool FileUtil::isTileCorrect(std::string tile) {
                 isCorrect = true;
         }
     }
-    //Return
     return isCorrect;
 }
 
 
 // TODO replace with regex
 bool FileUtil::isNameCorrect(std::string name) {
-    bool isCorrect = true;
-    //loop over each of letter of the string
-    for (unsigned int index = 0; index < name.size() && isCorrect; index++) {
-        //Check if the current letter is in correct range or not.
-        if (!('A' <= name[index] && name[index] <= 'Z') ||
-            !('a' <= name[index] && name[index] <= 'z')) {
-            isCorrect = false;
-        }
-    }
+    std::regex regex = std::regex("[a-zA-Z]");
+    bool isCorrect = std::regex_search(name, regex);
     //Return
     return isCorrect;
 }
@@ -221,7 +211,6 @@ bool FileUtil::getBoard(std::shared_ptr<GameBoard> gameBoard, std::fstream& inpu
     for (unsigned int index = 0; index < line.size() && success; index++) {
         //Check for comma and a white space.
         if (line[index] != ',' && line[index] != ' ') {
-            //If not then add the character in the string.
             placetile += line[index];
         }
         //Check if it is a comma means end of string of one placed tile data and the length of tile is 5 eg. Y5@A1
@@ -231,11 +220,9 @@ bool FileUtil::getBoard(std::shared_ptr<GameBoard> gameBoard, std::fstream& inpu
             std::shared_ptr<Tile> tile = std::make_shared<Tile>((char)placetile[0], (int)placetile[1]);
             //Place the tile in the game board with the given row and col.
             if (!gameBoard->placeTile(tile, (char)placetile[3], (int)placetile[4])) {
-                //If placing a tile was not a success.
                 success = false;
             }
-            //delete the tile.
-            // delete tile;
+
             //Clear the data for next tile.
             placetile = "";
         }
@@ -243,6 +230,5 @@ bool FileUtil::getBoard(std::shared_ptr<GameBoard> gameBoard, std::fstream& inpu
         else if (line[index] == ',' && placetile.size() != size)
             success = false;
     }
-    //Return
     return success;
 }
