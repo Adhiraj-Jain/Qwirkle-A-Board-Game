@@ -10,6 +10,7 @@
 #include "Tile.h"
 #include <memory>
 #include <random>
+#include <algorithm>
 
 // class GameBoard;
 // class LinkedList;

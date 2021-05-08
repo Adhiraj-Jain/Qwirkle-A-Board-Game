@@ -40,6 +40,8 @@ public:
     // toString method
     std::string toString();
 
+    //read in board.
+    void readBoard();
 
 private:
 

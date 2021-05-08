@@ -16,9 +16,9 @@ Game::Game(std::shared_ptr<std::vector<std::shared_ptr<Player>>> players, std::s
 }
 
 void Game::initiation() {
-    createTileBag();
-    shuffleTileBag();
-    setUpPlayerHands();
+    createTileBag();   //DONE
+    shuffleTileBag();  //DONE
+    setUpPlayerHands();  //DONE
     createBoard();
 }
 
@@ -43,8 +43,8 @@ void Game::setTileBag(std::shared_ptr<LinkedList> newTileBag) {
 }
 
 void Game::createTileBag() {
-    Colour colours[] = { RED, ORANGE, YELLOW, GREEN, BLUE, PURPLE };
-    Shape shapes[] = { CIRCLE, STAR_4, DIAMOND, SQUARE, STAR_6, CLOVER };
+    Colour colours[] = { RED, ORANGE, YELLOW, GREEN, BLUE, PURPLE};
+    Shape shapes[] = { CIRCLE, STAR_4, DIAMOND, SQUARE, STAR_6, CLOVER};
 
     //First we would have to create the tile bag
     for (int colour = 0; colour < COLOURS_SIZE; colour++) {
@@ -56,25 +56,26 @@ void Game::createTileBag() {
 }
 
 void Game::shuffleTileBag() {
-    int TILE_BAG_SIZE = getTileBag()->size();
 
-    //We proceed to then shuffle the tile bag
-    //random generators
-    std::random_device randomSeed;
-    std::uniform_int_distribution<int> uniform_dist(0, TILE_BAG_SIZE - 1);
-    //existing positions in new tilebag
-    std::vector<int> existingPositions;
-    //new shuffled tilebag
-    std::shared_ptr<LinkedList> tempTileBag = std::make_shared<LinkedList>();
+    //First create all values into shared pointer vector quantities of Tiles
+    std::vector<std::shared_ptr<Tile>> tileVector;
 
-    // for (int iterations = 0; iterations < TILE_BAG_SIZE; iterations++)
-    // {
-    //     bool exists = std::find(existingPositions.begin(), existingPositions.end(), iterations) != existingPositions.end();
-    //     if(existingPositions.empty() || !exists)
-    //     {
+    for(int tile = 0; tile < getTileBag()->size(); tile++) {
+        std::shared_ptr<Tile> tempTile = getTileBag()->getTile(tile);
+        tileVector.push_back(tempTile);
+    }
 
-    //     }
-    // }
+     //Then proceed to shuffle these Tiles
+    std::shuffle(std::begin(tileVector), std::end(tileVector), std::default_random_engine());
+
+    std::shared_ptr<LinkedList> newTileBag = std::make_shared<LinkedList>();
+
+    for(int tile = 0; tile < tileVector.size(); tile++) {
+        newTileBag->addTile(tileVector.at(tile));
+    }
+
+    //Then add them back into a new LinkedList and put all values of the vector back inside the tileBag and then setTileBag LinkedList at the end.
+    setTileBag(newTileBag);
 }
 
 void Game::setUpPlayerHands() {
@@ -95,7 +96,8 @@ void Game::setUpPlayerHands() {
 
 void Game::createBoard() {
     //TODO
-    //how would I go about doing this?? Will discuss in meeting
+
+
 }
 
 bool Game::isQwirkle() {

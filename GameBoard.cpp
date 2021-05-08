@@ -38,3 +38,9 @@ std::string GameBoard::toString() {
     return result + "\n";
 }
 
+//perhaps temporary
+void GameBoard::readBoard()
+{
+    
+}
+
