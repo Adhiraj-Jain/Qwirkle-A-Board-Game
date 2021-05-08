@@ -60,11 +60,11 @@ private:
 
     int calculateScore(int row, int col);
 
-    bool isValidTileToPlace(std::shared_ptr<Tile> tile, char row, int col);
+    bool isValidTileToPlace(SharedTile tile, char row, int col);
 
-    std::shared_ptr<std::vector<std::shared_ptr<std::vector<std::shared_ptr<Tile>>>>> getAllTilesIn4Direction(int row, int col);
+    std::shared_ptr<std::vector<std::shared_ptr<std::vector<SharedTile>>>> getAllTilesIn4Direction(int row, int col);
 
-    std::shared_ptr<std::vector<std::shared_ptr<Tile>>> getAllTilesOnLeft(int row, int col);
+    std::shared_ptr<std::vector<SharedTile>> getAllTilesOnLeft(int row, int col);
 };
 
 

@@ -12,14 +12,14 @@ GameBoard::GameBoard() {
 
 }
 
-bool GameBoard::isValidTileToPlace(std::shared_ptr<Tile> tile, char row, int col) {
+bool GameBoard::isValidTileToPlace(SharedTile tile, char row, int col) {
     return true;
 }
 int GameBoard::mapCharToRow(char target) {
     return -1;
 }
 
-std::shared_ptr<Tile> GameBoard::getTile(char row, int col) {
+SharedTile GameBoard::getTile(char row, int col) {
     return nullptr;
 }
 
@@ -35,7 +35,7 @@ std::shared_ptr<std::vector<std::string>> GameBoard::allTilesWithPos() {
     return nullptr;
 }
 
-int GameBoard::placeTile(std::shared_ptr<Tile> tile, char rowChar, int col) {
+int GameBoard::placeTile(SharedTile tile, char rowChar, int col) {
     int score = -1;
     int row = this->mapCharToRow(rowChar);
 
@@ -60,26 +60,26 @@ int GameBoard::placeTile(std::shared_ptr<Tile> tile, char rowChar, int col) {
 
 int GameBoard::calculateScore(int row, int col) {
 
-    std::shared_ptr<std::vector<std::shared_ptr<std::vector<std::shared_ptr<Tile>>>>> allTilesIn4Direction = this->getAllTilesIn4Direction(row, col);
+    std::shared_ptr<std::vector<std::shared_ptr<std::vector<SharedTile>>>> allTilesIn4Direction = this->getAllTilesIn4Direction(row, col);
 
     return -1;
 
 }
 
 
-std::shared_ptr<std::vector<std::shared_ptr<std::vector<std::shared_ptr<Tile>>>>> GameBoard::getAllTilesIn4Direction(int row, int col) {
+std::shared_ptr<std::vector<std::shared_ptr<std::vector<SharedTile>>>> GameBoard::getAllTilesIn4Direction(int row, int col) {
 
-    std::shared_ptr<std::vector<std::shared_ptr<Tile>>> allTileOnLeft = this->getAllTilesOnLeft(row, col);
-    std::shared_ptr<std::vector<std::shared_ptr<Tile>>> allTileOnRight;
-    std::shared_ptr<std::vector<std::shared_ptr<Tile>>> allTileOnUp;
-    std::shared_ptr<std::vector<std::shared_ptr<Tile>>> allTileOnDown;
+    std::shared_ptr<std::vector<SharedTile>> allTileOnLeft = this->getAllTilesOnLeft(row, col);
+    std::shared_ptr<std::vector<SharedTile>> allTileOnRight;
+    std::shared_ptr<std::vector<SharedTile>> allTileOnUp;
+    std::shared_ptr<std::vector<SharedTile>> allTileOnDown;
 
     return nullptr;
 }
 
-std::shared_ptr<std::vector<std::shared_ptr<Tile>>> GameBoard::getAllTilesOnLeft(int row, int col) {
+std::shared_ptr<std::vector<SharedTile>> GameBoard::getAllTilesOnLeft(int row, int col) {
 
-    std::shared_ptr<std::vector<std::shared_ptr<Tile>>> allLeftTiles = std::make_shared<std::vector<std::shared_ptr<Tile>>>();
+    std::shared_ptr<std::vector<SharedTile>> allLeftTiles = std::make_shared<std::vector<SharedTile>>();
 
     return allLeftTiles;
 
