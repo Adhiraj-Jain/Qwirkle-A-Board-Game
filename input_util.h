@@ -23,6 +23,6 @@ namespace input_util {
      * @param regex regex to check against
      * @return string input which matches regex
      */
-    std::string getStringInput(std::regex regex);
+    std::string getStringInput(const std::regex &regex, const std::string &error = "Invalid input");
 }
 #endif //ASSIGN2_INPUT_UTIL_H
