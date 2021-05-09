@@ -11,6 +11,7 @@
 #include <memory>
 #include <random>
 #include <algorithm>
+#include <chrono>
 
 // class GameBoard;
 // class LinkedList;
@@ -53,9 +54,6 @@ public:
     // toString method
     std::string toString();
 
-    //Setter Methods
-    void setTileBag(std::shared_ptr<LinkedList> newTileBag);
-
     //initialize method
     void initiation();
     /**
@@ -79,12 +77,13 @@ private:
     SharedPlayer nextPlayerTurn();
 
     //Initialize when creating a new game
-    void shuffleTileBag();
+    void shuffleTileBag(std::vector<std::shared_ptr<Tile>> tileVector);
 
     void setUpPlayerHands();
 
     void createBoard();
-    void createTileBag();
+
+    std::vector<std::shared_ptr<Tile>> createTileBag();
 };
 
 #endif // ASSIGN2_GAME_H

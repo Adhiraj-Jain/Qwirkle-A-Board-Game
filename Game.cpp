@@ -25,8 +25,8 @@ Game::Game(const std::vector<SharedPlayer> &players, SharedPlayer currentPlayer,
 }
 
 void Game::initiation() {
-    createTileBag();   //DONE
-    shuffleTileBag();  //DONE
+    std::vector<std::shared_ptr<Tile>> tileVector = createTileBag();   //DONE
+    shuffleTileBag(tileVector);  //DONE
     setUpPlayerHands();  //DONE
     createBoard();  //DONE
 }
@@ -125,43 +125,37 @@ std::string Game::toString() {
     return results;
 }
 
-void Game::setTileBag(std::shared_ptr<LinkedList> newTileBag) {
-    this->tileBag = std::move(newTileBag);
-}
-
-void Game::createTileBag() {
+std::vector<std::shared_ptr<Tile>> Game::createTileBag() {
     Colour colours[] = {RED, ORANGE, YELLOW, GREEN, BLUE, PURPLE};
     Shape shapes[] = {CIRCLE, STAR_4, DIAMOND, SQUARE, STAR_6, CLOVER};
+
+    std::vector<std::shared_ptr<Tile>> tileVector;
 
     //First we would have to create the tile bag
     for (char &colour : colours) {
         for (int &shape : shapes) {
             std::shared_ptr<Tile> currentTile = std::make_shared<Tile>(colour, shape);
-            tileBag->addTile(currentTile);
+            std::shared_ptr<Tile> currentTile2 = std::make_shared<Tile>(colour,shape);
+            tileVector.push_back(currentTile);
+            tileVector.push_back(currentTile2);
         }
     }
+    return tileVector;
 }
 
-void Game::shuffleTileBag() {
+void Game::shuffleTileBag(std::vector<std::shared_ptr<Tile>> tileVector) {
 
-    //First create all values into shared pointer vector quantities of Tiles
-    std::vector<std::shared_ptr<Tile>> tileVector;
+    //Generating a seed for different shuffle every game round
+    unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
 
-    for (int tile = 0; tile < getTileBag()->size(); tile++) {
-        std::shared_ptr<Tile> tempTile = getTileBag()->getTile(tile);
-        tileVector.push_back(tempTile);
-    }
+    //Proceed to shuffle these this tile vector
+    std::shuffle(std::begin(tileVector), std::end(tileVector), std::default_random_engine(seed));
 
-    //Then proceed to shuffle these Tiles
-    std::shuffle(std::begin(tileVector), std::end(tileVector), std::default_random_engine());
-
-    std::shared_ptr<LinkedList> newTileBag = std::make_shared<LinkedList>();
+    //convert vector into tileBag Linked List
     for (const auto &tile : tileVector) {
-        newTileBag->addTile(tile);
+        tileBag->addTile(tile);
     }
 
-    //Then add them back into a new LinkedList and put all values of the vector back inside the tileBag and then setTileBag LinkedList at the end.
-    setTileBag(newTileBag);
 }
 
 void Game::setUpPlayerHands() {
