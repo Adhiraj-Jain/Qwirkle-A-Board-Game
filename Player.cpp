@@ -35,9 +35,7 @@ void Player::setScore(int score) {
     this->score = score;
 }
 
-Player::~Player() {
-
-}
+Player::~Player() = default;
 
 std::shared_ptr<Tile> Player::getTile(std::string tile) {
     return nullptr;
@@ -61,5 +59,5 @@ bool Player::removeTile(const SharedTile& toRemove) {
 }
 
 int Player::getScore() {
-    return 0;
+    return score;
 }
