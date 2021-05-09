@@ -32,7 +32,7 @@ GameBoard::~GameBoard() {}
 
 
 std::shared_ptr<std::vector<std::string>> GameBoard::allTilesWithPos() {
-    return nullptr;
+    std::shared_ptr<std::vector<std::string>> tilesString = std::make_shared<std::vector<std::string>>();
 }
 
 int GameBoard::placeTile(const SharedTile& tile, char rowChar, int col) {
@@ -65,23 +65,20 @@ bool GameBoard::isValidTileToPlace(SharedTile tile, char row, int col) {
     bool valid = true;
     std::shared_ptr<std::vector<std::shared_ptr<std::vector<SharedTile>>>> allTilesIn4Direction = this->getAllTilesIn4Direction(row, col);
 
+    // Iterates of all of the directions (left, right, up, down) and until the tile is valid to place
     for (unsigned int i = 0; i < allTilesIn4Direction->size() && valid; i++) {
-
         std::shared_ptr<std::vector<SharedTile>> tilesIn1Direction = allTilesIn4Direction->at(i);
 
+        // Iterates over all the tiles in each directions and until the tile is valid to place
         for (unsigned int j = 0; j < tilesIn1Direction->size() && valid; j++) {
-
             SharedTile currentTile = tilesIn1Direction->at(j);
 
+            // The tile is not valid if the two tiles are same or both the shape and the colour are not different
             if (currentTile->isEqual(tile) || (currentTile->getShape() != tile->getShape() && currentTile->getColour() != tile->getColour())) {
                 valid = false;
             }
-
         }
-
     }
-
-
     return valid;
 }
 
