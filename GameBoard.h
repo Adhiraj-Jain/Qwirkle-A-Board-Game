@@ -67,12 +67,15 @@ private:
     bool isValidTileToPlace(SharedTile tile, char row, int col);
 
     // This method collects all the Tiles from all four directions of the given index
-    // i.e. it returns all the Tiles in (left, right, up, down) of the given row and col
-    std::shared_ptr<std::vector<std::shared_ptr<std::vector<SharedTile>>>> getAllTilesIn4Direction(int row, int col);
+    // i.e. it returns all the Tiles in (left and right combined, up and down combined) of the given row and col
+    std::shared_ptr<std::vector<std::shared_ptr<std::vector<SharedTile>>>> getAllTilesIn2Direction(int row, int col);
 
     // This method collects all the Tiles from one direction of the given index
     // The changeInRow and ChangeInCol specifies the direction
     std::shared_ptr<std::vector<SharedTile>> getAllTilesIn1Direction(int row, int col, int changeInRow, int changeInCol);
+
+    // Appends vector1 at the back of vector2
+    std::shared_ptr<std::vector<SharedTile>> addTwoVectors(std::shared_ptr<std::vector<SharedTile>> vector1, std::shared_ptr<std::vector<SharedTile>> vector2);
 };
 
 
