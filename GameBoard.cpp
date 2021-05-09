@@ -37,14 +37,26 @@ GameBoard::~GameBoard() {}
 
 std::shared_ptr<std::vector<std::string>> GameBoard::allTilesWithPos() {
     std::shared_ptr<std::vector<std::string>> tilesString = std::make_shared<std::vector<std::string>>();
+
+    // Iterates over the rows in the board
+    for (int row = 0; row < this->currentHeight; row++) {
+
+        // Iterates over the cols in the board
+        for (int col = 0; col < this->currentWidth; col++) {
+            SharedTile tile = this->board->at(row)->at(col);
+
+            // Builds a string of the tile at the position in format <colour><shape>@<row><col>
+            if (tile != nullptr) {
+                tilesString->push_back(tile->toString() + "@" + this->mapRowToChar(row) + std::to_string(col));
+            }
+        }
+    }
     return tilesString;
 }
 
 int GameBoard::placeTile(const SharedTile& tile, char rowChar, int col) {
     int score = -1;
     int row = this->mapCharToRow(rowChar);
-
-    // std::cout << "Row: " << row << std::endl;
 
     // Checks if the row and col is not out of the board dimensions
     if (row <= MAX_BOARD_SIZE && col <= MAX_BOARD_SIZE) {
@@ -57,11 +69,11 @@ int GameBoard::placeTile(const SharedTile& tile, char rowChar, int col) {
             score = this->calculateScore(row, col);
 
             // Change current height and width
-            if (row > this->currentHeight) {
-                this->currentHeight = row;
+            if (row + 1 > this->currentHeight) {
+                this->currentHeight = row + 1;
             }
-            if (col > this->currentWidth) {
-                this->currentWidth = col;
+            if (col + 1 > this->currentWidth) {
+                this->currentWidth = col + 1;
             }
         }
     }
