@@ -3,7 +3,7 @@
 #include <limits>
 
 int input_util::getIntInput() {
-    std::string in = getStringInput(std::regex("^\\d+$"), "Given input is not a number");
+    string in = getStringInput(std::regex("^\\d+$"), "Given input is not a number");
     int ret = 0;
     auto stream = std::stringstream(in);
     stream >> ret;
@@ -23,8 +23,8 @@ int input_util::getOptionUserInput(int max) {
     return input;
 }
 
-std::string input_util::getStringInput(const std::regex &regex, const std::string &error) {
-    std::string input;
+string input_util::getStringInput(const std::regex &regex, const string &error) {
+    string input;
     bool valid = false;
     while (!valid) {
         std::cout << "> " << std::flush;

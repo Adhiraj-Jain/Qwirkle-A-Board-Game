@@ -18,8 +18,6 @@
 // class Player;
 // class Tile;
 
-typedef std::shared_ptr<Player> SharedPlayer;
-
 class Game {
 public:
     // Constructor to create a new Game
@@ -37,10 +35,10 @@ public:
     bool isFinished();
 
     // The given tile is added to the tile bag and the new tile is added to the current player's hands
-    void playerReplaces(std::shared_ptr<Tile> tile);
+    void playerReplaces(SharedTile tile);
 
     // The given tile is added to the board and a new tile is added to the current player's hand
-    void playerPlaces(std::shared_ptr<Tile> tile, int row, int col);
+    void playerPlaces(SharedTile tile, int row, int col);
 
     // Getter Methods
     SharedPlayer getCurrentPlayer();
@@ -52,7 +50,7 @@ public:
     std::shared_ptr<std::vector<SharedPlayer>> getPlayers();
 
     // toString method
-    std::string toString();
+    string toString();
 
     //initialize method
     void initiation();
@@ -77,13 +75,13 @@ private:
     SharedPlayer nextPlayerTurn();
 
     //Initialize when creating a new game
-    void shuffleTileBag(std::vector<std::shared_ptr<Tile>> tileVector);
+    void shuffleTileBag(std::vector<SharedTile> tileVector);
 
     void setUpPlayerHands();
 
     void createBoard();
 
-    std::vector<std::shared_ptr<Tile>> createTileBag();
+    std::vector<SharedTile> createTileBag();
 };
 
 #endif // ASSIGN2_GAME_H

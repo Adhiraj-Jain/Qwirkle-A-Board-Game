@@ -1,17 +1,17 @@
 #include "Player.h"
 
 // The following code is used to test saving a game
-Player::Player(std::string name) {
+Player::Player(string name) {
     this->name = name;
     this->score = 0;
     this->hand = std::make_shared<LinkedList>();
 }
 
-std::string Player::getName() {
+string Player::getName() {
     return this->name;
 }
 
-std::string Player::toString() {
+string Player::toString() {
     return this->name + "\n" + std::to_string(this->score) + "\n" + this->hand->toString();
 }
 
@@ -37,7 +37,7 @@ void Player::setScore(int score) {
 
 Player::~Player() = default;
 
-std::shared_ptr<Tile> Player::getTile(std::string tile) {
+SharedTile Player::getTile(string tile) {
     return nullptr;
 }
 

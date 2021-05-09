@@ -32,11 +32,11 @@ GameBoard::GameBoard(int height, int width) {
     this->currentWidth = width;
 }
 
-GameBoard::~GameBoard() {}
+GameBoard::~GameBoard() = default;
 
 
-std::shared_ptr<std::vector<std::string>> GameBoard::allTilesWithPos() {
-    std::shared_ptr<std::vector<std::string>> tilesString = std::make_shared<std::vector<std::string>>();
+std::shared_ptr<std::vector<string>> GameBoard::allTilesWithPos() {
+    std::shared_ptr<std::vector<string>> tilesString = std::make_shared<std::vector<string>>();
 
     // Iterates over the rows in the board
     for (int row = 0; row < this->currentHeight; row++) {
@@ -174,11 +174,11 @@ std::shared_ptr<std::vector<std::shared_ptr<std::vector<SharedTile>>>> GameBoard
     return this->board;
 }
 
-std::string GameBoard::toString() {
-    std::string result = std::to_string(this->currentHeight) + "," + std::to_string(this->currentWidth) + "\n";
+string GameBoard::toString() {
+    string result = std::to_string(this->currentHeight) + "," + std::to_string(this->currentWidth) + "\n";
 
     // Gets all the tiles in the board with their positions
-    std::shared_ptr<std::vector<std::string>> tilesWithPos = this->allTilesWithPos();
+    std::shared_ptr<std::vector<string>> tilesWithPos = this->allTilesWithPos();
 
     // Appends each string from the vector to the result
     for (unsigned int index = 0; index < tilesWithPos->size(); index++) {

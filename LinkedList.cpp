@@ -77,8 +77,8 @@ SharedTile LinkedList::deleteTile(int index) {
     return tile;
 }
 
-std::string LinkedList::toString() {
-    std::string result = "";
+string LinkedList::toString() {
+    string result = "";
 
     // Get and converts each tile in the list to a string
     for (int index = 0; index < this->length; index++) {

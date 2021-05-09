@@ -6,7 +6,7 @@
 #include <string>
 #include <memory>
 
-typedef std::shared_ptr<Tile> SharedTile;
+typedef SharedTile SharedTile;
 
 class LinkedList {
 public:
@@ -39,7 +39,7 @@ public:
     SharedTile deleteTile(int i);
 
     // To String method
-    std::string toString();
+    string toString();
 
 private:
     // Point at the head of Linked List

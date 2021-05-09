@@ -14,19 +14,19 @@ class Player {
 public:
 
     // Constructor
-    Player(std::string name);
+    Player(string name);
 
     // Destructor
     ~Player();
 
     // Returns a Tile from the player's hand with the given string value of the tile
-    std::shared_ptr<Tile> getTile(std::string tile);
+    SharedTile getTile(string tile);
 
     // Adds a Tile to the player's hand with the given tile
-    void addTile(std::shared_ptr<Tile> tile);
+    void addTile(SharedTile tile);
 
     // Getter methods
-    std::string getName();
+    string getName();
 
     int getScore();
 
@@ -46,12 +46,12 @@ public:
     void setScore(int score);
 
     // ToString method
-    std::string toString();
+    string toString();
 
 private:
 
     // Class Variables
-    std::string name;
+    string name;
     int score;
     std::shared_ptr<LinkedList> hand;
 

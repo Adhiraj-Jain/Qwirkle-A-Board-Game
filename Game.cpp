@@ -25,7 +25,7 @@ Game::Game(const std::vector<SharedPlayer> &players, SharedPlayer currentPlayer,
 }
 
 void Game::initiation() {
-    std::vector<std::shared_ptr<Tile>> tileVector = createTileBag();   //DONE
+    std::vector<SharedTile> tileVector = createTileBag();   //DONE
     shuffleTileBag(tileVector);  //DONE
     setUpPlayerHands();  //DONE
     createBoard();  //DONE
@@ -55,12 +55,12 @@ void Game::start() {
         }
         // While player hasn't finished their turn
         while (lastPlayer == currentPlayer) {
-            std::string input = input_util::getStringInput(std::regex(COMMAND_REGEX));
+            string input = input_util::getStringInput(std::regex(COMMAND_REGEX));
             std::stringstream args = std::stringstream(input);
-            std::string command;
+            string command;
             args >> command;
             if (command == "save") {
-                std::string filename;
+                string filename;
                 args >> filename;
                 try {
                     FileUtil::saveGame(filename, this);
@@ -69,8 +69,8 @@ void Game::start() {
                     std::cout << "Failed to save: " << ex.what() << std::endl;
                 }
             } else if (command == "place") {
-                std::string tileStr;
-                std::string pos;
+                string tileStr;
+                string pos;
                 args >> tileStr;
                 // do it twice to filter out the 'at'
                 args >> pos;
@@ -91,7 +91,7 @@ void Game::start() {
                 } else std::cout << "Tile given isn't in your hand" << std::endl;
 
             } else if (command == "replace") {
-                std::string tileStr;
+                string tileStr;
                 args >> tileStr;
                 SharedTile playerTile = currentPlayer->hasTile(tileStr[0], std::stoi(tileStr.substr(1)));
                 if (playerTile != nullptr) {
@@ -109,8 +109,8 @@ void Game::start() {
     }
 }
 
-std::string Game::toString() {
-    std::string results = "";
+string Game::toString() {
+    string results = "";
 
     // Getting a string format of all the players in the game
     for (const SharedPlayer &player : *players) {
@@ -125,17 +125,17 @@ std::string Game::toString() {
     return results;
 }
 
-std::vector<std::shared_ptr<Tile>> Game::createTileBag() {
+std::vector<SharedTile> Game::createTileBag() {
     Colour colours[] = {RED, ORANGE, YELLOW, GREEN, BLUE, PURPLE};
     Shape shapes[] = {CIRCLE, STAR_4, DIAMOND, SQUARE, STAR_6, CLOVER};
 
-    std::vector<std::shared_ptr<Tile>> tileVector;
+    std::vector<SharedTile> tileVector;
 
     //First we would have to create the tile bag
     for (char &colour : colours) {
         for (int &shape : shapes) {
-            std::shared_ptr<Tile> currentTile = std::make_shared<Tile>(colour, shape);
-            std::shared_ptr<Tile> currentTile2 = std::make_shared<Tile>(colour,shape);
+            SharedTile currentTile = std::make_shared<Tile>(colour, shape);
+            SharedTile currentTile2 = std::make_shared<Tile>(colour,shape);
             tileVector.push_back(currentTile);
             tileVector.push_back(currentTile2);
         }
@@ -143,7 +143,7 @@ std::vector<std::shared_ptr<Tile>> Game::createTileBag() {
     return tileVector;
 }
 
-void Game::shuffleTileBag(std::vector<std::shared_ptr<Tile>> tileVector) {
+void Game::shuffleTileBag(std::vector<SharedTile> tileVector) {
 
     //Generating a seed for different shuffle every game round
     unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
@@ -181,7 +181,7 @@ bool Game::isFinished() {
     return false;
 }
 
-void Game::playerPlaces(std::shared_ptr<Tile> tile, int row, int col) {
+void Game::playerPlaces(SharedTile tile, int row, int col) {
 
 }
 
@@ -202,7 +202,7 @@ std::shared_ptr<std::vector<SharedPlayer>> Game::getPlayers() {
     return players;
 }
 
-void Game::playerReplaces(std::shared_ptr<Tile> tile) {
+void Game::playerReplaces(SharedTile tile) {
 
 }
 

@@ -13,10 +13,10 @@ Colour Tile::getColour() {
     return colour;
 }
 
-std::string Tile::toString() {
+string Tile::toString() {
     return this->colour + std::to_string(this->shape);
 }
 
-bool Tile::isEqual(const std::shared_ptr<Tile> tile) {
+bool Tile::isEqual(const SharedTile tile) {
     return this->shape == tile->shape && this->colour == tile->colour;
 }

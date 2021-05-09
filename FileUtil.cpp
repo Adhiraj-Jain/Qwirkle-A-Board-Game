@@ -1,13 +1,13 @@
 #include "FileUtil.h"
 
-void FileUtil::saveGame(std::string fileName, Game *game) {
+void FileUtil::saveGame(string fileName, Game *game) {
 
     // Finds and opens the file for writing
     std::fstream outfile;
     outfile.open(fileName, std::ios::out);
 
     // Gets the game's data as a string
-    std::string gameString = game->toString();
+    string gameString = game->toString();
 
     // Writing character by character into the file
     for (char i : gameString) {
@@ -17,22 +17,22 @@ void FileUtil::saveGame(std::string fileName, Game *game) {
     outfile.close();
 }
 
-std::shared_ptr<Game> FileUtil::loadGame(std::string fileName) {
+std::shared_ptr<Game> FileUtil::loadGame(string fileName) {
 
     // Counter for all players.
-    std::vector<std::shared_ptr<Player>> players = std::vector<std::shared_ptr<Player>>();
+    std::vector<SharedPlayer> players = std::vector<SharedPlayer>();
 
     //Counter for current state of Board
     std::shared_ptr<GameBoard> gameBoard;
     //Counter for current Player
-    std::shared_ptr<Player>currPlayer;
+    SharedPlayer currPlayer;
     // Counter for current tileBag.
     std::shared_ptr<LinkedList> tileBag;
 
     // Counter to check if the loading is a success or not
     bool success = true;
     //To get line from the input file
-    std::string line = "";
+    string line = "";
     // fstream object to get data from text file.
     std::fstream inputFile;
     //Opening text file in read only mode.
@@ -46,7 +46,7 @@ std::shared_ptr<Game> FileUtil::loadGame(std::string fileName) {
             //Check if the name is in ASCII text means contains all letters.
             if (isNameCorrect(line)) {
 
-                std::shared_ptr<Player> player = std::make_shared<Player>(line);
+                SharedPlayer player = std::make_shared<Player>(line);
                 //Calling getPlayerData() to get the data of this player.
                 getPlayerData(player, inputFile);
                 //Pushing this player into vector array of players.
@@ -96,9 +96,9 @@ std::shared_ptr<Game> FileUtil::loadGame(std::string fileName) {
 }
 
 
-bool FileUtil::getPlayerData(std::shared_ptr<Player> player, std::fstream& inputFile) {
+bool FileUtil::getPlayerData(SharedPlayer player, std::fstream& inputFile) {
 
-    std::string line = "";
+    string line = "";
     //To keep the current state of input
     bool isCorrect = true;
     //Loop till eof or the input state is true
@@ -127,9 +127,9 @@ bool FileUtil::getPlayerData(std::shared_ptr<Player> player, std::fstream& input
 }
 
 
-bool FileUtil::giveTilesList(std::string tileList, std::shared_ptr<LinkedList> tileLL) {
+bool FileUtil::giveTilesList(string tileList, std::shared_ptr<LinkedList> tileLL) {
     bool isCorrect = true;
-    std::string tile = "";
+    string tile = "";
     //Traverse over the line to find all the tiles.
     for (unsigned int i = 0; i < tileList.size() && isCorrect; i++) {
         //If the current char is not a comma.
@@ -152,7 +152,7 @@ bool FileUtil::giveTilesList(std::string tileList, std::shared_ptr<LinkedList> t
 }
 
 
-bool FileUtil::isTileCorrect(std::string tile) {
+bool FileUtil::isTileCorrect(string tile) {
     bool isCorrect = false;
     //Array of char colours
     char colors[] = { RED, ORANGE, YELLOW, GREEN, BLUE, PURPLE };
@@ -170,7 +170,7 @@ bool FileUtil::isTileCorrect(std::string tile) {
 
 
 // TODO replace with regex
-bool FileUtil::isNameCorrect(std::string name) {
+bool FileUtil::isNameCorrect(string name) {
     std::regex regex = std::regex("[a-zA-Z]");
     bool isCorrect = std::regex_search(name, regex);
     //Return
@@ -179,7 +179,7 @@ bool FileUtil::isNameCorrect(std::string name) {
 
 bool FileUtil::getBoard(std::shared_ptr<GameBoard> gameBoard, std::fstream& inputFile) {
     bool success = true;
-    std::string line = "";
+    string line = "";
     getline(inputFile, line);
     //Integer array to store dimensions of the game board.
     int boardSize[2];
@@ -206,7 +206,7 @@ bool FileUtil::getBoard(std::shared_ptr<GameBoard> gameBoard, std::fstream& inpu
     getline(inputFile, line);
     //A Const to check to for the size of each placetile
     const int size = 5;
-    std::string placetile = "";
+    string placetile = "";
     //Loop till end of line or the input format till that point is correct.
     for (unsigned int index = 0; index < line.size() && success; index++) {
         //Check for comma and a white space.
@@ -217,7 +217,7 @@ bool FileUtil::getBoard(std::shared_ptr<GameBoard> gameBoard, std::fstream& inpu
         else if (line[index] == ',' && placetile.size() == size) {
             //if the tile input is completed.
             //Create a new tile.
-            std::shared_ptr<Tile> tile = std::make_shared<Tile>((char)placetile[0], (int)placetile[1]);
+            SharedTile tile = std::make_shared<Tile>((char)placetile[0], (int)placetile[1]);
             //Place the tile in the game board with the given row and col.
             if (!gameBoard->placeTile(tile, (char)placetile[3], (int)placetile[4])) {
                 success = false;

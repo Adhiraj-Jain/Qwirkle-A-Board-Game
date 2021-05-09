@@ -10,8 +10,6 @@
 #define QWIRKLE_LENGTH 6
 #define QWIRKLE_POINTS 6
 
-typedef std::shared_ptr<Tile> SharedTile;
-
 class GameBoard {
 
 public:
@@ -40,7 +38,7 @@ public:
     int getCurrentWidth();
 
     // toString method
-    std::string toString();
+    string toString();
 
     //read in board.
     void displayBoard();
@@ -53,7 +51,7 @@ private:
     int currentWidth;
 
     // Returns a vector of strings of format <tile color><tile shape>@<row index><col index>
-    std::shared_ptr<std::vector<std::string>> allTilesWithPos();
+    std::shared_ptr<std::vector<string>> allTilesWithPos();
 
     // Returns an integer from 0-25 for characters A-Z
     int mapCharToRow(char target);

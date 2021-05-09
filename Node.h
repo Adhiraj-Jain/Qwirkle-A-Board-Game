@@ -8,11 +8,11 @@
 class Node {
 public:
 
-    Node(std::shared_ptr<Tile> tile, std::shared_ptr<Node> next);
+    Node(SharedTile tile, std::shared_ptr<Node> next);
 
     Node(Node& other);
 
-    std::shared_ptr<Tile> tile;
+    SharedTile tile;
     std::shared_ptr<Node> next;
 };
 

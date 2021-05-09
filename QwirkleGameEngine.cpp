@@ -45,13 +45,13 @@ void QwirkleGameEngine::newGame() {
     //New Game Functionality - will leave it for those who have do it.
     //Make Players
     std::cout << std::endl;
-    std::vector<std::shared_ptr<Player>> players;
+    std::vector<SharedPlayer> players;
     int playerSize = 2;
 
     for (int player = 0; player < playerSize; player++) {
         std::cout << "Enter a name for player " << player << " (uppercase characters only)" << std::endl;
-        std::string creatingPlayerInput = input_util::getStringInput(std::regex("^[A-Z]+$"));
-        std::shared_ptr<Player> creatingPlayer = std::make_shared<Player>(creatingPlayerInput);
+        string creatingPlayerInput = input_util::getStringInput(std::regex("^[A-Z]+$"));
+        SharedPlayer creatingPlayer = std::make_shared<Player>(creatingPlayerInput);
         players.push_back(creatingPlayer);
         std::cout << std::endl;
     }
@@ -72,9 +72,9 @@ void QwirkleGameEngine::loadGame() {
 }
 
 void QwirkleGameEngine::credits() {
-    std::string team_members[TEAM_SIZE] = {"Jainam Doshi", "Adhiraj Jain", "Ryan Samarakoon", "Muhib Hasan"};
-    std::string student_id[TEAM_SIZE] = {"s3825891", "s3821245", "s3844545", "s3850034"};
-    std::string email_address[TEAM_SIZE] = {"s3825891@student.rmit.edu.au", "s3821245@student.rmit.edu.au",
+    string team_members[TEAM_SIZE] = {"Jainam Doshi", "Adhiraj Jain", "Ryan Samarakoon", "Muhib Hasan"};
+    string student_id[TEAM_SIZE] = {"s3825891", "s3821245", "s3844545", "s3850034"};
+    string email_address[TEAM_SIZE] = {"s3825891@student.rmit.edu.au", "s3821245@student.rmit.edu.au",
                                             "s3844545@student.rmit.edu.au", "s3850034@student.rmit.edu.au"};
 
     std::cout << "----------------------------------------" << std::endl;

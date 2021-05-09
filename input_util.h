@@ -3,6 +3,7 @@
 
 #include <string>
 #include <regex>
+#include "typedefs.h"
 
 namespace input_util {
     /**
@@ -23,6 +24,6 @@ namespace input_util {
      * @param regex regex to check against
      * @return string input which matches regex
      */
-    std::string getStringInput(const std::regex &regex, const std::string &error = "Invalid input");
+    string getStringInput(const std::regex &regex, const string &error = "Invalid input");
 }
 #endif //ASSIGN2_INPUT_UTIL_H
