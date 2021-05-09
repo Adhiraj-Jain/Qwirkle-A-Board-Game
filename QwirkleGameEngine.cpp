@@ -2,8 +2,6 @@
 #include <iostream>
 #include <string>
 #include "input_util.h"
-#include "FileUtil.h"
-#include "Game.h"
 
 #define TEAM_SIZE 4
 

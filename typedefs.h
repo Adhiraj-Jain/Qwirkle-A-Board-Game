@@ -2,8 +2,8 @@
 // Created by ryan9 on 9/05/2021.
 //
 
-#ifndef ASSIGN_TYPEDEFS_H
-#define ASSIGN_TYPEDEFS_H
+#ifndef ASSIGN2_TYPEDEFS_H
+#define ASSIGN2_TYPEDEFS_H
 
 class Tile;
 
@@ -20,4 +20,4 @@ typedef std::shared_ptr<Player> SharedPlayer;
 typedef std::string string;
 
 
-#endif //ASSIGN_TYPEDEFS_H
+#endif //ASSIGN2_TYPEDEFS_H

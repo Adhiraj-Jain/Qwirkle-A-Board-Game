@@ -155,7 +155,7 @@ bool FileUtil::giveTilesList(string tileList, std::shared_ptr<LinkedList> tileLL
 bool FileUtil::isTileCorrect(string tile) {
     bool isCorrect = false;
     //Array of char colours
-    char colors[] = { RED, ORANGE, YELLOW, GREEN, BLUE, PURPLE };
+    Colour colors[] = { RED, ORANGE, YELLOW, GREEN, BLUE, PURPLE };
     // check if the shape of tile is in correct range or not.
     if (1 <= (int)tile[1] && ((int)tile[1]) <= 7) {
         //Looping over the colours array till it founds a correct match or till the end of array.
