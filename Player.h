@@ -42,6 +42,9 @@ public:
      */
     bool removeTile(const SharedTile& tile);
 
+    // Adds score to the player
+    void addScore(int score);
+
     // Setter method
     void setScore(int score);
 
