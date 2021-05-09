@@ -58,6 +58,9 @@ private:
     // Returns an integer from 0-25 for characters A-Z
     int mapCharToRow(char target);
 
+    // Returns an character from A-Z for integer 0-25
+    char mapRowToChar(int target);
+
     // Returns a score for the tile add at given index
     int calculateScore(int row, int col);
 

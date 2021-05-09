@@ -19,6 +19,10 @@ int GameBoard::mapCharToRow(char target) {
     return (int)target - 65;
 }
 
+char GameBoard::mapRowToChar(int target) {
+    return (char)(target + 65);
+}
+
 SharedTile GameBoard::getTile(int row, int col) {
     return this->board->at(row)->at(col);
 }
@@ -32,7 +36,22 @@ GameBoard::~GameBoard() {}
 
 
 std::shared_ptr<std::vector<std::string>> GameBoard::allTilesWithPos() {
-    return nullptr;
+    std::shared_ptr<std::vector<std::string>> tilesString = std::make_shared<std::vector<std::string>>();
+
+    // Iterates over the rows in the board
+    for (int row = 0; row < this->currentHeight; row++) {
+
+        // Iterates over the cols in the board
+        for (int col = 0; col < this->currentWidth; col++) {
+            SharedTile tile = this->board->at(row)->at(col);
+
+            // Builds a string of the tile at the position in format <colour><shape>@<row><col>
+            if (tile != nullptr) {
+                tilesString->push_back(tile->toString() + "@" + this->mapRowToChar(row) + std::to_string(col));
+            }
+        }
+    }
+    return tilesString;
 }
 
 int GameBoard::placeTile(const SharedTile& tile, char rowChar, int col) {
@@ -50,11 +69,11 @@ int GameBoard::placeTile(const SharedTile& tile, char rowChar, int col) {
             score = this->calculateScore(row, col);
 
             // Change current height and width
-            if (row > this->currentHeight) {
-                this->currentHeight = row;
+            if (row + 1 > this->currentHeight) {
+                this->currentHeight = row + 1;
             }
-            if (col > this->currentWidth) {
-                this->currentWidth = col;
+            if (col + 1 > this->currentWidth) {
+                this->currentWidth = col + 1;
             }
         }
     }
@@ -65,23 +84,20 @@ bool GameBoard::isValidTileToPlace(SharedTile tile, char row, int col) {
     bool valid = true;
     std::shared_ptr<std::vector<std::shared_ptr<std::vector<SharedTile>>>> allTilesIn4Direction = this->getAllTilesIn4Direction(row, col);
 
+    // Iterates of all of the directions (left, right, up, down) and until the tile is valid to place
     for (unsigned int i = 0; i < allTilesIn4Direction->size() && valid; i++) {
-
         std::shared_ptr<std::vector<SharedTile>> tilesIn1Direction = allTilesIn4Direction->at(i);
 
+        // Iterates over all the tiles in each directions and until the tile is valid to place
         for (unsigned int j = 0; j < tilesIn1Direction->size() && valid; j++) {
-
             SharedTile currentTile = tilesIn1Direction->at(j);
 
+            // The tile is not valid if the two tiles are same or both the shape and the colour are not different
             if (currentTile->isEqual(tile) || (currentTile->getShape() != tile->getShape() && currentTile->getColour() != tile->getColour())) {
                 valid = false;
             }
-
         }
-
     }
-
-
     return valid;
 }
 
@@ -128,17 +144,29 @@ std::shared_ptr<std::vector<std::shared_ptr<std::vector<SharedTile>>>> GameBoard
 std::shared_ptr<std::vector<SharedTile>> GameBoard::getAllTilesIn1Direction(int row, int col, int changeInRow, int changeInCol) {
 
     std::shared_ptr<std::vector<SharedTile>> tiles = std::make_shared<std::vector<SharedTile>>();
-    row += changeInRow;
-    col += changeInCol;
-    SharedTile currentTile = this->board->at(row)->at(col);
+
+    SharedTile currentTile = nullptr;
 
     // Loop till the current tile is not a null_ptr (i.e. no more tiles to loop through in one direction)
-    while (currentTile != nullptr) {
-        tiles->push_back(currentTile);
+    do {
+
+        // For the initial iteration of the loop, the condition is always true after the first iteration
+        if (currentTile != nullptr) {
+            tiles->push_back(currentTile);
+        }
+
         row += changeInRow;
         col += changeInCol;
-        currentTile = this->board->at(row)->at(col);
-    }
+
+        // Checks if the new row and col are not out of bound of the board dimensions
+        if (row >= 0 && col >= 0 && row <= MAX_BOARD_SIZE - 1 && col <= MAX_BOARD_SIZE - 1) {
+            currentTile = this->board->at(row)->at(col);
+        }
+        else {
+            currentTile = nullptr;
+        }
+
+    } while (currentTile != nullptr);
     return tiles;
 }
 
@@ -169,10 +197,12 @@ void GameBoard::displayBoard() {
     std::cout << "   ";
     for (unsigned int col = 0; col < board->size(); col++) {
         std::cout << col;
-        if (col >= 10)
+        if (col >= 10) {
             std::cout << " ";
-        else if (col != board->size() - 1 && col < 10)
+        }
+        else if (col != board->size() - 1 && col < 10) {
             std::cout << "  ";
+        }
     }
 
     std::cout << std::endl;
@@ -180,17 +210,19 @@ void GameBoard::displayBoard() {
     //printing the dashed lines
     std::cout << "  ";
     for (unsigned int col = 0; col < board->size(); col++) {
-        if (col == 0)
+        if (col == 0) {
             std::cout << "----";
-        else
+        }
+        else {
             std::cout << "---";
+        }
     }
 
     std::cout << std::endl;
     //printing the tiles
     for (unsigned int row = 0; row < board->size(); row++) {
 
-        std::cout << (char)(row + 65) << " |";
+        std::cout << this->mapRowToChar(row) << " |";
         for (unsigned int col = 0; col < board->size(); col++) {
             if (getTile(row, col) == nullptr) {
                 std::cout << "  |";
@@ -201,15 +233,5 @@ void GameBoard::displayBoard() {
         }
         std::cout << std::endl;
     }
-
-    //    0  1  2  3  4  5
-    //   -------------------
-    // A |  |  |  |  |  |  |
-    // B |  |  |  |  |  |  |
-    // C |  |  |  |  |  |  |
-    // D |  |  |  |  |  |  |
-    // E |  |  |  |  |  |  |
-    // F |  |  |  |  |  |  |
-
 }
 
