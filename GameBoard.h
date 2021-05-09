@@ -6,11 +6,11 @@
 #include <string>
 #include <memory>
 
-typedef std::shared_ptr<Tile> SharedTile;
-
 #define MAX_BOARD_SIZE 26
 #define QWIRKLE_LENGTH 6
 #define QWIRKLE_POINTS 6
+
+typedef std::shared_ptr<Tile> SharedTile;
 
 class GameBoard {
 
@@ -26,8 +26,8 @@ public:
     ~GameBoard();
 
     // Places a tile at the given row and col index
-    // Returns the score after place the tile to the give index
-    // Returns -1 cannot be added to the given index
+    // Returns the score after place the tile to the given index
+    // Returns -1, if the tile cannot be added to the given index
     int placeTile(const SharedTile& tile, char rowChar, int col);
 
     // Returns a tile at the given row and col

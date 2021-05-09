@@ -62,7 +62,27 @@ int GameBoard::placeTile(const SharedTile& tile, char rowChar, int col) {
 }
 
 bool GameBoard::isValidTileToPlace(SharedTile tile, char row, int col) {
-    return false;
+    bool valid = true;
+    std::shared_ptr<std::vector<std::shared_ptr<std::vector<SharedTile>>>> allTilesIn4Direction = this->getAllTilesIn4Direction(row, col);
+
+    for (unsigned int i = 0; i < allTilesIn4Direction->size() && valid; i++) {
+
+        std::shared_ptr<std::vector<SharedTile>> tilesIn1Direction = allTilesIn4Direction->at(i);
+
+        for (unsigned int j = 0; j < tilesIn1Direction->size() && valid; j++) {
+
+            SharedTile currentTile = tilesIn1Direction->at(j);
+
+            if (currentTile->isEqual(tile) || (currentTile->getShape() != tile->getShape() && currentTile->getColour() != tile->getColour())) {
+                valid = false;
+            }
+
+        }
+
+    }
+
+
+    return valid;
 }
 
 
