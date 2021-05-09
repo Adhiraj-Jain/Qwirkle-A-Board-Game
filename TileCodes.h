@@ -27,6 +27,6 @@
 #define CLOVER  6
 
 // Assumes a board of 26x26
-#define COMMAND_REGEX "^(save .+|place [ROYGBP][1-6] at [A-Z][0-25]|replace [ROYGBP][1-6])$"
+#define COMMAND_REGEX "^(save .+|place [ROYGBP][1-6] at [A-Z](2[0-5]|[0-9]|1[0-9])|replace [ROYGBP][1-6])$"
 
 #endif // ASSIGN1_TILECODES_H

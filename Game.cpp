@@ -75,15 +75,32 @@ void Game::start() {
                 // do it twice to filter out the 'at'
                 args >> pos;
                 args >> pos;
-                Tile tile=Tile(tileStr[0], std::stoi(tileStr.substr(1)));
-                if (currentPlayer->hasTile(tile.getColour(), tile.getShape())) {
-                   // board->isValidTileToPlace();
-                    nextPlayerTurn();
+                SharedTile playerTile = currentPlayer->hasTile(tileStr[0], std::stoi(tileStr.substr(1)));
+                if (playerTile != nullptr) {
+                    int points = board->placeTile(playerTile, pos[0], std::stoi(pos.substr(1)));
+                    if (points == -1) {
+                        std::cout << "Cannot place a tile here" << std::endl;
+                    } else {
+                        currentPlayer->removeTile(playerTile);
+                        currentPlayer->setScore(currentPlayer->getScore() + points);
+                        nextPlayerTurn();
+                    }
                 } else std::cout << "Tile given isn't in your hand" << std::endl;
 
             } else if (command == "replace") {
-                std::cout << "replacing..." << std::endl;
-                nextPlayerTurn();
+                std::string tileStr;
+                args >> tileStr;
+                SharedTile playerTile = currentPlayer->hasTile(tileStr[0], std::stoi(tileStr.substr(1)));
+                if (playerTile != nullptr) {
+                    currentPlayer->removeTile(playerTile);
+                    tileBag->addTile(playerTile);
+                    SharedTile newTile = tileBag->deleteTile(0);
+                    currentPlayer->addTile(newTile);
+                    std::cout << "Added " << newTile->toString() << " to your hand" << std::endl;
+                    nextPlayerTurn();
+                } else
+                    std::cout << "Tile given isn't in your hand" << std::endl;
+
             }
         }
     }
