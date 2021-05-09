@@ -7,7 +7,7 @@ LinkedList::LinkedList() {
     this->length = 0;
 }
 
-LinkedList::~LinkedList() {}
+LinkedList::~LinkedList() = default;
 
 bool LinkedList::isEmpty() {
     return (this->size() == 0);
@@ -37,8 +37,7 @@ void LinkedList::addTile(SharedTile tile) {
         std::shared_ptr<Node> newNode = std::make_shared<Node>(tile, nullptr);
         if (this->isEmpty()) {
             this->head = newNode;
-        }
-        else {
+        } else {
             this->tail->next = newNode;
         }
         this->tail = newNode;
@@ -67,14 +66,14 @@ SharedTile LinkedList::deleteTile(int index) {
         if (prev == nullptr) {
             tile = head->tile;
             this->head = this->head->next;
-        }
-        else {
+        } else {
             tile = curr->tile;
             curr = curr->next;
             prev->next = curr;
         }
+        this->length--;
     }
-    this->length--;
+
     return tile;
 }
 

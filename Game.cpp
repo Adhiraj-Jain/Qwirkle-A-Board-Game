@@ -83,6 +83,9 @@ void Game::start() {
                     } else {
                         currentPlayer->removeTile(playerTile);
                         currentPlayer->setScore(currentPlayer->getScore() + points);
+                        SharedTile next = tileBag->deleteTile(0);
+                        if (next != nullptr)
+                            currentPlayer->addTile(next);
                         nextPlayerTurn();
                     }
                 } else std::cout << "Tile given isn't in your hand" << std::endl;
