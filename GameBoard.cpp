@@ -197,10 +197,12 @@ void GameBoard::displayBoard() {
     std::cout << "   ";
     for (unsigned int col = 0; col < board->size(); col++) {
         std::cout << col;
-        if (col >= 10)
+        if (col >= 10) {
             std::cout << " ";
-        else if (col != board->size() - 1 && col < 10)
+        }
+        else if (col != board->size() - 1 && col < 10) {
             std::cout << "  ";
+        }
     }
 
     std::cout << std::endl;
@@ -208,10 +210,12 @@ void GameBoard::displayBoard() {
     //printing the dashed lines
     std::cout << "  ";
     for (unsigned int col = 0; col < board->size(); col++) {
-        if (col == 0)
+        if (col == 0) {
             std::cout << "----";
-        else
+        }
+        else {
             std::cout << "---";
+        }
     }
 
     std::cout << std::endl;
@@ -229,15 +233,5 @@ void GameBoard::displayBoard() {
         }
         std::cout << std::endl;
     }
-
-    //    0  1  2  3  4  5
-    //   -------------------
-    // A |  |  |  |  |  |  |
-    // B |  |  |  |  |  |  |
-    // C |  |  |  |  |  |  |
-    // D |  |  |  |  |  |  |
-    // E |  |  |  |  |  |  |
-    // F |  |  |  |  |  |  |
-
 }
 
