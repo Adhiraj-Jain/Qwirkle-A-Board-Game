@@ -33,13 +33,13 @@ SharedTile LinkedList::getTile(int index) {
 
 SharedTile LinkedList::getTile(SharedTile seachTile) {
     // Check for linkedlist and if index is within range or not.
+
     bool isFound = false;
-    if (this->size()) {
+    if (this->isEmpty()) {
         seachTile = nullptr;
-        isFound = true;
     }
     std::shared_ptr<Node> curr = head;
-    while (!curr && !isFound) {
+    while (curr != nullptr && !isFound) {
         if (curr->tile->isEqual(seachTile)) {
             isFound = true;
         }
