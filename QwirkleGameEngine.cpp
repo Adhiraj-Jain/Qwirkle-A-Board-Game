@@ -90,4 +90,5 @@ void QwirkleGameEngine::credits() {
 
 void QwirkleGameEngine::quit() {
     std::cout << "Goodbye" << std::endl;
+    exit(0);
 }
