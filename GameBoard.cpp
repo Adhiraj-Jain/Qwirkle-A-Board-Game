@@ -143,6 +143,7 @@ std::shared_ptr<std::vector<std::shared_ptr<std::vector<SharedTile>>>> GameBoard
     std::shared_ptr<std::vector<SharedTile>> getAllTilesUp = this->getAllTilesIn1Direction(row, col, -1, 0);
     std::shared_ptr<std::vector<SharedTile>> getAllTilesDown = this->getAllTilesIn1Direction(row, col, 1, 0);
 
+    // Merging the left and up vectors with right and down vectors of tiles respectively
     tiles->push_back(addTwoVectors(getAllTilesLeft, getAllTilesRight));
     tiles->push_back(addTwoVectors(getAllTilesUp, getAllTilesDown));
 
@@ -153,6 +154,7 @@ std::shared_ptr<std::vector<std::shared_ptr<std::vector<SharedTile>>>> GameBoard
 
 std::shared_ptr<std::vector<SharedTile>> GameBoard::addTwoVectors(std::shared_ptr<std::vector<SharedTile>> vector1, std::shared_ptr<std::vector<SharedTile>> vector2) {
 
+    // Loops and adds all the elements from vector1 into vector2
     for (const auto element : *vector1) {
         vector2->push_back(element);
     }
