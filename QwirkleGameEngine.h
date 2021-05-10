@@ -8,6 +8,7 @@
 
 #include "Player.h"
 #include "Game.h"
+#include "FileUtil.h"
 //Proposed Idea: QwirkleGameEngine
 //We can conenct the base gameplay methods to this class as well in the future (after further discussion)
 //For Instance, Create a constructor that takes in the linked list in the future for instance.

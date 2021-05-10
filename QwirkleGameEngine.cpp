@@ -53,8 +53,7 @@ void QwirkleGameEngine::newGame() {
         players.push_back(creatingPlayer);
         std::cout << std::endl;
     }
-    std::cout << "Let's Play" << std::endl;
-    std::cout<<std::endl;
+    std::cout << "Let's Play" << std::endl << std::endl;
     //Initialize the game (calling the first constructor of the game) - initialize method.
     std::shared_ptr<Game> newGame = std::make_shared<Game>(players);
     newGame->initiation();
@@ -62,18 +61,18 @@ void QwirkleGameEngine::newGame() {
 }
 
 void QwirkleGameEngine::loadGame() {
-    // FileUtil* fileUtil = new FileUtil();
-    // std::shared_ptr<Game> game = std::make_shared<Game>(nullptr);
-    // fileUtil->loadGame("inputFile.txt", game);
+    std::shared_ptr<Game> newGame;
+    newGame = FileUtil::loadGame("Testcases/inputFile3.txt");
+    newGame->start();
     //Load Game Functionality - will leave it for those who do it
-    std::cout << "Temp Load Game - ALL GOOD" << std::endl; //Delete this when starting to implement loadGame
+    std::cout << "Temp Load Game - AFTER ALL GOOD" << std::endl; //Delete this when starting to implement loadGame
 }
 
 void QwirkleGameEngine::credits() {
-    string team_members[TEAM_SIZE] = {"Jainam Doshi", "Adhiraj Jain", "Ryan Samarakoon", "Muhib Hasan"};
-    string student_id[TEAM_SIZE] = {"s3825891", "s3821245", "s3844545", "s3850034"};
-    string email_address[TEAM_SIZE] = {"s3825891@student.rmit.edu.au", "s3821245@student.rmit.edu.au",
-                                            "s3844545@student.rmit.edu.au", "s3850034@student.rmit.edu.au"};
+    string team_members[TEAM_SIZE] = { "Jainam Doshi", "Adhiraj Jain", "Ryan Samarakoon", "Muhib Hasan" };
+    string student_id[TEAM_SIZE] = { "s3825891", "s3821245", "s3844545", "s3850034" };
+    string email_address[TEAM_SIZE] = { "s3825891@student.rmit.edu.au", "s3821245@student.rmit.edu.au",
+                                            "s3844545@student.rmit.edu.au", "s3850034@student.rmit.edu.au" };
 
     std::cout << "----------------------------------------" << std::endl;
 

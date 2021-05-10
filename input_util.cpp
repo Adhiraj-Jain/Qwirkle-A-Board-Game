@@ -1,6 +1,7 @@
 #include "input_util.h"
 #include <iostream>
 #include <limits>
+#include <sstream>
 
 int input_util::getIntInput() {
     string in = getStringInput(std::regex("^\\d+$"), "Given input is not a number");
@@ -23,7 +24,7 @@ int input_util::getOptionUserInput(int max) {
     return input;
 }
 
-string input_util::getStringInput(const std::regex &regex, const string &error) {
+string input_util::getStringInput(const std::regex& regex, const string& error) {
     string input;
     bool valid = false;
     while (!valid) {
@@ -33,7 +34,8 @@ string input_util::getStringInput(const std::regex &regex, const string &error) 
         bool found = std::regex_search(input, regex);
         if (!found) {
             std::cout << error << std::endl;
-        } else
+        }
+        else
             valid = true;
     }
     return input;

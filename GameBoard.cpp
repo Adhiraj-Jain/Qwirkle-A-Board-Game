@@ -15,6 +15,11 @@ GameBoard::GameBoard() {
     }
 }
 
+GameBoard::GameBoard(int height, int width) :GameBoard() {
+    this->currentHeight = height;
+    this->currentWidth = width;
+}
+
 int GameBoard::mapCharToRow(char target) {
     return (int)target - 65;
 }
@@ -27,9 +32,12 @@ SharedTile GameBoard::getTile(int row, int col) {
     return this->board->at(row)->at(col);
 }
 
-GameBoard::GameBoard(int height, int width) {
-    this->currentHeight = height;
-    this->currentWidth = width;
+int GameBoard::getCurrentHeight() {
+    return this->currentHeight;
+}
+
+int GameBoard::getCurrentWidth() {
+    return this->currentWidth;
 }
 
 GameBoard::~GameBoard() = default;
@@ -55,9 +63,9 @@ std::shared_ptr<std::vector<string>> GameBoard::allTilesWithPos() {
 }
 
 int GameBoard::placeTile(const SharedTile & tile, char rowChar, int col) {
+
     int score = -1;
     int row = this->mapCharToRow(rowChar);
-
     // Checks if the row and col is not out of the board dimensions
     if (row <= MAX_BOARD_SIZE && col <= MAX_BOARD_SIZE) {
 

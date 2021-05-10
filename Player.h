@@ -36,6 +36,7 @@ public:
      */
     SharedTile hasTile(Colour color, Shape shape);
     std::shared_ptr<LinkedList> getHand();
+    void setHand(std::shared_ptr<LinkedList> hand);
     /**
      * Remove the given tile from the player
      * @return true if tile was found and removed, false otherwise

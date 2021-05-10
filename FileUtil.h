@@ -10,6 +10,7 @@
 #include "GameBoard.h"
 #include "Tile.h"
 #include <regex>
+#include "typedefs.h"
 
 class FileUtil {
 
@@ -28,7 +29,7 @@ private:
     static bool getPlayerData(SharedPlayer player, std::fstream& inputFile);
 
     //Method to input tiles from the file and store in the linked list passed as params.
-    static bool giveTilesList(string tileList, std::shared_ptr<LinkedList> tilList);
+    static std::shared_ptr<LinkedList> giveTilesList(string tileList);
 
     //Method to check if the current tile is in correct format or not.
     static bool isTileCorrect(string tile);
@@ -37,7 +38,7 @@ private:
     static bool isNameCorrect(string name);
 
     // Method to get all the data of the Game board including board size and the current state.
-    static bool getBoard(std::shared_ptr<GameBoard> gameBoard, std::fstream& inputFile);
+    static std::shared_ptr<GameBoard> getBoard(std::fstream& inputFile);
 };
 
 #endif // ASSIGN2_FILE_UTIL_H

@@ -26,6 +26,8 @@ public:
     // return Tile at index i
     SharedTile getTile(int i);
 
+    SharedTile getTile(SharedTile tile);
+
     // Add tile
     void addTile(SharedTile tile);
 

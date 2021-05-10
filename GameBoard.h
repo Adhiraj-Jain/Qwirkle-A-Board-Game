@@ -34,7 +34,7 @@ public:
 
     // Getter methods
     std::shared_ptr<std::vector<std::shared_ptr<std::vector<SharedTile>>>> getBoard();
-    int getCurrentHight();
+    int getCurrentHeight();
     int getCurrentWidth();
 
     // toString method

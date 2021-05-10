@@ -21,11 +21,11 @@
 class Game {
 public:
     // Constructor to create a new Game
-    Game(const std::vector<SharedPlayer> &players);
+    Game(const std::vector<SharedPlayer>& players);
 
     // Constructor to create a loaded Game
-    Game(const std::vector<SharedPlayer> &players, SharedPlayer currentPlayer, std::shared_ptr<GameBoard> board,
-         std::shared_ptr<LinkedList> tileBag);
+    Game(const std::shared_ptr<std::vector<SharedPlayer>> players, SharedPlayer currentPlayer, std::shared_ptr<GameBoard> board,
+        std::shared_ptr<LinkedList> tileBag);
 
     // Destructor
     ~Game();

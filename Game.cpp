@@ -4,7 +4,7 @@
 
 #include <utility>
 #include <iostream>
-
+#include <sstream>
 
 Game::Game(const std::vector<SharedPlayer>& players) {
     this->players = std::make_shared<std::vector<SharedPlayer>>(players);
@@ -15,10 +15,10 @@ Game::Game(const std::vector<SharedPlayer>& players) {
 
 Game::~Game() = default;
 
-Game::Game(const std::vector<SharedPlayer> &players, SharedPlayer currentPlayer, std::shared_ptr<GameBoard> board,
+Game::Game(const std::shared_ptr<std::vector<SharedPlayer>> players, SharedPlayer currentPlayer, std::shared_ptr<GameBoard> board,
     std::shared_ptr<LinkedList> tileBag) {
     // clone given player vector
-    this->players = std::make_shared<std::vector<SharedPlayer>>(players);
+    this->players = players;
     this->currentPlayer = std::move(currentPlayer);
     this->board = std::move(board);
     this->tileBag = std::move(tileBag);
@@ -32,7 +32,6 @@ void Game::initiation() {
 }
 
 void Game::start() {
-
     while (!isFinished()) {
         auto lastPlayer = currentPlayer;
         std::cout << currentPlayer->getName() << ", it's your turn" << std::endl;
@@ -50,9 +49,8 @@ void Game::start() {
             //     std::cout << handTile->getColour() << handTile->getShape()
             //         // if last element, don't put a comma at the end
             //         << (i == hand->size() - 1 ? "" : ",");
-            // }
-            std::cout << hand->toString();
-            std::cout << std::endl;
+            // } 
+            std::cout << hand->toString() << std::endl;
         }
         // While player hasn't finished their turn
         while (lastPlayer == currentPlayer) {
