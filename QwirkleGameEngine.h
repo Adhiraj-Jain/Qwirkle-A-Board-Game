@@ -29,7 +29,7 @@ public:
 
     void credits();
 
-    void quit();
+    static void quit();
 
 private:
     //ADD MODIFICATIONS

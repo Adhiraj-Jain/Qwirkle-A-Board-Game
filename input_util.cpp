@@ -1,4 +1,5 @@
 #include "input_util.h"
+#include "QwirkleGameEngine.h"
 #include <iostream>
 #include <limits>
 
@@ -29,12 +30,19 @@ string input_util::getStringInput(const std::regex &regex, const string &error) 
     while (!valid) {
         std::cout << "> " << std::flush;
         std::getline(std::cin, input);
-        // check if input matches given regex
-        bool found = std::regex_search(input, regex);
-        if (!found) {
-            std::cout << error << std::endl;
-        } else
-            valid = true;
+
+        if (!std::cin.eof()) {
+            // check if input matches given regex
+            bool found = std::regex_search(input, regex);
+            if (!found) {
+                std::cout << error << std::endl;
+            } else
+                valid = true;
+        } else {
+            // if input read is eof, terminate
+            QwirkleGameEngine::quit();
+        }
+
     }
     return input;
 }
