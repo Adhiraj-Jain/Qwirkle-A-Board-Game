@@ -46,7 +46,7 @@ void Player::addTile(SharedTile tile) {
 
 }
 
-bool Player::removeTile(const SharedTile& toRemove) {
+bool Player::removeTile(const SharedTile & toRemove) {
     bool removed = false;
     for (int i = 0; i < hand->size() && !removed; i++) {
         SharedTile tile = hand->getTile(i);
@@ -60,4 +60,8 @@ bool Player::removeTile(const SharedTile& toRemove) {
 
 int Player::getScore() {
     return score;
+}
+
+void Player::addScore(int score) {
+    this->score += score;
 }

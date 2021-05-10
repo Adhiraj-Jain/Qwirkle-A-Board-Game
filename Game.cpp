@@ -6,7 +6,7 @@
 #include <iostream>
 
 
-Game::Game(const std::vector<SharedPlayer> &players) {
+Game::Game(const std::vector<SharedPlayer>& players) {
     this->players = std::make_shared<std::vector<SharedPlayer>>(players);
     this->board = std::make_shared<GameBoard>();
     this->tileBag = std::make_shared<LinkedList>();
@@ -16,7 +16,7 @@ Game::Game(const std::vector<SharedPlayer> &players) {
 Game::~Game() = default;
 
 Game::Game(const std::vector<SharedPlayer> &players, SharedPlayer currentPlayer, std::shared_ptr<GameBoard> board,
-           std::shared_ptr<LinkedList> tileBag) {
+    std::shared_ptr<LinkedList> tileBag) {
     // clone given player vector
     this->players = std::make_shared<std::vector<SharedPlayer>>(players);
     this->currentPlayer = std::move(currentPlayer);
@@ -36,7 +36,7 @@ void Game::start() {
     while (!isFinished()) {
         auto lastPlayer = currentPlayer;
         std::cout << currentPlayer->getName() << ", it's your turn" << std::endl;
-        for (const SharedPlayer &player : *players) {
+        for (const SharedPlayer& player : *players) {
             std::cout << "Score for " + player->getName() << ": " << player->getScore() << std::endl;
         }
         board->displayBoard();
@@ -45,12 +45,13 @@ void Game::start() {
         if (hand->isEmpty())
             std::cout << "<no items>" << std::endl;
         else {
-            for (int i = 0; i < hand->size(); i++) {
-                auto handTile = hand->getTile(i);
-                std::cout << handTile->getColour() << handTile->getShape()
-                          // if last element, don't put a comma at the end
-                          << (i == hand->size() - 1 ? "" : ",");
-            }
+            // for (int i = 0; i < hand->size(); i++) {
+            //     auto handTile = hand->getTile(i);
+            //     std::cout << handTile->getColour() << handTile->getShape()
+            //         // if last element, don't put a comma at the end
+            //         << (i == hand->size() - 1 ? "" : ",");
+            // }
+            std::cout << hand->toString();
             std::cout << std::endl;
         }
         // While player hasn't finished their turn
@@ -65,10 +66,12 @@ void Game::start() {
                 try {
                     FileUtil::saveGame(filename, this);
                     std::cout << "Game saved successfully" << std::endl;
-                } catch (const std::exception &ex) {
+                }
+                catch (const std::exception& ex) {
                     std::cout << "Failed to save: " << ex.what() << std::endl;
                 }
-            } else if (command == "place") {
+            }
+            else if (command == "place") {
                 string tileStr;
                 string pos;
                 args >> tileStr;
@@ -80,17 +83,20 @@ void Game::start() {
                     int points = board->placeTile(playerTile, pos[0], std::stoi(pos.substr(1)));
                     if (points == -1) {
                         std::cout << "Cannot place a tile here" << std::endl;
-                    } else {
+                    }
+                    else {
                         currentPlayer->removeTile(playerTile);
-                        currentPlayer->setScore(currentPlayer->getScore() + points);
+                        currentPlayer->addScore(points);
                         SharedTile next = tileBag->deleteTile(0);
                         if (next != nullptr)
                             currentPlayer->addTile(next);
                         nextPlayerTurn();
                     }
-                } else std::cout << "Tile given isn't in your hand" << std::endl;
+                }
+                else std::cout << "Tile given isn't in your hand" << std::endl;
 
-            } else if (command == "replace") {
+            }
+            else if (command == "replace") {
                 string tileStr;
                 args >> tileStr;
                 SharedTile playerTile = currentPlayer->hasTile(tileStr[0], std::stoi(tileStr.substr(1)));
@@ -101,7 +107,8 @@ void Game::start() {
                     currentPlayer->addTile(newTile);
                     std::cout << "Added " << newTile->toString() << " to your hand" << std::endl;
                     nextPlayerTurn();
-                } else
+                }
+                else
                     std::cout << "Tile given isn't in your hand" << std::endl;
 
             }
@@ -113,7 +120,7 @@ string Game::toString() {
     string results = "";
 
     // Getting a string format of all the players in the game
-    for (const SharedPlayer &player : *players) {
+    for (const SharedPlayer& player : *players) {
         results += player->toString();
     }
 
@@ -126,16 +133,16 @@ string Game::toString() {
 }
 
 std::vector<SharedTile> Game::createTileBag() {
-    Colour colours[] = {RED, ORANGE, YELLOW, GREEN, BLUE, PURPLE};
-    Shape shapes[] = {CIRCLE, STAR_4, DIAMOND, SQUARE, STAR_6, CLOVER};
+    Colour colours[] = { RED, ORANGE, YELLOW, GREEN, BLUE, PURPLE };
+    Shape shapes[] = { CIRCLE, STAR_4, DIAMOND, SQUARE, STAR_6, CLOVER };
 
     std::vector<SharedTile> tileVector;
 
     //First we would have to create the tile bag
-    for (char &colour : colours) {
-        for (int &shape : shapes) {
+    for (char& colour : colours) {
+        for (int& shape : shapes) {
             SharedTile currentTile = std::make_shared<Tile>(colour, shape);
-            SharedTile currentTile2 = std::make_shared<Tile>(colour,shape);
+            SharedTile currentTile2 = std::make_shared<Tile>(colour, shape);
             tileVector.push_back(currentTile);
             tileVector.push_back(currentTile2);
         }
@@ -152,7 +159,7 @@ void Game::shuffleTileBag(std::vector<SharedTile> tileVector) {
     std::shuffle(std::begin(tileVector), std::end(tileVector), std::default_random_engine(seed));
 
     //convert vector into tileBag Linked List
-    for (const auto &tile : tileVector) {
+    for (const auto& tile : tileVector) {
         tileBag->addTile(tile);
     }
 
@@ -160,7 +167,7 @@ void Game::shuffleTileBag(std::vector<SharedTile> tileVector) {
 
 void Game::setUpPlayerHands() {
     //Go through every player
-    for (const SharedPlayer &player : *players) {
+    for (const SharedPlayer& player : *players) {
         //pick out 6 tiles for the player
         for (int tiles = 0; tiles < 6; tiles++) {
             //select the tile
