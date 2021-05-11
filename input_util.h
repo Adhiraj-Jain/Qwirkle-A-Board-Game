@@ -26,6 +26,6 @@ namespace input_util {
      */
     string getStringInput(const std::regex &regex, const string &error = "Invalid input");
 
-    void getline(const std::ios& stream, string& line);
+    void getline(std::basic_istream<char> &stream, string &input);
 }
 #endif //ASSIGN2_INPUT_UTIL_H

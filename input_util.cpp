@@ -47,8 +47,9 @@ string input_util::getStringInput(const std::regex &regex, const string &error) 
     return input;
 }
 
-void input_util::getline(const std::ios &stream, string &input) {
-    std::getline(std::cin, input);
+
+void input_util::getline(std::basic_istream<char> &stream, string &input) {
+    std::getline(stream, input);
     // if on windows, lines might have CR (\r) at the end, so remove if its there...
     if (!input.empty() && input[input.size() - 1] == '\r')
         input.erase(input.size() - 1);

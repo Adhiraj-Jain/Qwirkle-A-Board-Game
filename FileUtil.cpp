@@ -43,7 +43,7 @@ std::shared_ptr<Game> FileUtil::loadGame(string fileName) {
         //Loop till it reaches end of file and loop while the current state of loading the file is a success.
         while (!inputFile.eof() && success && players->size() < 2) {
             //Get a line from text file
-            getline(inputFile, line);
+            input_util::getline(inputFile, line);
             //Check if the name is in ASCII text means contains all letters.
             if (isNameCorrect(line)) {
 
@@ -70,7 +70,7 @@ std::shared_ptr<Game> FileUtil::loadGame(string fileName) {
     }
     // To store all the tiles in the tileBag.
     if (success) {
-        getline(inputFile, line);
+        input_util::getline(inputFile, line);
         //Call to get all current tiles in tileBag and check if it was successfull or not.
         tileBag = giveTilesList(line);
         if (tileBag == nullptr)
@@ -79,7 +79,7 @@ std::shared_ptr<Game> FileUtil::loadGame(string fileName) {
 
     //To get the current player
     if (success) {
-        getline(inputFile, line);
+        input_util::getline(inputFile, line);
         if (isNameCorrect(line))
             for (SharedPlayer player : *players) {
                 if (player->getName() == line) {
@@ -111,7 +111,7 @@ bool FileUtil::getPlayerData(SharedPlayer player, std::fstream& inputFile) {
     bool isCorrect = true;
     //Loop till eof or the input state is true
 
-    getline(inputFile, line);
+    input_util::getline(inputFile, line);
     //Try converting score in string format to integer format and catch if it throws any exception
     try {
         //Set the score
@@ -123,7 +123,7 @@ bool FileUtil::getPlayerData(SharedPlayer player, std::fstream& inputFile) {
     }
     //Proceed further only when earlier input was correct.
     if (isCorrect) {
-        getline(inputFile, line);
+        input_util::getline(inputFile, line);
         //Get hand of tiles of the player and check if it was a success or not.
         player->setHand(giveTilesList(line));
         if (player->getHand() == nullptr) {
@@ -181,7 +181,7 @@ bool FileUtil::isTileCorrect(string tile) {
 
 
 // TODO replace with regex
-bool FileUtil::isNameCorrect(string name) {
+bool FileUtil::isNameCorrect(const string& name) {
     std::regex regex = std::regex("[a-zA-Z]");
     bool isCorrect = std::regex_search(name, regex);
     //Return
@@ -192,9 +192,6 @@ std::shared_ptr<GameBoard> FileUtil::getBoard(std::fstream& inputFile) {
     bool success = true;
     string line = "";
     input_util::getline(inputFile, line);
-    // if on windows, lines might have CR (\r) at the end, so remove if its there...
-    if (!line.empty() && line[line.size() - 1] == '\r')
-        line.erase(line.size() - 1);
     //Integer array to store dimensions of the game board.
     int boardSize[2];
     //Loop over the line got through input stream.
@@ -218,7 +215,7 @@ std::shared_ptr<GameBoard> FileUtil::getBoard(std::fstream& inputFile) {
         gameBoard = std::make_shared<GameBoard>(boardSize[0], boardSize[1]);
 
         // Take input for the current state of the board i.e., currently placed tiles on the board.
-        getline(inputFile, line);
+        input_util::getline(inputFile, line);
         //A Const to check to for the size of each placetile
         const int size = 5;
         std::string placetile = "";

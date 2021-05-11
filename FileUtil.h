@@ -35,7 +35,7 @@ private:
     static bool isTileCorrect(string tile);
 
     //Method to check if the player name passed as param is in correct format or not.
-    static bool isNameCorrect(string name);
+    static bool isNameCorrect(const string& name);
 
     // Method to get all the data of the Game board including board size and the current state.
     static std::shared_ptr<GameBoard> getBoard(std::fstream& inputFile);
