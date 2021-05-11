@@ -1,9 +1,5 @@
-
-#ifndef ASSIGN1_TILECODES_H
-#define ASSIGN1_TILECODES_H
-
-
-
+#ifndef ASSIGN2_TILECODES_H
+#define ASSIGN2_TILECODES_H
 
 // Colours
 
@@ -29,4 +25,4 @@
 // Assumes a board of 26x26
 #define COMMAND_REGEX "^(save .+|place [ROYGBP][1-6] at [A-Z](2[0-5]|[0-9]|1[0-9])|replace [ROYGBP][1-6])$"
 
-#endif // ASSIGN1_TILECODES_H
+#endif // ASSIGN2_TILECODES_H

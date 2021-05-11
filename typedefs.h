@@ -1,7 +1,3 @@
-//
-// Created by ryan9 on 9/05/2021.
-//
-
 #ifndef ASSIGN2_TYPEDEFS_H
 #define ASSIGN2_TYPEDEFS_H
 
