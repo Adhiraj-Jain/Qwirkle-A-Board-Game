@@ -25,5 +25,7 @@ namespace input_util {
      * @return string input which matches regex
      */
     string getStringInput(const std::regex &regex, const string &error = "Invalid input");
+
+    void getline(const std::ios& stream, string& line);
 }
 #endif //ASSIGN2_INPUT_UTIL_H

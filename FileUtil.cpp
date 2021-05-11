@@ -1,4 +1,5 @@
 #include "FileUtil.h"
+#include "input_util.h"
 
 void FileUtil::saveGame(string fileName, Game* game) {
 
@@ -190,7 +191,10 @@ bool FileUtil::isNameCorrect(string name) {
 std::shared_ptr<GameBoard> FileUtil::getBoard(std::fstream& inputFile) {
     bool success = true;
     string line = "";
-    getline(inputFile, line);
+    input_util::getline(inputFile, line);
+    // if on windows, lines might have CR (\r) at the end, so remove if its there...
+    if (!line.empty() && line[line.size() - 1] == '\r')
+        line.erase(line.size() - 1);
     //Integer array to store dimensions of the game board.
     int boardSize[2];
     //Loop over the line got through input stream.

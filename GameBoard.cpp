@@ -119,7 +119,7 @@ int GameBoard::calculateScore(int row, int col) {
     std::shared_ptr<std::vector<std::shared_ptr<std::vector<SharedTile>>>> allTilesIn4Direction = this->getAllTilesIn2Direction(row, col);
 
     // Iterates over the 4 directions (left, right, up, down)
-    for (const auto tilesIn1Direction : *allTilesIn4Direction) {
+    for (auto tilesIn1Direction : *allTilesIn4Direction) {
         unsigned int size = tilesIn1Direction->size();
 
         // If there is a tile in a direction then increase score by the size

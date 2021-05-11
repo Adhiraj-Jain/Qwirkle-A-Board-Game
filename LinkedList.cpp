@@ -1,4 +1,5 @@
 
+#include <iostream>
 #include "LinkedList.h"
 
 LinkedList::LinkedList() {
@@ -22,12 +23,13 @@ SharedTile LinkedList::getTile(int index) {
     // Check for linkedlist and if index is within range or not.
     if (!this->isEmpty() && index >= 0 && index < this->size()) {
         std::shared_ptr<Node> curr = head;
-        while (index > 0) {
+        while (index > 1) {
             curr = curr->next;
             index--;
         }
         tile = curr->tile;
     }
+
     return tile;
 }
 

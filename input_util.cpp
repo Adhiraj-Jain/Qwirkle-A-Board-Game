@@ -25,29 +25,31 @@ int input_util::getOptionUserInput(int max) {
     return input;
 }
 
-string input_util::getStringInput(const std::regex& regex, const string& error) {
+string input_util::getStringInput(const std::regex &regex, const string &error) {
     string input;
     bool valid = false;
     while (!valid) {
         std::cout << "> " << std::flush;
-        getline(std::cin, input);
-        // if on windows, lines might have CR (\r) at the end, so remove if its there...
-        if (!input.empty() && input[input.size() - 1] == '\r')
-            input.erase(input.size() - 1);
+        input_util::getline(std::cin, input);
         if (!std::cin.eof()) {
             // check if input matches given regex
             bool found = std::regex_search(input, regex);
             if (!found) {
                 std::cout << error << std::endl;
-            }
-            else
+            } else
                 valid = true;
-        }
-        else {
+        } else {
             // if input read is eof, terminate
             QwirkleGameEngine::quit();
         }
 
     }
     return input;
+}
+
+void input_util::getline(const std::ios &stream, string &input) {
+    std::getline(std::cin, input);
+    // if on windows, lines might have CR (\r) at the end, so remove if its there...
+    if (!input.empty() && input[input.size() - 1] == '\r')
+        input.erase(input.size() - 1);
 }
