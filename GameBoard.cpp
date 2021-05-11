@@ -88,7 +88,7 @@ int GameBoard::placeTile(const SharedTile & tile, char rowChar, int col) {
     return score;
 }
 
-bool GameBoard::isValidTileToPlace(const SharedTile& tile, char row, int col) {
+bool GameBoard::isValidTileToPlace(const SharedTile& tile, int row, int col) {
     bool valid = true;
     std::shared_ptr<std::vector<std::shared_ptr<std::vector<SharedTile>>>> allTilesIn2Direction = this->getAllTilesIn2Direction(row, col);
 

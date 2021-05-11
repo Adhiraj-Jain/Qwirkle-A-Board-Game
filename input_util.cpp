@@ -30,8 +30,10 @@ string input_util::getStringInput(const std::regex& regex, const string& error) 
     bool valid = false;
     while (!valid) {
         std::cout << "> " << std::flush;
-        std::getline(std::cin, input);
-
+        getline(std::cin, input);
+        // if on windows, lines might have CR (\r) at the end, so remove if its there...
+        if (!input.empty() && input[input.size() - 1] == '\r')
+            input.erase(input.size() - 1);
         if (!std::cin.eof()) {
             // check if input matches given regex
             bool found = std::regex_search(input, regex);
