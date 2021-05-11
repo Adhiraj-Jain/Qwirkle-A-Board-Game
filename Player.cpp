@@ -20,7 +20,7 @@ std::shared_ptr<LinkedList> Player::getHand() {
 }
 
 SharedTile Player::hasTile(Colour color, Shape shape) {
-    SharedTile tile = std::make_shared<Tile>(color, shape);
+    Tile tile(color, shape);
     return hand->getTile(tile);
 }
 

@@ -64,7 +64,7 @@ private:
 
     // Validates if the tile at the given index if a legal placement
     // Returns true if legal, false if illegal
-    bool isValidTileToPlace(SharedTile tile, char row, int col);
+    bool isValidTileToPlace(const SharedTile& tile, char row, int col);
 
     // This method collects all the Tiles from all four directions of the given index
     // i.e. it returns all the Tiles in (left and right combined, up and down combined) of the given row and col

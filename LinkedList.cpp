@@ -31,24 +31,17 @@ SharedTile LinkedList::getTile(int index) {
     return tile;
 }
 
-SharedTile LinkedList::getTile(SharedTile seachTile) {
+SharedTile LinkedList::getTile(const Tile &searchTile) {
     // Check for linkedlist and if index is within range or not.
-
-    bool isFound = false;
-    if (this->isEmpty()) {
-        seachTile = nullptr;
-    }
+    SharedTile tile = nullptr;
     std::shared_ptr<Node> curr = head;
-    while (curr != nullptr && !isFound) {
-        if (curr->tile->isEqual(seachTile)) {
-            isFound = true;
+    while (tile == nullptr && curr != nullptr) {
+        if (curr->tile->isEqual(searchTile)) {
+            tile = curr->tile;
         }
         curr = curr->next;
     }
-    if (!isFound) {
-        seachTile = nullptr;
-    }
-    return seachTile;
+    return tile;
 }
 
 // This method will always add Tile at the back of the LinkedList.
@@ -57,8 +50,7 @@ void LinkedList::addTile(SharedTile tile) {
         std::shared_ptr<Node> newNode = std::make_shared<Node>(tile, nullptr);
         if (this->isEmpty()) {
             this->head = newNode;
-        }
-        else {
+        } else {
             this->tail->next = newNode;
         }
         this->tail = newNode;
@@ -87,8 +79,7 @@ SharedTile LinkedList::deleteTile(int index) {
         if (prev == nullptr) {
             tile = head->tile;
             this->head = this->head->next;
-        }
-        else {
+        } else {
             tile = curr->tile;
             curr = curr->next;
             prev->next = curr;
