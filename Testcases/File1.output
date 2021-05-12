@@ -1,0 +1,46 @@
+Welcome to Qwirkle
+------------------
+
+
+Menu
+----
+1. New Game
+2. Load Game
+3. Credits
+4. Quit
+
+> 2
+Enter file path:
+> Testcases/saveFile1.txt
+Invalid Game
+Menu
+----
+1. New Game
+2. Load Game
+3. Credits
+4. Quit
+
+> place Y5 at B1
+Given input is not a number
+> place O6 at C4
+Given input is not a number
+> place Y3 at A2
+Given input is not a number
+> place O6 at C4
+Given input is not a number
+> place R5 at C1
+Given input is not a number
+> place B2 at E5
+Given input is not a number
+> place P6 at E1
+Given input is not a number
+> place B1 at F2
+Given input is not a number
+> place R2 at A2
+Given input is not a number
+> place G3 at F1
+Given input is not a number
+> place Y4 at E3
+Given input is not a number
+> place O2 at F3
+Goodbye
