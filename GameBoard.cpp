@@ -88,7 +88,7 @@ int GameBoard::placeTile(const SharedTile & tile, char rowChar, int col) {
     return score;
 }
 
-bool GameBoard::isValidTileToPlace(const SharedTile& tile, int row, int col) {
+bool GameBoard::isValidTileToPlace(const SharedTile & tile, int row, int col) {
     bool valid = true;
     std::shared_ptr<std::vector<std::shared_ptr<std::vector<SharedTile>>>> allTilesIn2Direction = this->getAllTilesIn2Direction(row, col);
 
@@ -163,7 +163,7 @@ std::shared_ptr<std::vector<std::shared_ptr<std::vector<SharedTile>>>> GameBoard
 std::shared_ptr<std::vector<SharedTile>> GameBoard::addTwoVectors(std::shared_ptr<std::vector<SharedTile>> vector1, std::shared_ptr<std::vector<SharedTile>> vector2) {
 
     // Loops and adds all the elements from vector1 into vector2
-    for (const auto element : *vector1) {
+    for (auto element : *vector1) {
         vector2->push_back(element);
     }
     return vector2;

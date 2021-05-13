@@ -33,7 +33,7 @@ SharedTile LinkedList::getTile(int index) {
     return tile;
 }
 
-SharedTile LinkedList::getTile(const Tile &searchTile) {
+SharedTile LinkedList::getTile(const Tile & searchTile) {
     // Check for linkedlist and if index is within range or not.
     SharedTile tile = nullptr;
     std::shared_ptr<Node> curr = head;
@@ -50,13 +50,15 @@ SharedTile LinkedList::getTile(const Tile &searchTile) {
 void LinkedList::addTile(SharedTile tile) {
     if (tile != nullptr) {
         std::shared_ptr<Node> newNode = std::make_shared<Node>(tile, nullptr);
-        if (this->isEmpty()) {
+        if (this->head == nullptr) {
             this->head = newNode;
-        } else {
-            this->tail->next = newNode;
+            this->tail = newNode;
         }
-        this->tail = newNode;
-        this->length++;
+        else {
+            this->tail->next = newNode;
+            this->tail = this->tail->next;
+        }
+        ++this->length;
     }
 }
 
@@ -81,7 +83,8 @@ SharedTile LinkedList::deleteTile(int index) {
         if (prev == nullptr) {
             tile = head->tile;
             this->head = this->head->next;
-        } else {
+        }
+        else {
             tile = curr->tile;
             curr = curr->next;
             prev->next = curr;
@@ -94,16 +97,23 @@ SharedTile LinkedList::deleteTile(int index) {
 
 string LinkedList::toString() {
     string result = "";
-
+    int index = 0;
     // Get and converts each tile in the list to a string
-    for (int index = 0; index < this->length; index++) {
-        result = result + this->getTile(index)->toString();
-
-        // Does not produce a comma after the last tile
+    std::shared_ptr<Node> curr = head;
+    while (curr != nullptr) {
+        result = result + curr->tile->toString();
         if (index + 1 != this->length) {
             result = result + ",";
         }
+        index++;
+        curr = curr->next;
     }
+    // for (; index < this->length; ) {
+    //     result = result + this->getTile(index)->toString();
+
+    //     // Does not produce a comma after the last tile
+
+    // }
 
     return result + "\n";
 }

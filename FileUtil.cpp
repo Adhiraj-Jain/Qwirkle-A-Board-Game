@@ -73,21 +73,24 @@ std::shared_ptr<Game> FileUtil::loadGame(string fileName) {
         input_util::getline(inputFile, line);
         //Call to get all current tiles in tileBag and check if it was successfull or not.
         tileBag = giveTilesList(line);
-        if (tileBag == nullptr)
+        if (tileBag == nullptr) {
             success = false;
+        }
     }
 
     //To get the current player
     if (success) {
         input_util::getline(inputFile, line);
-        if (isNameCorrect(line))
+        if (isNameCorrect(line)) {
             for (SharedPlayer player : *players) {
                 if (player->getName() == line) {
                     currPlayer = player;
                 }
             }
-        else
+        }
+        else {
             success = false;
+        }
     }
 
     //Close the file.
@@ -149,10 +152,11 @@ std::shared_ptr<LinkedList> FileUtil::giveTilesList(string tileList) {
             //Call to check if the current tile is in correct format or not.
             if (!isTileCorrect(tile))
                 tileLL = nullptr;
-            else
+            else {
                 //If the tile is in correct format then store it in the tileLL
                 tileLL->addTile(std::make_shared<Tile>((char)tile[0], ((int)tile[1] - 48)));
-            //Clear the current tile.
+                //Clear the current tile.
+            }
             tile = "";
         }
     }
@@ -200,7 +204,7 @@ std::shared_ptr<GameBoard> FileUtil::getBoard(std::fstream& inputFile) {
             //Store the dimension into integer array
             boardSize[j] = ((int)line[i] - 48);
             // Check if the dimension falls within the correct range or not.
-            if (1 > boardSize[j] || boardSize[j] > 26)
+            if (0 > boardSize[j] || boardSize[j] > 26)
                 //If falls outside the range.
                 success = false;
             else
@@ -221,34 +225,37 @@ std::shared_ptr<GameBoard> FileUtil::getBoard(std::fstream& inputFile) {
         std::string placetile = "";
         line += ",";
         //Loop till end of line or the input format till that point is correct.
-        for (unsigned int index = 0; index < line.size() && gameBoard != nullptr; index++) {
-            //Check for comma and a white space.
-            if (line[index] != ',' && line[index] != ' ') {
-                placetile += line[index];
-            }
-            //Check if it is a comma means end of string of one placed tile data and the length of tile is 5 eg. Y5@A1
-            else if (line[index] == ',' && placetile.size() == size) {
-                //if the tile input is completed.
-                //Create a new tile.
-                string stile = "";
-                stile.append(1, (char)placetile[0]);
-                stile.append(1, (char)placetile[1]);
-                if (isTileCorrect(stile)) {
-                    SharedTile tile = std::make_shared<Tile>((char)placetile[0], ((int)placetile[1] - 48));
-                    //Place the tile in the game board with the given row and col.
-                    if (gameBoard->placeTile(tile, (char)placetile[3], ((int)placetile[4] - 48)) == -1) {
-                        gameBoard = nullptr;
-                    }
-
-                    //Clear the data for next tile.
-                    placetile = "";
+        if (line.size() > 1 && line != "\n") {
+            for (unsigned int index = 0; index < line.size() && gameBoard != nullptr; index++) {
+                //Check for comma and a white space.
+                if (line[index] != ',' && line[index] != ' ') {
+                    placetile += line[index];
                 }
-                else
+                //Check if it is a comma means end of string of one placed tile data and the length of tile is 5 eg. Y5@A1
+                else if (line[index] == ',' && placetile.size() == size) {
+                    //if the tile input is completed.
+                    //Create a new tile.
+                    string stile = "";
+                    stile.append(1, (char)placetile[0]);
+                    stile.append(1, (char)placetile[1]);
+                    if (isTileCorrect(stile)) {
+                        SharedTile tile = std::make_shared<Tile>((char)placetile[0], ((int)placetile[1] - 48));
+                        //Place the tile in the game board with the given row and col.
+                        if (gameBoard->placeTile(tile, (char)placetile[3], ((int)placetile[4] - 48)) == -1) {
+                            gameBoard = nullptr;
+                        }
+
+                        //Clear the data for next tile.
+                        placetile = "";
+                    }
+                    else
+                        gameBoard = nullptr;
+                }
+                //If it was a comma but the length of tile was not in format.
+                else if (line[index] == ',' && placetile.size() != size) {
                     gameBoard = nullptr;
+                }
             }
-            //If it was a comma but the length of tile was not in format.
-            else if (line[index] == ',' && placetile.size() != size)
-                gameBoard = nullptr;
         }
     }
     return gameBoard;
