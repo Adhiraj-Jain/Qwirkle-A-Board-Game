@@ -57,42 +57,40 @@ std::shared_ptr<Game> FileUtil::loadGame(string fileName) {
                 //If the name is not in ASCII text.
                 success = false;
         }
-    }
-
-    //To get the Game Board data.
-    //Only proceeds further if the previous data input was correct
-    if (success) {
-        //Call to get the board size and its current state and check if it was successfull or not
-        gameBoard = getBoard(inputFile);
-        if (gameBoard == nullptr) {
-            success = false;
-        }
-    }
-    // To store all the tiles in the tileBag.
-    if (success) {
-        input_util::getline(inputFile, line);
-        //Call to get all current tiles in tileBag and check if it was successfull or not.
-        tileBag = giveTilesList(line);
-        if (tileBag == nullptr) {
-            success = false;
-        }
-    }
-
-    //To get the current player
-    if (success) {
-        input_util::getline(inputFile, line);
-        if (isNameCorrect(line)) {
-            for (SharedPlayer player : *players) {
-                if (player->getName() == line) {
-                    currPlayer = player;
-                }
+        //To get the Game Board data.
+        //Only proceeds further if the previous data input was correct
+        if (success) {
+            //Call to get the board size and its current state and check if it was successfull or not
+            gameBoard = getBoard(inputFile);
+            if (gameBoard == nullptr) {
+                success = false;
             }
         }
-        else {
-            success = false;
+        // To store all the tiles in the tileBag.
+        if (success) {
+            input_util::getline(inputFile, line);
+            //Call to get all current tiles in tileBag and check if it was successfull or not.
+            tileBag = giveTilesList(line);
+            if (tileBag == nullptr) {
+                success = false;
+            }
+        }
+
+        //To get the current player
+        if (success) {
+            input_util::getline(inputFile, line);
+            if (isNameCorrect(line)) {
+                for (SharedPlayer player : *players) {
+                    if (player->getName() == line) {
+                        currPlayer = player;
+                    }
+                }
+            }
+            else {
+                success = false;
+            }
         }
     }
-
     //Close the file.
     inputFile.close();
 
@@ -193,27 +191,34 @@ bool FileUtil::isNameCorrect(const string& name) {
 }
 
 std::shared_ptr<GameBoard> FileUtil::getBoard(std::fstream& inputFile) {
+    //If earlier input was a success
+    std::shared_ptr<GameBoard> gameBoard;
     bool success = true;
     string line = "";
     input_util::getline(inputFile, line);
     //Integer array to store dimensions of the game board.
     int boardSize[2];
     //Loop over the line got through input stream.
+    line += ",";
+    string dim = "";
     for (unsigned int i = 0, j = 0; i < line.size() && success; i++) {
+
         if (line[i] != ',') {
+            dim += line[i];
+        }
+        else {
             //Store the dimension into integer array
-            boardSize[j] = ((int)line[i] - 48);
+            boardSize[j] = std::stoi(dim);
             // Check if the dimension falls within the correct range or not.
             if (0 > boardSize[j] || boardSize[j] > 26)
                 //If falls outside the range.
                 success = false;
             else
                 j++;
+            dim = "";
         }
     }
 
-    //If earlier input was a success
-    std::shared_ptr<GameBoard> gameBoard;
     if (success) {
         //initialising a new game board object.
         gameBoard = std::make_shared<GameBoard>(boardSize[0], boardSize[1]);
@@ -221,7 +226,8 @@ std::shared_ptr<GameBoard> FileUtil::getBoard(std::fstream& inputFile) {
         // Take input for the current state of the board i.e., currently placed tiles on the board.
         input_util::getline(inputFile, line);
         //A Const to check to for the size of each placetile
-        const int size = 5;
+        const int maxsize = 6;
+        const int minsize = 5;
         std::string placetile = "";
         line += ",";
         //Loop till end of line or the input format till that point is correct.
@@ -232,7 +238,7 @@ std::shared_ptr<GameBoard> FileUtil::getBoard(std::fstream& inputFile) {
                     placetile += line[index];
                 }
                 //Check if it is a comma means end of string of one placed tile data and the length of tile is 5 eg. Y5@A1
-                else if (line[index] == ',' && placetile.size() == size) {
+                else if ((line[index] == ',') && placetile.size() >= minsize && placetile.size() <= maxsize) {
                     //if the tile input is completed.
                     //Create a new tile.
                     string stile = "";
@@ -241,18 +247,29 @@ std::shared_ptr<GameBoard> FileUtil::getBoard(std::fstream& inputFile) {
                     if (isTileCorrect(stile)) {
                         SharedTile tile = std::make_shared<Tile>((char)placetile[0], ((int)placetile[1] - 48));
                         //Place the tile in the game board with the given row and col.
-                        if (gameBoard->placeTile(tile, (char)placetile[3], ((int)placetile[4] - 48)) == -1) {
+                        int col;
+                        if (placetile.size() == minsize) {
+                            col = ((int)placetile[4] - 48);
+                        }
+                        else {
+                            string strcol = "";
+                            strcol += placetile[4];
+                            strcol += placetile[5];
+                            col = std::stoi(strcol);
+                        }
+                        if (gameBoard->placeTile(tile, (char)placetile[3], col) == -1) {
                             gameBoard = nullptr;
                         }
 
                         //Clear the data for next tile.
                         placetile = "";
                     }
-                    else
+                    else {
                         gameBoard = nullptr;
+                    }
                 }
                 //If it was a comma but the length of tile was not in format.
-                else if (line[index] == ',' && placetile.size() != size) {
+                else if (line[index] == ',') {
                     gameBoard = nullptr;
                 }
             }
