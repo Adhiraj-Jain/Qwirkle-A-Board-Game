@@ -1,11 +1,11 @@
 2
-saveFile2.txt
-place G4 at A2
-place Y1 at B1
-place R4 at A1
-place B5 at C2
-place O2 at B3
-place O5 at C1
-place P4 at B2
-place R1 at A3
-place Y4 at C3
+Testcases/saveFile2.save
+place R3 at Y6
+place P2 at Z2
+place P1 at W15
+place R4 at Z25
+place P5 at J11
+place R1 at V24
+place Y6 at Y6
+place Y6 at Y20
+save Testcases/saveFile2.expsave
