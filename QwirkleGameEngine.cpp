@@ -21,7 +21,7 @@ void QwirkleGameEngine::start() {
             credits();
         else if (selection == QUIT)
             quit();
-    } while (selection != CREDITS && selection != QUIT);
+    } while (selection != QUIT);
 }
 
 int QwirkleGameEngine::mainMenu() {
