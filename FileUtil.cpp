@@ -90,6 +90,8 @@ std::shared_ptr<Game> FileUtil::loadGame(string fileName) {
                 success = false;
             }
         }
+    } else {
+        success = false;
     }
     //Close the file.
     inputFile.close();
