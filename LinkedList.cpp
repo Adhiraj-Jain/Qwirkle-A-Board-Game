@@ -56,7 +56,7 @@ void LinkedList::addTile(SharedTile tile) {
         }
         else {
             this->tail->next = newNode;
-            this->tail = this->tail->next;
+            this->tail = newNode;
         }
         ++this->length;
     }
@@ -83,6 +83,11 @@ SharedTile LinkedList::deleteTile(const SharedTile & toRemove) {
                 else {
                     head = curr->next;
                 }
+
+                if (toRemove->isEqual(*tail->tile)) {
+                    this->tail = prev;
+                }
+
                 tile = curr->tile;
                 length--;
             }
@@ -91,25 +96,21 @@ SharedTile LinkedList::deleteTile(const SharedTile & toRemove) {
             curr = curr->next;
         }
     }
-
     return tile;
 }
 
 string LinkedList::toString() {
     string result = "";
-    int index = 0;
 
     // Get and converts each tile in the list to a string
     std::shared_ptr<Node> curr = head;
     while (curr != nullptr) {
-        result = result + curr->tile->toString();
+        result += curr->tile->toString();
 
         // Does not produce a comma after the last tile
-        if (index + 1 != this->length) {
-            result = result + ",";
+        if (curr->next != nullptr) {
+            result += ",";
         }
-
-        index++;
         curr = curr->next;
     }
 

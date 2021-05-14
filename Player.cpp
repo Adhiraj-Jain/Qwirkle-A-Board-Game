@@ -41,7 +41,6 @@ SharedTile Player::getTile(string tile) {
 
 void Player::addTile(SharedTile tile) {
     hand->addTile(std::move(tile));
-
 }
 
 bool Player::removeTile(const SharedTile & toRemove) {

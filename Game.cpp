@@ -144,7 +144,7 @@ SharedPlayer Game::nextPlayerTurn() {
     return newCurrentPlayer;
 }
 
-void Game::replaceCommand(std::stringstream &args) {
+void Game::replaceCommand(std::stringstream & args) {
     string tileStr;
     args >> tileStr;
     SharedTile playerTile = currentPlayer->hasTile(tileStr[0], std::stoi(tileStr.substr(1)));
@@ -160,7 +160,7 @@ void Game::replaceCommand(std::stringstream &args) {
         std::cout << "Tile given isn't in your hand" << std::endl;
 }
 
-void Game::placeCommand(std::stringstream &args) {
+void Game::placeCommand(std::stringstream & args) {
     string tileStr;
     string pos;
     args >> tileStr;
@@ -174,7 +174,8 @@ void Game::placeCommand(std::stringstream &args) {
             std::cout << "Cannot place a tile here" << std::endl;
         }
         else {
-            if(points>=12) {
+            currentPlayer->removeTile(playerTile);
+            if (points >= 12) {
                 std::cout << "QWIRKLE!" << std::endl;
             }
             currentPlayer->removeTile(playerTile);
@@ -188,7 +189,7 @@ void Game::placeCommand(std::stringstream &args) {
     else std::cout << "Tile given isn't in your hand" << std::endl;
 }
 
-void Game::saveCommand(std::stringstream &args) {
+void Game::saveCommand(std::stringstream & args) {
     string filename;
     args >> filename;
     try {
