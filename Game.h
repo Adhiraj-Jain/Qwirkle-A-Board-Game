@@ -80,6 +80,10 @@ private:
     void placeCommand(std::stringstream &args);
 
     void replaceCommand(std::stringstream &args);
+
+    void printPlayerScores();
+
+    void printWinningPlayer();
 };
 
 #endif // ASSIGN2_GAME_H

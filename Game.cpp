@@ -1,6 +1,7 @@
 #include "Game.h"
 #include "input_util.h"
 #include "FileUtil.h"
+#include "QwirkleGameEngine.h"
 
 #include <utility>
 #include <iostream>
@@ -34,9 +35,7 @@ void Game::start() {
     while (!isFinished()) {
         auto lastPlayer = currentPlayer;
         std::cout << std::endl << currentPlayer->getName() << ", it's your turn" << std::endl;
-        for (const SharedPlayer& player : *players) {
-            std::cout << "Score for " + player->getName() << ": " << player->getScore() << std::endl;
-        }
+        printPlayerScores();
         board->displayBoard();
         std::cout << "Your hand is" << std::endl;
         auto hand = currentPlayer->getHand();
@@ -62,6 +61,44 @@ void Game::start() {
                 replaceCommand(args);
             }
         }
+    }
+    std::cout << "Game over" << std::endl;
+    printPlayerScores();
+    printWinningPlayer();
+    std::cout << std::endl;
+    QwirkleGameEngine::quit();
+
+}
+
+void Game::printWinningPlayer() {
+    SharedPlayer maxPlayer= nullptr;
+    for(SharedPlayer& player : *players){
+        if(maxPlayer== nullptr||player->getScore()>maxPlayer->getScore())
+            maxPlayer=player;
+    }
+    std::vector<SharedPlayer> tiedPlayers;
+    for(SharedPlayer& player : *players){
+        if(player->getScore()==maxPlayer->getScore()&&player!=maxPlayer)
+            tiedPlayers.push_back(player);
+    }
+    if(tiedPlayers.empty()) {
+        std::cout << "Player " << maxPlayer->getName() << " won!" << std::endl;
+    }
+    else {
+        std::cout << "Players ";
+        for(unsigned int i=0;i<tiedPlayers.size();i++){
+            SharedPlayer tiedPlayer = tiedPlayers.at(i);
+            std::cout << tiedPlayer->getName();
+            if(i!=tiedPlayers.size()-1)
+                std::cout << ", ";
+        }
+        std::cout << " tied with a score of "<<maxPlayer->getScore()<<"!" << std::endl;
+    }
+}
+
+void Game::printPlayerScores() {
+    for (const SharedPlayer& player : *players) {
+        std::cout << "Score for " + player->getName() << ": " << player->getScore() << std::endl;
     }
 }
 
@@ -128,7 +165,16 @@ void Game::setUpPlayerHands() {
 }
 
 bool Game::isFinished() {
-    return false;
+    // if tilebag is empty and at least one player has no tiles left.
+    bool isAnyPlayerHandEmpty=false;
+    for (SharedPlayer& player : *players){
+        if(player->getHand()->isEmpty())
+            isAnyPlayerHandEmpty=true;
+    }
+    bool ret=false;
+    if(tileBag->isEmpty()&&isAnyPlayerHandEmpty)
+        ret=true;
+    return ret;
 }
 
 
