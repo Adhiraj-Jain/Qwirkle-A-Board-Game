@@ -33,7 +33,7 @@ public:
     SharedTile getTile(int row, int col);
 
     // Getter methods
-    std::shared_ptr<std::vector<std::shared_ptr<std::vector<SharedTile>>>> getBoard();
+    SharedVector<SharedVector<SharedTile>> getBoard();
     int getCurrentHeight();
     int getCurrentWidth();
 
@@ -46,12 +46,12 @@ public:
 private:
 
     // Class variables
-    std::shared_ptr<std::vector<std::shared_ptr<std::vector<SharedTile>>>> board;
+    SharedVector<SharedVector<SharedTile>> board;
     int currentHeight;
     int currentWidth;
 
     // Returns a vector of strings of format <tile color><tile shape>@<row index><col index>
-    std::shared_ptr<std::vector<string>> allTilesWithPos();
+    SharedVector<string> allTilesWithPos();
 
     // Returns an integer from 0-25 for characters A-Z
     int mapCharToRow(char target);
@@ -68,14 +68,14 @@ private:
 
     // This method collects all the Tiles from all four directions of the given index
     // i.e. it returns all the Tiles in (left and right combined, up and down combined) of the given row and col
-    std::shared_ptr<std::vector<std::shared_ptr<std::vector<SharedTile>>>> getAllTilesIn2Direction(int row, int col);
+    SharedVector<SharedVector<SharedTile>> getAllTilesIn2Direction(int row, int col);
 
     // This method collects all the Tiles from one direction of the given index
     // The changeInRow and ChangeInCol specifies the direction
-    std::shared_ptr<std::vector<SharedTile>> getAllTilesIn1Direction(int row, int col, int changeInRow, int changeInCol);
+    SharedVector<SharedTile> getAllTilesIn1Direction(int row, int col, int changeInRow, int changeInCol);
 
     // Appends vector1 at the back of vector2
-    std::shared_ptr<std::vector<SharedTile>> addTwoVectors(std::shared_ptr<std::vector<SharedTile>> vector1, std::shared_ptr<std::vector<SharedTile>> vector2);
+    std::shared_ptr<std::vector<SharedTile>> addTwoVectors(SharedVector<SharedTile> vector1, SharedVector<SharedTile> vector2);
 
     // Returns true if there is a tile in the board
     // Returns false if there is no tile in the board

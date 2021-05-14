@@ -13,8 +13,7 @@ public:
     // Constructor
     Tile(Colour colour, Shape shape);
 
-    //Checks if two tiles are equal
-    bool isEqual(const SharedTile& tile);
+    bool isEqual(const Tile &tile);
 
     // Getter methods
     Colour getColour();
@@ -29,6 +28,8 @@ private:
     // Class variables
     Colour colour;
     Shape shape;
+
+
 };
 
 #endif // ASSIGN2_TILE_H

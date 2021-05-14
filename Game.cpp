@@ -15,7 +15,7 @@ Game::Game(const std::vector<SharedPlayer>& players) {
 
 Game::~Game() = default;
 
-Game::Game(const std::shared_ptr<std::vector<SharedPlayer>> players, SharedPlayer currentPlayer, std::shared_ptr<GameBoard> board,
+Game::Game(const SharedVector<SharedPlayer> players, SharedPlayer currentPlayer, std::shared_ptr<GameBoard> board,
     std::shared_ptr<LinkedList> tileBag) {
     // clone given player vector
     this->players = players;
@@ -212,6 +212,6 @@ std::shared_ptr<LinkedList> Game::getTileBag() {
     return tileBag;
 }
 
-std::shared_ptr<std::vector<SharedPlayer>> Game::getPlayers() {
+SharedVector<SharedPlayer> Game::getPlayers() {
     return players;
 }
