@@ -90,6 +90,7 @@ int GameBoard::placeTile(const SharedTile & tile, char rowChar, int col) {
 
 bool GameBoard::isValidTileToPlace(const SharedTile & tile, int row, int col) {
     bool valid = true;
+    bool neighbourningTile = false;
     std::shared_ptr<std::vector<std::shared_ptr<std::vector<SharedTile>>>> allTilesIn2Direction = this->getAllTilesIn2Direction(row, col);
 
     // Iterates of all of the directions (left-right and up-down) and until the tile is valid to place
@@ -98,6 +99,15 @@ bool GameBoard::isValidTileToPlace(const SharedTile & tile, int row, int col) {
 
         // Checks the placed tile does not add to the Qwirkle
         if (tilesIn1Direction->size() < QWIRKLE_LENGTH) {
+
+            if (tilesIn1Direction->size() <= 0 && isThereAnyTilePlaced() && !neighbourningTile) {
+                neighbourningTile = false;
+            }
+            else {
+                neighbourningTile = true;
+            }
+
+            std::cout << "Nei: " << neighbourningTile << std::endl;
 
             // Iterates over all the tiles in each directions and until the tile is valid to place
             for (unsigned int j = 0; j < tilesIn1Direction->size() && valid; j++) {
@@ -110,7 +120,27 @@ bool GameBoard::isValidTileToPlace(const SharedTile & tile, int row, int col) {
             }
         }
     }
+
+    if (!neighbourningTile) {
+        valid = false;
+    }
+
     return valid;
+}
+
+bool GameBoard::isThereAnyTilePlaced() {
+
+    bool isThereTile = false;
+
+    for (unsigned int row = 0; row < this->board->size() && !isThereTile; row++) {
+        for (unsigned int col = 0; col < this->board->at(row)->size() && !isThereTile; col++) {
+            if (this->board->at(row)->at(col) != nullptr) {
+                isThereTile = true;
+            }
+        }
+    }
+
+    return isThereTile;
 }
 
 

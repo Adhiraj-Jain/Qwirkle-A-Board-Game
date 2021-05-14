@@ -76,6 +76,10 @@ private:
 
     // Appends vector1 at the back of vector2
     std::shared_ptr<std::vector<SharedTile>> addTwoVectors(std::shared_ptr<std::vector<SharedTile>> vector1, std::shared_ptr<std::vector<SharedTile>> vector2);
+
+    // Returns true if there is a tile in the board
+    // Returns false if there is no tile in the board
+    bool isThereAnyTilePlaced();
 };
 
 
