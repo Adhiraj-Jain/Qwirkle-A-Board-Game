@@ -28,12 +28,10 @@ void Game::initiation() {
     std::vector<SharedTile> tileVector = createTileBag();   //DONE
     shuffleTileBag(tileVector);  //DONE
     setUpPlayerHands();  //DONE
-    createBoard();  //DONE
 }
 
 void Game::start() {
     while (!isFinished()) {
-
         auto lastPlayer = currentPlayer;
         std::cout << std::endl << currentPlayer->getName() << ", it's your turn" << std::endl;
         for (const SharedPlayer& player : *players) {
@@ -54,59 +52,14 @@ void Game::start() {
             string command;
             args >> command;
             if (command == "save") {
-                string filename;
-                args >> filename;
-                try {
-                    FileUtil::saveGame(filename, this);
-                    std::cout << "Game saved successfully" << std::endl;
-                }
-                catch (const std::exception& ex) {
-                    std::cout << "Failed to save: " << ex.what() << std::endl;
-                }
+                saveCommand(args);
             }
             else if (command == "place") {
-                string tileStr;
-                string pos;
-                args >> tileStr;
-                // do it twice to filter out the 'at'
-                args >> pos;
-                args >> pos;
-                SharedTile playerTile = currentPlayer->hasTile(tileStr[0], std::stoi(tileStr.substr(1)));
-                if (playerTile != nullptr) {
-                    int points = board->placeTile(playerTile, pos[0], std::stoi(pos.substr(1)));
-                    if (points == -1) {
-                        std::cout << "Cannot place a tile here" << std::endl;
-                    }
-                    else {
-                        if(points>=12) {
-                            std::cout << "QWIRKLE!" << std::endl;
-                        }
-                        currentPlayer->removeTile(playerTile);
-                        currentPlayer->addScore(points);
-                        SharedTile next = tileBag->deleteTile(tileBag->getTile(0));
-                        if (next != nullptr)
-                            currentPlayer->addTile(next);
-                        nextPlayerTurn();
-                    }
-                }
-                else std::cout << "Tile given isn't in your hand" << std::endl;
+                placeCommand(args);
 
             }
             else if (command == "replace") {
-                string tileStr;
-                args >> tileStr;
-                SharedTile playerTile = currentPlayer->hasTile(tileStr[0], std::stoi(tileStr.substr(1)));
-                if (playerTile != nullptr) {
-                    currentPlayer->removeTile(playerTile);
-                    tileBag->addTile(playerTile);
-                    SharedTile newTile = tileBag->deleteTile(tileBag->getTile(0));
-                    currentPlayer->addTile(newTile);
-                    std::cout << std::endl << "Added " << newTile->toString() << " to your hand" << std::endl;
-                    nextPlayerTurn();
-                }
-                else
-                    std::cout << "Tile given isn't in your hand" << std::endl;
-
+                replaceCommand(args);
             }
         }
     }
@@ -174,20 +127,78 @@ void Game::setUpPlayerHands() {
     }
 }
 
-void Game::createBoard() {
-    //TODO
-    // board->displayBoard();
-
-}
-
 bool Game::isFinished() {
     return false;
 }
 
-void Game::playerPlaces(SharedTile tile, int row, int col) {
 
+SharedPlayer Game::nextPlayerTurn() {
+    SharedPlayer newCurrentPlayer = nullptr;
+    for (unsigned int i = 0; i < players->size() && newCurrentPlayer == nullptr; i++) {
+        auto player = players->at(i);
+        if (player == currentPlayer) {
+            currentPlayer = players->at((i + 1) % players->size());
+            newCurrentPlayer = currentPlayer;
+        }
+    }
+    return newCurrentPlayer;
 }
 
+void Game::replaceCommand(std::stringstream &args) {
+    string tileStr;
+    args >> tileStr;
+    SharedTile playerTile = currentPlayer->hasTile(tileStr[0], std::stoi(tileStr.substr(1)));
+    if (playerTile != nullptr) {
+        currentPlayer->removeTile(playerTile);
+        tileBag->addTile(playerTile);
+        SharedTile newTile = tileBag->deleteTile(tileBag->getTile(0));
+        currentPlayer->addTile(newTile);
+        std::cout << std::endl << "Added " << newTile->toString() << " to your hand" << std::endl;
+        nextPlayerTurn();
+    }
+    else
+        std::cout << "Tile given isn't in your hand" << std::endl;
+}
+
+void Game::placeCommand(std::stringstream &args) {
+    string tileStr;
+    string pos;
+    args >> tileStr;
+    // do it twice to filter out the 'at'
+    args >> pos;
+    args >> pos;
+    SharedTile playerTile = currentPlayer->hasTile(tileStr[0], std::stoi(tileStr.substr(1)));
+    if (playerTile != nullptr) {
+        int points = board->placeTile(playerTile, pos[0], std::stoi(pos.substr(1)));
+        if (points == -1) {
+            std::cout << "Cannot place a tile here" << std::endl;
+        }
+        else {
+            if(points>=12) {
+                std::cout << "QWIRKLE!" << std::endl;
+            }
+            currentPlayer->removeTile(playerTile);
+            currentPlayer->addScore(points);
+            SharedTile next = tileBag->deleteTile(tileBag->getTile(0));
+            if (next != nullptr)
+                currentPlayer->addTile(next);
+            nextPlayerTurn();
+        }
+    }
+    else std::cout << "Tile given isn't in your hand" << std::endl;
+}
+
+void Game::saveCommand(std::stringstream &args) {
+    string filename;
+    args >> filename;
+    try {
+        FileUtil::saveGame(filename, this);
+        std::cout << "Game saved successfully" << std::endl;
+    }
+    catch (const std::exception& ex) {
+        std::cout << "Failed to save: " << ex.what() << std::endl;
+    }
+}
 
 SharedPlayer Game::getCurrentPlayer() {
     return currentPlayer;
@@ -204,20 +215,3 @@ std::shared_ptr<LinkedList> Game::getTileBag() {
 std::shared_ptr<std::vector<SharedPlayer>> Game::getPlayers() {
     return players;
 }
-
-void Game::playerReplaces(SharedTile tile) {
-
-}
-
-SharedPlayer Game::nextPlayerTurn() {
-    SharedPlayer newCurrentPlayer = nullptr;
-    for (unsigned int i = 0; i < players->size() && newCurrentPlayer == nullptr; i++) {
-        auto player = players->at(i);
-        if (player == currentPlayer) {
-            currentPlayer = players->at((i + 1) % players->size());
-            newCurrentPlayer = currentPlayer;
-        }
-    }
-    return newCurrentPlayer;
-}
-

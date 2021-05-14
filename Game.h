@@ -34,12 +34,6 @@ public:
      */
     bool isFinished();
 
-    // The given tile is added to the tile bag and the new tile is added to the current player's hands
-    void playerReplaces(SharedTile tile);
-
-    // The given tile is added to the board and a new tile is added to the current player's hand
-    void playerPlaces(SharedTile tile, int row, int col);
-
     // Getter Methods
     SharedPlayer getCurrentPlayer();
 
@@ -79,9 +73,13 @@ private:
 
     void setUpPlayerHands();
 
-    void createBoard();
-
     std::vector<SharedTile> createTileBag();
+
+    void saveCommand(std::stringstream &args);
+
+    void placeCommand(std::stringstream &args);
+
+    void replaceCommand(std::stringstream &args);
 };
 
 #endif // ASSIGN2_GAME_H
