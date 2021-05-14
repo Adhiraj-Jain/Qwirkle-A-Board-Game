@@ -33,8 +33,9 @@ void Game::initiation() {
 
 void Game::start() {
     while (!isFinished()) {
+
         auto lastPlayer = currentPlayer;
-        std::cout << currentPlayer->getName() << ", it's your turn" << std::endl;
+        std::cout << std::endl << currentPlayer->getName() << ", it's your turn" << std::endl;
         for (const SharedPlayer& player : *players) {
             std::cout << "Score for " + player->getName() << ": " << player->getScore() << std::endl;
         }
@@ -44,12 +45,6 @@ void Game::start() {
         if (hand->isEmpty())
             std::cout << "<no items>" << std::endl;
         else {
-            // for (int i = 0; i < hand->size(); i++) {
-            //     auto handTile = hand->getTile(i);
-            //     std::cout << handTile->getColour() << handTile->getShape()
-            //         // if last element, don't put a comma at the end
-            //         << (i == hand->size() - 1 ? "" : ",");
-            // } 
             std::cout << hand->toString() << std::endl;
         }
         // While player hasn't finished their turn
@@ -85,7 +80,7 @@ void Game::start() {
                     else {
                         currentPlayer->removeTile(playerTile);
                         currentPlayer->addScore(points);
-                        SharedTile next = tileBag->deleteTile(0);
+                        SharedTile next = tileBag->deleteTile(tileBag->getTile(0));
                         if (next != nullptr)
                             currentPlayer->addTile(next);
                         nextPlayerTurn();
@@ -101,9 +96,9 @@ void Game::start() {
                 if (playerTile != nullptr) {
                     currentPlayer->removeTile(playerTile);
                     tileBag->addTile(playerTile);
-                    SharedTile newTile = tileBag->deleteTile(0);
+                    SharedTile newTile = tileBag->deleteTile(tileBag->getTile(0));
                     currentPlayer->addTile(newTile);
-                    std::cout << "Added " << newTile->toString() << " to your hand" << std::endl;
+                    std::cout << std::endl << "Added " << newTile->toString() << " to your hand" << std::endl;
                     nextPlayerTurn();
                 }
                 else
@@ -169,7 +164,7 @@ void Game::setUpPlayerHands() {
         //pick out 6 tiles for the player
         for (int tiles = 0; tiles < 6; tiles++) {
             //select the tile
-            SharedTile tilePicked = tileBag->deleteTile(0); //will perhaps change into a shared pointer
+            SharedTile tilePicked = tileBag->deleteTile(tileBag->getTile(0)); //will perhaps change into a shared pointer
             //add the tile to the persons hand.
             player->addTile(tilePicked);
         }

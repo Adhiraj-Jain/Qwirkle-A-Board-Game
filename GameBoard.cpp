@@ -104,7 +104,7 @@ bool GameBoard::isValidTileToPlace(const SharedTile & tile, int row, int col) {
                 SharedTile currentTile = tilesIn1Direction->at(j);
 
                 // The tile is not valid if the two tiles are same or both the shape and the colour are not different
-                if (currentTile->isEqual(*tile) || (currentTile->getShape() != tile->getShape() && currentTile->getColour() != tile->getColour())) {
+                if (currentTile->isEqual(tile) || (currentTile->getShape() != tile->getShape() && currentTile->getColour() != tile->getColour())) {
                     valid = false;
                 }
             }

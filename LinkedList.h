@@ -26,7 +26,7 @@ public:
     // return Tile at index i
     SharedTile getTile(int i);
 
-    SharedTile getTile(const Tile& searchTile);
+    SharedTile getTile(const SharedTile& searchTile);
 
     // Add tile
     void addTile(SharedTile tile);
@@ -38,7 +38,7 @@ public:
     std::shared_ptr<Node> getHead();
 
     // delete tile at index i
-    SharedTile deleteTile(int i);
+    SharedTile deleteTile(const SharedTile& toRemove);
 
     // To String method
     string toString();

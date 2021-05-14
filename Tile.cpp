@@ -18,6 +18,6 @@ string Tile::toString() {
 }
 
 
-bool Tile::isEqual(const Tile& tile) {
-    return this->shape == tile.shape && this->colour == tile.colour;
+bool Tile::isEqual(const SharedTile& tile) {
+    return this->shape == tile->shape && this->colour == tile->colour;
 }

@@ -14,7 +14,7 @@ public:
     Tile(Colour colour, Shape shape);
 
     //Checks if two tiles are equal
-    bool isEqual(const Tile& tile);
+    bool isEqual(const SharedTile& tile);
 
     // Getter methods
     Colour getColour();

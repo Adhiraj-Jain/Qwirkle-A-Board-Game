@@ -33,7 +33,7 @@ SharedTile LinkedList::getTile(int index) {
     return tile;
 }
 
-SharedTile LinkedList::getTile(const Tile & searchTile) {
+SharedTile LinkedList::getTile(const SharedTile & searchTile) {
     // Check for linkedlist and if index is within range or not.
     SharedTile tile = nullptr;
     std::shared_ptr<Node> curr = head;
@@ -66,30 +66,30 @@ std::shared_ptr<Node> LinkedList::getHead() {
     return this->head;
 }
 
-SharedTile LinkedList::deleteTile(int index) {
+SharedTile LinkedList::deleteTile(const SharedTile & toRemove) {
     SharedTile tile = nullptr;
 
-    if (!this->isEmpty() && index >= 0 && index < this->size()) {
+    if (!this->isEmpty()) {
         std::shared_ptr<Node> curr = head;
         std::shared_ptr<Node> prev = nullptr;
 
-        // loop till you reach at the desired index.
-        while (index > 0) {
+        while (curr != nullptr && tile == nullptr) {
+
+            if (toRemove->isEqual(curr->tile)) {
+
+                if (prev != nullptr) {
+                    prev->next = curr->next;
+                }
+                else {
+                    head = curr->next;
+                }
+                tile = curr->tile;
+                length--;
+            }
+
             prev = curr;
             curr = curr->next;
-            index--;
         }
-        // Check if the index is at head position or not.
-        if (prev == nullptr) {
-            tile = head->tile;
-            this->head = this->head->next;
-        }
-        else {
-            tile = curr->tile;
-            curr = curr->next;
-            prev->next = curr;
-        }
-        this->length--;
     }
 
     return tile;
@@ -98,22 +98,20 @@ SharedTile LinkedList::deleteTile(int index) {
 string LinkedList::toString() {
     string result = "";
     int index = 0;
+
     // Get and converts each tile in the list to a string
     std::shared_ptr<Node> curr = head;
     while (curr != nullptr) {
         result = result + curr->tile->toString();
+
+        // Does not produce a comma after the last tile
         if (index + 1 != this->length) {
             result = result + ",";
         }
+
         index++;
         curr = curr->next;
     }
-    // for (; index < this->length; ) {
-    //     result = result + this->getTile(index)->toString();
-
-    //     // Does not produce a comma after the last tile
-
-    // }
 
     return result + "\n";
 }

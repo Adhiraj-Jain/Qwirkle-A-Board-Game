@@ -1,4 +1,5 @@
 #include "Player.h"
+#include "iostream"
 
 // The following code is used to test saving a game
 Player::Player(string name) {
@@ -20,7 +21,7 @@ std::shared_ptr<LinkedList> Player::getHand() {
 }
 
 SharedTile Player::hasTile(Colour color, Shape shape) {
-    Tile tile(color, shape);
+    SharedTile tile = std::make_shared<Tile>(color, shape);
     return hand->getTile(tile);
 }
 
@@ -44,15 +45,7 @@ void Player::addTile(SharedTile tile) {
 }
 
 bool Player::removeTile(const SharedTile & toRemove) {
-    bool removed = false;
-    for (int i = 0; i < hand->size() && !removed; i++) {
-        SharedTile tile = hand->getTile(i);
-        if (tile == toRemove) {
-            hand->deleteTile(i);
-            removed = true;
-        }
-    }
-    return removed;
+    return this->hand->deleteTile(toRemove) != nullptr;
 }
 
 int Player::getScore() {
