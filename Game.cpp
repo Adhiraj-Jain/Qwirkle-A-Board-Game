@@ -97,7 +97,7 @@ void Game::printWinningPlayer() {
 }
 
 void Game::printPlayerScores() {
-    for (const SharedPlayer& player : *players) {
+    for (SharedPlayer& player : *players) {
         std::cout << "Score for " + player->getName() << ": " << player->getScore() << std::endl;
     }
 }
@@ -106,7 +106,7 @@ string Game::toString() {
     string results = "";
 
     // Getting a string format of all the players in the game
-    for (const SharedPlayer& player : *players) {
+    for (SharedPlayer& player : *players) {
         results += player->toString();
     }
 
@@ -145,7 +145,7 @@ void Game::shuffleTileBag(std::vector<SharedTile> tileVector) {
     std::shuffle(std::begin(tileVector), std::end(tileVector), std::default_random_engine(seed));
 
     //convert vector into tileBag Linked List
-    for (const auto& tile : tileVector) {
+    for (auto& tile : tileVector) {
         tileBag->addTile(tile);
     }
 
@@ -153,7 +153,7 @@ void Game::shuffleTileBag(std::vector<SharedTile> tileVector) {
 
 void Game::setUpPlayerHands() {
     //Go through every player
-    for (const SharedPlayer& player : *players) {
+    for (SharedPlayer& player : *players) {
         //pick out 6 tiles for the player
         for (int tiles = 0; tiles < 6; tiles++) {
             //select the tile
