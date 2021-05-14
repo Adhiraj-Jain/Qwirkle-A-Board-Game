@@ -21,7 +21,7 @@ void FileUtil::saveGame(string fileName, Game* game) {
 std::shared_ptr<Game> FileUtil::loadGame(string fileName) {
 
     // Counter for all players.
-    std::shared_ptr<std::vector<SharedPlayer>> players = std::make_shared<std::vector<SharedPlayer>>();
+   SharedVector<SharedPlayer> players = std::make_shared<std::vector<SharedPlayer>>();
 
     //Counter for current state of Board
     std::shared_ptr<GameBoard> gameBoard;

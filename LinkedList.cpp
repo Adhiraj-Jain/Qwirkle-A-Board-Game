@@ -38,7 +38,7 @@ SharedTile LinkedList::getTile(const SharedTile & searchTile) {
     SharedTile tile = nullptr;
     std::shared_ptr<Node> curr = head;
     while (tile == nullptr && curr != nullptr) {
-        if (curr->tile->isEqual(searchTile)) {
+        if (curr->tile->isEqual(*searchTile)) {
             tile = curr->tile;
         }
         curr = curr->next;
@@ -75,7 +75,7 @@ SharedTile LinkedList::deleteTile(const SharedTile & toRemove) {
 
         while (curr != nullptr && tile == nullptr) {
 
-            if (toRemove->isEqual(curr->tile)) {
+            if (toRemove->isEqual(*curr->tile)) {
 
                 if (prev != nullptr) {
                     prev->next = curr->next;
