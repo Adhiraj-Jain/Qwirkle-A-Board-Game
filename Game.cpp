@@ -78,6 +78,9 @@ void Game::start() {
                         std::cout << "Cannot place a tile here" << std::endl;
                     }
                     else {
+                        if(points>=12) {
+                            std::cout << "QWIRKLE!" << std::endl;
+                        }
                         currentPlayer->removeTile(playerTile);
                         currentPlayer->addScore(points);
                         SharedTile next = tileBag->deleteTile(tileBag->getTile(0));
