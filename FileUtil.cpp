@@ -1,6 +1,5 @@
 #include "FileUtil.h"
 
-
 void FileUtil::saveGame(const string& fileName, Game* game) {
 
     // Finds and opens the file for writing
@@ -72,10 +71,15 @@ std::shared_ptr<Game> FileUtil::loadGame(const string& fileName) {
         // To store all the tiles in the tileBag.
         if (success) {
             input_util::getline(inputFile, line);
-            //Call to get all current tiles in tileBag and check if it was successful or not.
-            tileBag = giveTilesList(line);
-            if (tileBag == nullptr) {
-                success = false;
+            //Call to get all <<current tiles in tileBag and check if it was successful or not.
+            if (line.size() > 0) {
+                tileBag = giveTilesList(line);
+                if (tileBag == nullptr) {
+                    success = false;
+                }
+            }
+            else {
+                tileBag = std::make_shared<LinkedList>();
             }
         }
 
