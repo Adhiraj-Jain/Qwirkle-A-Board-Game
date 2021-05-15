@@ -6,7 +6,7 @@ GameBoard::GameBoard() {
 
     this->currentHeight = 0;
     this->currentWidth = 0;
-
+    placedTiles = std::make_shared<std::vector<string>>();
     // Initializing the board with 26 x 26 space
     this->board = std::make_shared<std::vector<SharedVector<SharedTile>>>();
     for (int i = 0; i < MAX_BOARD_SIZE; i++) {
@@ -43,23 +43,11 @@ int GameBoard::getCurrentWidth() {
 GameBoard::~GameBoard() = default;
 
 
-SharedVector<string> GameBoard::allTilesWithPos() {
-    SharedVector<string> tilesString = std::make_shared<std::vector<string>>();
-
-    // Iterates over the rows in the board
-    for (int row = 0; row < this->currentHeight; row++) {
-
-        // Iterates over the cols in the board
-        for (int col = 0; col < this->currentWidth; col++) {
-            SharedTile tile = this->board->at(row)->at(col);
-
-            // Builds a string of the tile at the position in format <colour><shape>@<row><col>
-            if (tile != nullptr) {
-                tilesString->push_back(tile->toString() + "@" + this->mapRowToChar(row) + std::to_string(col));
-            }
-        }
+void GameBoard::addTilesWithPos(const SharedTile & tile, int row, int col) {
+    // Builds a string of the tile at the position in format <colour><shape>@<row><col>
+    if (tile != nullptr) {
+        placedTiles->push_back(tile->toString() + "@" + this->mapRowToChar(row) + std::to_string(col));
     }
-    return tilesString;
 }
 
 int GameBoard::placeTile(const SharedTile & tile, char rowChar, int col) {
@@ -75,6 +63,7 @@ int GameBoard::placeTile(const SharedTile & tile, char rowChar, int col) {
 
             this->board->at(row)->at(col) = tile;
             score = this->calculateScore(row, col);
+            this->addTilesWithPos(tile, row, col);
 
             // Change current height and width
             if (row + 1 > this->currentHeight) {
@@ -86,6 +75,12 @@ int GameBoard::placeTile(const SharedTile & tile, char rowChar, int col) {
         }
     }
     return score;
+}
+
+void GameBoard::placeTileInLoading(const SharedTile & tile, char rowChar, int col) {
+    int row = this->mapCharToRow(rowChar);
+    this->board->at(row)->at(col) = tile;
+    this->addTilesWithPos(tile, rowChar, col);
 }
 
 bool GameBoard::isValidTileToPlace(const SharedTile & tile, int row, int col) {
@@ -106,9 +101,6 @@ bool GameBoard::isValidTileToPlace(const SharedTile & tile, int row, int col) {
             else {
                 neighbourningTile = true;
             }
-
-            std::cout << "Nei: " << neighbourningTile << std::endl;
-
             // Iterates over all the tiles in each directions and until the tile is valid to place
             for (unsigned int j = 0; j < tilesIn1Direction->size() && valid; j++) {
                 SharedTile currentTile = tilesIn1Direction->at(j);
@@ -236,8 +228,8 @@ string GameBoard::toString() {
     string result = std::to_string(this->currentHeight) + "," + std::to_string(this->currentWidth) + "\n";
 
     // Gets all the tiles in the board with their positions
-    SharedVector<string> tilesWithPos = this->allTilesWithPos();
-
+    SharedVector<string> tilesWithPos = this->placedTiles;
+    std::cout << tilesWithPos->size() << std::endl;
     // Appends each string from the vector to the result
     for (unsigned int index = 0; index < tilesWithPos->size(); index++) {
         result = result + tilesWithPos->at(index);

@@ -1,6 +1,5 @@
 #include "FileUtil.h"
 #include "input_util.h"
-#include <iostream>
 
 void FileUtil::saveGame(string fileName, Game* game) {
 
@@ -58,7 +57,6 @@ std::shared_ptr<Game> FileUtil::loadGame(string fileName) {
                 //If the name is not in ASCII text.
                 success = false;
         }
-        std::cout << "Got all players!!" << std::endl;
         //To get the Game Board data.
         //Only proceeds further if the previous data input was correct
         if (success) {
@@ -67,7 +65,6 @@ std::shared_ptr<Game> FileUtil::loadGame(string fileName) {
             if (gameBoard == nullptr) {
                 success = false;
             }
-            std::cout << "Got game board!!" << std::endl;
         }
         // To store all the tiles in the tileBag.
         if (success) {
@@ -77,7 +74,6 @@ std::shared_ptr<Game> FileUtil::loadGame(string fileName) {
             if (tileBag == nullptr) {
                 success = false;
             }
-            std::cout << "Got tilebag!!" << std::endl;
         }
 
         //To get the current player
@@ -89,7 +85,6 @@ std::shared_ptr<Game> FileUtil::loadGame(string fileName) {
                         currPlayer = player;
                     }
                 }
-                std::cout << "Got current player!!" << std::endl;
             }
             else {
                 success = false;
@@ -107,7 +102,6 @@ std::shared_ptr<Game> FileUtil::loadGame(string fileName) {
     if (success) {
         // Initialize the game with the new params.
         game = std::make_shared<Game>(players, currPlayer, gameBoard, tileBag);
-        std::cout << "Game board initiation completed!!" << std::endl;
     }
     //Return
     return game;
@@ -229,7 +223,6 @@ std::shared_ptr<GameBoard> FileUtil::getBoard(std::fstream& inputFile) {
     }
 
     if (success) {
-        std::cout << "Got Board dimension!!" << std::endl;
         //initialising a new game board object.
         gameBoard = std::make_shared<GameBoard>(boardSize[0], boardSize[1]);
 
@@ -267,12 +260,7 @@ std::shared_ptr<GameBoard> FileUtil::getBoard(std::fstream& inputFile) {
                             strcol += placetile[5];
                             col = std::stoi(strcol);
                         }
-                        std::cout << "Tile placed at !!" << tile->toString() << std::endl;
-                        if (gameBoard->placeTile(tile, (char)placetile[3], col) == -1) {
-                            gameBoard = nullptr;
-                            std::cout << "Cannot place Tile !!" << tile->toString() << std::endl;
-                        }
-
+                        gameBoard->placeTileInLoading(tile, (char)placetile[3], col);
                         //Clear the data for next tile.
                         placetile = "";
                     }
