@@ -217,7 +217,6 @@ void Game::placeCommand(std::stringstream & args) {
             std::cout << "Cannot place a tile here" << std::endl;
         }
         else {
-            currentPlayer->removeTile(playerTile);
             if (points >= 12) {
                 std::cout << "QWIRKLE!" << std::endl;
             }
