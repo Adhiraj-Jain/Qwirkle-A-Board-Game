@@ -21,12 +21,12 @@ std::shared_ptr<LinkedList> Player::getHand() {
 }
 
 SharedTile Player::hasTile(Colour color, Shape shape) {
-    SharedTile tile = std::make_shared<Tile>(color, shape);
+    Tile tile(color, shape);
     return hand->getTile(tile);
 }
 
 void Player::setHand(std::shared_ptr<LinkedList> hand) {
-    this->hand = hand;
+    this->hand = std::move(hand);
 }
 
 void Player::setScore(int score) {
@@ -35,12 +35,8 @@ void Player::setScore(int score) {
 
 Player::~Player() = default;
 
-SharedTile Player::getTile(string tile) {
-    return nullptr;
-}
-
-void Player::addTile(SharedTile tile) {
-    hand->addTile(std::move(tile));
+void Player::addTile(const SharedTile& tile) {
+    hand->addTile(tile);
 }
 
 bool Player::removeTile(const SharedTile & toRemove) {

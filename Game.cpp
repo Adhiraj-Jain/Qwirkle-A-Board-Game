@@ -1,6 +1,7 @@
 #include "Game.h"
 #include "input_util.h"
 #include "FileUtil.h"
+#include "LinkedList.h"
 #include "QwirkleGameEngine.h"
 
 #include <utility>

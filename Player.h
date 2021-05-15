@@ -19,11 +19,8 @@ public:
     // Destructor
     ~Player();
 
-    // Returns a Tile from the player's hand with the given string value of the tile
-    SharedTile getTile(string tile);
-
     // Adds a Tile to the player's hand with the given tile
-    void addTile(SharedTile tile);
+    void addTile(const SharedTile& tile);
 
     // Getter methods
     string getName();

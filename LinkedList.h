@@ -26,10 +26,10 @@ public:
     // return Tile at index i
     SharedTile getTile(int i);
 
-    SharedTile getTile(const SharedTile& searchTile);
+    SharedTile getTile(const Tile& searchTile);
 
     // Add tile
-    void addTile(SharedTile tile);
+    void addTile(const SharedTile& tile);
 
     //Check if LinkedList is empty or not.
     bool isEmpty();
