@@ -2,6 +2,7 @@
 #include "input_util.h"
 #include "FileUtil.h"
 #include "QwirkleGameEngine.h"
+#include "constants.h"
 
 #include <utility>
 #include <iostream>
@@ -16,7 +17,7 @@ Game::Game(const std::vector<SharedPlayer>& players) {
 
 Game::~Game() = default;
 
-Game::Game(const SharedVector<SharedPlayer> players, SharedPlayer currentPlayer, std::shared_ptr<GameBoard> board,
+Game::Game(const SharedVector<SharedPlayer>& players, SharedPlayer currentPlayer, std::shared_ptr<GameBoard> board,
     std::shared_ptr<LinkedList> tileBag) {
     // clone given player vector
     this->players = players;
@@ -26,9 +27,9 @@ Game::Game(const SharedVector<SharedPlayer> players, SharedPlayer currentPlayer,
 }
 
 void Game::initiation() {
-    std::vector<SharedTile> tileVector = createTileBag();   //DONE
-    shuffleTileBag(tileVector);  //DONE
-    setUpPlayerHands();  //DONE
+    std::vector<SharedTile> tileVector = createTileBag();
+    shuffleTileBag(tileVector);
+    setUpPlayerHands();
 }
 
 void Game::start() {
@@ -119,14 +120,11 @@ string Game::toString() {
 }
 
 std::vector<SharedTile> Game::createTileBag() {
-    Colour colours[] = { RED, ORANGE, YELLOW, GREEN, BLUE, PURPLE };
-    Shape shapes[] = { CIRCLE, STAR_4, DIAMOND, SQUARE, STAR_6, CLOVER };
-
     std::vector<SharedTile> tileVector;
 
     //First we would have to create the tile bag
-    for (char& colour : colours) {
-        for (int& shape : shapes) {
+    for (const Colour& colour : constants::COLOURS) {
+        for (const Shape& shape : constants::SHAPES) {
             SharedTile currentTile = std::make_shared<Tile>(colour, shape);
             SharedTile currentTile2 = std::make_shared<Tile>(colour, shape);
             tileVector.push_back(currentTile);

@@ -3,8 +3,6 @@
 #include <string>
 #include "input_util.h"
 
-#define TEAM_SIZE 4
-
 QwirkleGameEngine::~QwirkleGameEngine() = default;
 
 void QwirkleGameEngine::start() {

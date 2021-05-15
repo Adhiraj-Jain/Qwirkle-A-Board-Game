@@ -6,7 +6,7 @@
 #include "Player.h"
 #include "GameBoard.h"
 #include "LinkedList.h"
-#include "TileCodes.h"
+#include "constants.h"
 #include "Tile.h"
 #include <memory>
 #include <random>
@@ -24,7 +24,7 @@ public:
     Game(const std::vector<SharedPlayer>& players);
 
     // Constructor to create a loaded Game
-    Game(const SharedVector<SharedPlayer> players, SharedPlayer currentPlayer, std::shared_ptr<GameBoard> board,
+    Game(const SharedVector<SharedPlayer>& players, SharedPlayer currentPlayer, std::shared_ptr<GameBoard> board,
         std::shared_ptr<LinkedList> tileBag);
 
     // Destructor

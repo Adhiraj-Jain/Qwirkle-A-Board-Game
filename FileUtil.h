@@ -6,7 +6,7 @@
 #include "Game.h"
 #include "Player.h"
 #include "LinkedList.h"
-#include "TileCodes.h"
+#include "constants.h"
 #include "GameBoard.h"
 #include "Tile.h"
 #include <regex>
@@ -19,14 +19,14 @@ public:
     // Loads the game details from the given fileName
     // Returns a game instance if read successfully
     // Returns a nullpte if read unsuccessfully
-    static std::shared_ptr<Game> loadGame(string fileName);
+    static std::shared_ptr<Game> loadGame(const string& fileName);
 
     // Saves the game's data in the file in the given file name
-    static void saveGame(string fileName, Game* game);
+    static void saveGame(const string& fileName, Game* game);
 
 private:
     //Method to get all the data of the player passed.
-    static bool getPlayerData(SharedPlayer player, std::fstream& inputFile);
+    static bool getPlayerData(const SharedPlayer& player, std::fstream& inputFile);
 
     //Method to input tiles from the file and store in the linked list passed as params.
     static std::shared_ptr<LinkedList> giveTilesList(string tileList);

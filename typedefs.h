@@ -1,6 +1,7 @@
 #ifndef ASSIGN2_TYPEDEFS_H
 #define ASSIGN2_TYPEDEFS_H
 #include <vector>
+#include <memory>
 
 class Tile;
 
