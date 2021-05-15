@@ -28,6 +28,8 @@ public:
     // Returns -1, if the tile cannot be added to the given index
     int placeTile(const SharedTile& tile, char rowChar, int col);
 
+    void placeTileInLoading(const SharedTile& tile, char rowChar, int col);
+
     // Returns a tile at the given row and col
     // Returns nullptr if tile not found
     SharedTile getTile(int row, int col);
@@ -51,7 +53,7 @@ private:
     int currentWidth;
 
     // Returns a vector of strings of format <tile color><tile shape>@<row index><col index>
-    SharedVector<string> allTilesWithPos();
+    void addTilesWithPos(const SharedTile& tile, int row, int col);
 
     // Returns an integer from 0-25 for characters A-Z
     int mapCharToRow(char target);
@@ -80,6 +82,8 @@ private:
     // Returns true if there is a tile in the board
     // Returns false if there is no tile in the board
     bool isThereAnyTilePlaced();
+
+    SharedVector<string> placedTiles;
 };
 
 
