@@ -13,7 +13,9 @@ for name in filenames:
             # If last test, save output
             if i == TEST_SEED - 1:
                 cmd += f" > {name.split('.')[0]}.output"
-            # else: cmd+=" > autotest.temp"
+                print(cmd)
+            else:
+                cmd += " > /dev/null"
             return_code = system(cmd)
             # Only tests for critical errors. Logical errors can be checked by using Git's diffcheck on staging
             if return_code != 0:
