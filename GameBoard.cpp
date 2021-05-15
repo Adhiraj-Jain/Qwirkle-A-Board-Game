@@ -80,7 +80,7 @@ int GameBoard::placeTile(const SharedTile & tile, char rowChar, int col) {
 void GameBoard::placeTileInLoading(const SharedTile & tile, char rowChar, int col) {
     int row = this->mapCharToRow(rowChar);
     this->board->at(row)->at(col) = tile;
-    this->addTilesWithPos(tile, rowChar, col);
+    this->addTilesWithPos(tile, row, col);
 }
 
 bool GameBoard::isValidTileToPlace(const SharedTile & tile, int row, int col) {
