@@ -1,4 +1,9 @@
 2
 4-loadGame.save
 place B6 at C11
+place B5 at C12
+place G5 at D12
+place R5 at E12
+replace G3
+replace B5
 save 5-saveGame.save
