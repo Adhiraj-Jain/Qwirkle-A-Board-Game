@@ -47,7 +47,7 @@ public:
     string toString();
 
     //initialize method
-    void initiation();
+    void initiation(unsigned int seed);
     /**
      * Blocking method which starts the game and doesn't return until the game is finished.
      */
@@ -69,7 +69,7 @@ private:
     SharedPlayer nextPlayerTurn();
 
     //Initialize when creating a new game
-    void shuffleTileBag(std::vector<SharedTile> tileVector);
+    void shuffleTileBag(std::vector<SharedTile> tileVector, unsigned int seed);
 
     void setUpPlayerHands();
 

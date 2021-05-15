@@ -2,7 +2,6 @@
 #include "input_util.h"
 #include "FileUtil.h"
 #include "QwirkleGameEngine.h"
-#include "constants.h"
 
 #include <utility>
 #include <iostream>
@@ -26,9 +25,12 @@ Game::Game(const SharedVector<SharedPlayer>& players, SharedPlayer currentPlayer
     this->tileBag = std::move(tileBag);
 }
 
-void Game::initiation() {
+void Game::initiation(unsigned int argSeed) {
+    //Generating a seed for different shuffle every game round
+    unsigned int seed = argSeed > 0 ? argSeed : std::chrono::system_clock::now().time_since_epoch().count();
+
     std::vector<SharedTile> tileVector = createTileBag();
-    shuffleTileBag(tileVector);
+    shuffleTileBag(tileVector, seed);
     setUpPlayerHands();
 }
 
@@ -134,11 +136,7 @@ std::vector<SharedTile> Game::createTileBag() {
     return tileVector;
 }
 
-void Game::shuffleTileBag(std::vector<SharedTile> tileVector) {
-
-    //Generating a seed for different shuffle every game round
-    unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
-
+void Game::shuffleTileBag(std::vector<SharedTile> tileVector, unsigned int seed) {
     //Proceed to shuffle these this tile vector
     std::shuffle(std::begin(tileVector), std::end(tileVector), std::default_random_engine(seed));
 

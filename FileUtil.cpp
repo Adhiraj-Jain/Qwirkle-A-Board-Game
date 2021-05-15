@@ -1,6 +1,5 @@
 #include "FileUtil.h"
 #include "input_util.h"
-#include "constants.h"
 #include <iostream>
 
 void FileUtil::saveGame(const string& fileName, Game* game) {

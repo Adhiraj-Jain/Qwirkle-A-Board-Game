@@ -15,7 +15,10 @@
 
 class QwirkleGameEngine {
 public:
-    //ADD MODIFICATIONS
+    explicit QwirkleGameEngine(unsigned int seed);
+
+    QwirkleGameEngine();
+
     ~QwirkleGameEngine();
 
     //This is like the main functionality for the class.
@@ -33,7 +36,7 @@ public:
     static void quit();
 
 private:
-    //ADD MODIFICATIONS
+    unsigned int seed = 0;
 };
 
 #endif

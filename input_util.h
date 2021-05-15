@@ -1,7 +1,6 @@
 #ifndef ASSIGN2_INPUT_UTIL_H
 #define ASSIGN2_INPUT_UTIL_H
 
-#include <string>
 #include <regex>
 #include "typedefs.h"
 

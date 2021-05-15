@@ -5,6 +5,12 @@
 
 QwirkleGameEngine::~QwirkleGameEngine() = default;
 
+QwirkleGameEngine::QwirkleGameEngine(): QwirkleGameEngine(std::chrono::system_clock::now().time_since_epoch().count()) {}
+
+QwirkleGameEngine::QwirkleGameEngine(unsigned int seed) {
+    this->seed = seed;
+}
+
 void QwirkleGameEngine::start() {
     int selection = 0;
     std::cout << std::endl;
@@ -54,7 +60,7 @@ void QwirkleGameEngine::newGame() {
     std::cout << "Let's Play" << std::endl << std::endl;
     //Initialize the game (calling the first constructor of the game) - initialize method.
     std::shared_ptr<Game> newGame = std::make_shared<Game>(players);
-    newGame->initiation();
+    newGame->initiation(seed);
     newGame->start();
 }
 
@@ -64,6 +70,7 @@ void QwirkleGameEngine::loadGame() {
     std::shared_ptr<Game> newGame;
     newGame = FileUtil::loadGame(fileInput);
     if (newGame != nullptr) {
+        std::cout << "Qwirkle game successfully loaded" << std::endl;
         newGame->start();
     } else {
         std::cout << "Invalid Game" << std::endl;

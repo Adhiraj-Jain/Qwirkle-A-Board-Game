@@ -75,7 +75,7 @@ SharedTile LinkedList::deleteTile(const SharedTile & toRemove) {
 
         while (curr != nullptr && tile == nullptr) {
 
-            if (toRemove->isEqual(*curr->tile)) {
+            if (toRemove->isEqual(*(curr->tile))) {
 
                 if (prev != nullptr) {
                     prev->next = curr->next;
@@ -84,7 +84,7 @@ SharedTile LinkedList::deleteTile(const SharedTile & toRemove) {
                     head = curr->next;
                 }
 
-                if (toRemove->isEqual(*tail->tile)) {
+                if (prev != nullptr && toRemove->isEqual(*(tail->tile))) {
                     this->tail = prev;
                 }
 
