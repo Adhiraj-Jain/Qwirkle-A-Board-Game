@@ -145,23 +145,30 @@ std::shared_ptr<LinkedList> FileUtil::giveTilesList(string tileList) {
     std::shared_ptr<LinkedList> tileLL = std::make_shared<LinkedList>();
     string tile = "";
     tileList += ",";
+    const int tileSize = 2;
     //Traverse over the line to find all the tiles.
     for (unsigned int i = 0; i < tileList.size() && tileLL != nullptr; i++) {
         //If the current char is not a comma.
-        if (tileList[i] != ',')
-            //Add the char into string tile.
-            tile += tileList[i];
-        else {
-            //If the current char is a comma.
-            //Call to check if the current tile is in correct format or not.
-            if (!isTileCorrect(tile))
-                tileLL = nullptr;
+        if (tileList[i] != ' ') {
+            if (tileList[i] != ',')
+                //Add the char into string tile.
+                tile += tileList[i];
             else {
-                //If the tile is in correct format then store it in the tileLL
-                tileLL->addTile(std::make_shared<Tile>((char)tile[0], ((int)tile[1] - 48)));
-                //Clear the current tile.
+                //If the current char is a comma.
+                //Call to check if the current tile is in correct format or not.
+                if (tile.size() != tileSize || !isTileCorrect(tile))
+                    tileLL = nullptr;
+                else {
+                    //If the tile is in correct format then store it in the tileLL
+                    tileLL->addTile(std::make_shared<Tile>((char)tile[0], ((int)tile[1] - 48)));
+                    //Clear the current tile.
+                }
+                tile = "";
             }
-            tile = "";
+        }
+        else {
+            std::cout << "Making it a nullptr !" << std::endl;
+            tileLL = nullptr;
         }
     }
     return tileLL;
