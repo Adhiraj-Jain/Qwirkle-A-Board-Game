@@ -29,6 +29,10 @@
 #define MAX_PLAYERS 2
 #define TEAM_SIZE 4
 
+#define MAX_BOARD_SIZE 26
+#define QWIRKLE_LENGTH 6
+#define QWIRKLE_POINTS 6
+
 namespace constants {
     // const static is a hint to the compiler to define these only once, despite being in a header file.
     const static Colour COLOURS[COLOURS_SIZE] = {RED, ORANGE, YELLOW, GREEN, BLUE, PURPLE};

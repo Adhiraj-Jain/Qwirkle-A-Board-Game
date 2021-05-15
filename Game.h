@@ -34,15 +34,6 @@ public:
      */
     bool isFinished();
 
-    // Getter Methods
-    SharedPlayer getCurrentPlayer();
-
-    std::shared_ptr<GameBoard> getBoard();
-
-    std::shared_ptr<LinkedList> getTileBag();
-
-    SharedVector<SharedPlayer> getPlayers();
-
     // toString method
     string toString();
 

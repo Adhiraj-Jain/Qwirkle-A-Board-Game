@@ -55,9 +55,10 @@ std::shared_ptr<Game> FileUtil::loadGame(const string& fileName) {
                     players->push_back(player);
                 }
             }
-            else
+            else {
                 //If the name is not in ASCII text.
                 success = false;
+            }
         }
         //To get the Game Board data.
         //Only proceeds further if the previous data input was correct
@@ -163,9 +164,9 @@ std::shared_ptr<LinkedList> FileUtil::giveTilesList(string tileList) {
             else {
                 //If the current char is a comma.
                 //Call to check if the current tile is in correct format or not.
-                if (tile.size() != tileSize || !isTileCorrect(tile))
+                if (tile.size() != tileSize || !isTileCorrect(tile)) {
                     tileLL = nullptr;
-                else {
+                } else {
                     //If the tile is in correct format then store it in the tileLL
                     tileLL->addTile(std::make_shared<Tile>((char)tile[0], ((int)tile[1] - 48)));
                     //Clear the current tile.
@@ -229,8 +230,9 @@ std::shared_ptr<GameBoard> FileUtil::getBoard(std::fstream& inputFile) {
             if (0 > boardSize[j] || boardSize[j] > 26)
                 //If falls outside the range.
                 success = false;
-            else
+            else {
                 j++;
+            }
             dim = "";
         }
     }

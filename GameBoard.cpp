@@ -1,5 +1,5 @@
 #include "GameBoard.h"
-
+#include "constants.h"
 #include <iostream>
 
 GameBoard::GameBoard() {
@@ -21,23 +21,15 @@ GameBoard::GameBoard(int height, int width) :GameBoard() {
 }
 
 int GameBoard::mapCharToRow(char target) {
-    return (int)target - 65;
+    return (int)target - 'A';
 }
 
 char GameBoard::mapRowToChar(int target) {
-    return (char)(target + 65);
+    return (char)(target + 'A');
 }
 
 SharedTile GameBoard::getTile(int row, int col) {
     return this->board->at(row)->at(col);
-}
-
-int GameBoard::getCurrentHeight() {
-    return this->currentHeight;
-}
-
-int GameBoard::getCurrentWidth() {
-    return this->currentWidth;
 }
 
 GameBoard::~GameBoard() = default;
@@ -218,10 +210,6 @@ SharedVector<SharedTile> GameBoard::getAllTilesIn1Direction(int row, int col, in
 
     } while (currentTile != nullptr);
     return tiles;
-}
-
-SharedVector<SharedVector<SharedTile>> GameBoard::getBoard() {
-    return this->board;
 }
 
 string GameBoard::toString() {

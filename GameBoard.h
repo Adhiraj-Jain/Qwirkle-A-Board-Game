@@ -6,10 +6,6 @@
 #include <string>
 #include <memory>
 
-#define MAX_BOARD_SIZE 26
-#define QWIRKLE_LENGTH 6
-#define QWIRKLE_POINTS 6
-
 class GameBoard {
 
 public:
@@ -33,11 +29,6 @@ public:
     // Returns a tile at the given row and col
     // Returns nullptr if tile not found
     SharedTile getTile(int row, int col);
-
-    // Getter methods
-    SharedVector<SharedVector<SharedTile>> getBoard();
-    int getCurrentHeight();
-    int getCurrentWidth();
 
     // toString method
     string toString();

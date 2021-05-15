@@ -19,8 +19,9 @@ int input_util::getOptionUserInput(int max) {
         input = getIntInput();
         if (input < 1 || input > max)
             std::cout << "Input must be between 1 and " << max << std::endl;
-        else
+        else {
             valid = true;
+        }
     }
     return input;
 }

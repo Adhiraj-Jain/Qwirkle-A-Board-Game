@@ -1,7 +1,6 @@
 #include "QwirkleGameEngine.h"
 #include <iostream>
 #include <string>
-#include "input_util.h"
 
 QwirkleGameEngine::~QwirkleGameEngine() = default;
 
@@ -17,14 +16,18 @@ void QwirkleGameEngine::start() {
     std::cout << std::endl;
     do {
         selection = mainMenu();
-        if (selection == NEW_GAME)
+        if (selection == NEW_GAME) {
             newGame();
-        else if (selection == LOAD_GAME)
+        }
+        else if (selection == LOAD_GAME) {
             loadGame();
-        else if (selection == CREDITS)
+        }
+        else if (selection == CREDITS) {
             credits();
-        else if (selection == QUIT)
+        }
+        else if (selection == QUIT) {
             quit();
+        }
     } while (selection != QUIT);
 }
 
@@ -89,8 +92,9 @@ void QwirkleGameEngine::credits() {
         std::cout << "Name: " << team_members[member] << std::endl;
         std::cout << "Student ID: " << student_id[member] << std::endl;
         std::cout << "Email:  " << email_address[member] << std::endl;
-        if (member != TEAM_SIZE - 1)
+        if (member != TEAM_SIZE - 1) {
             std::cout << std::endl;
+        }
     }
 
     std::cout << "----------------------------------------" << std::endl;

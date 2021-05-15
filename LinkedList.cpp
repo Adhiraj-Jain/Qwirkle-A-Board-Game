@@ -61,10 +61,6 @@ void LinkedList::addTile(const SharedTile& tile) {
     }
 }
 
-std::shared_ptr<Node> LinkedList::getHead() {
-    return this->head;
-}
-
 SharedTile LinkedList::deleteTile(const SharedTile & toRemove) {
     SharedTile tile = nullptr;
 

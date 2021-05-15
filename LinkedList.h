@@ -34,9 +34,6 @@ public:
     //Check if LinkedList is empty or not.
     bool isEmpty();
 
-    // return head
-    std::shared_ptr<Node> getHead();
-
     // delete tile at index i
     SharedTile deleteTile(const SharedTile& toRemove);
 

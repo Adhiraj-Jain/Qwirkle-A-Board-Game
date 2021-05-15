@@ -1,7 +1,6 @@
 #include "Game.h"
 #include "input_util.h"
 #include "FileUtil.h"
-#include "LinkedList.h"
 #include "QwirkleGameEngine.h"
 
 #include <utility>
@@ -43,9 +42,9 @@ void Game::start() {
         board->displayBoard();
         std::cout << "Your hand is" << std::endl;
         auto hand = currentPlayer->getHand();
-        if (hand->isEmpty())
+        if (hand->isEmpty()) {
             std::cout << "<no items>" << std::endl;
-        else {
+        } else {
             std::cout << hand->toString() << std::endl;
         }
         // While player hasn't finished their turn
@@ -77,8 +76,9 @@ void Game::start() {
 void Game::printWinningPlayer() {
     SharedPlayer maxPlayer= nullptr;
     for(SharedPlayer& player : *players){
-        if(maxPlayer== nullptr||player->getScore()>maxPlayer->getScore())
-            maxPlayer=player;
+        if (maxPlayer== nullptr||player->getScore()>maxPlayer->getScore()) {
+            maxPlayer = player;
+        }
     }
     std::vector<SharedPlayer> tiedPlayers;
     for(SharedPlayer& player : *players){
@@ -165,8 +165,9 @@ bool Game::isFinished() {
     // if tilebag is empty and at least one player has no tiles left.
     bool isAnyPlayerHandEmpty=false;
     for (SharedPlayer& player : *players){
-        if(player->getHand()->isEmpty())
-            isAnyPlayerHandEmpty=true;
+        if(player->getHand()->isEmpty()) {
+            isAnyPlayerHandEmpty = true;
+        }
     }
     bool ret=false;
     if(tileBag->isEmpty()&&isAnyPlayerHandEmpty)
@@ -199,8 +200,9 @@ void Game::replaceCommand(std::stringstream & args) {
         std::cout << std::endl << "Added " << newTile->toString() << " to your hand" << std::endl;
         nextPlayerTurn();
     }
-    else
+    else {
         std::cout << "Tile given isn't in your hand" << std::endl;
+    }
 }
 
 void Game::placeCommand(std::stringstream & args) {
@@ -241,20 +243,4 @@ void Game::saveCommand(std::stringstream & args) {
     catch (const std::exception& ex) {
         std::cout << "Failed to save: " << ex.what() << std::endl;
     }
-}
-
-SharedPlayer Game::getCurrentPlayer() {
-    return currentPlayer;
-}
-
-std::shared_ptr<GameBoard> Game::getBoard() {
-    return board;
-}
-
-std::shared_ptr<LinkedList> Game::getTileBag() {
-    return tileBag;
-}
-
-SharedVector<SharedPlayer> Game::getPlayers() {
-    return players;
 }
