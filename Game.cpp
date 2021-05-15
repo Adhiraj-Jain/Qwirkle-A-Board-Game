@@ -125,6 +125,7 @@ std::vector<SharedTile> Game::createTileBag() {
     //First we would have to create the tile bag
     for (const Colour& colour : constants::COLOURS) {
         for (const Shape& shape : constants::SHAPES) {
+            //Create two tiles that are the same since there are 72 tiles (2 of each) in the tile bag.
             SharedTile currentTile = std::make_shared<Tile>(colour, shape);
             SharedTile currentTile2 = std::make_shared<Tile>(colour, shape);
             tileVector.push_back(currentTile);
@@ -135,7 +136,7 @@ std::vector<SharedTile> Game::createTileBag() {
 }
 
 void Game::shuffleTileBag(std::vector<SharedTile> tileVector, unsigned int seed) {
-    //Proceed to shuffle these this tile vector
+    //Proceed to shuffle these this tile vector with the seed generated from the system clock
     std::shuffle(std::begin(tileVector), std::end(tileVector), std::default_random_engine(seed));
 
     //convert vector into tileBag Linked List

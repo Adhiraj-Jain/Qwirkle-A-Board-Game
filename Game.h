@@ -37,7 +37,7 @@ public:
     // toString method
     string toString();
 
-    //initialize method
+    //initializing the game method
     void initiation(unsigned int seed);
     /**
      * Blocking method which starts the game and doesn't return until the game is finished.
