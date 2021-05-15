@@ -9,6 +9,7 @@
 #include "constants.h"
 #include "GameBoard.h"
 #include "typedefs.h"
+#include "input_util.h"
 
 class FileUtil {
 

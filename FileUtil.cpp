@@ -1,7 +1,4 @@
 #include "FileUtil.h"
-#include "input_util.h"
-#include "LinkedList.h"
-#include <iostream>
 
 
 void FileUtil::saveGame(const string& fileName, Game* game) {
@@ -49,12 +46,15 @@ std::shared_ptr<Game> FileUtil::loadGame(const string& fileName) {
             input_util::getline(inputFile, line);
             //Check if the name is in ASCII text means contains all letters.
             if (isNameCorrect(line)) {
-
                 SharedPlayer player = std::make_shared<Player>(line);
                 //Calling getPlayerData() to get the data of this player.
-                getPlayerData(player, inputFile);
-                //Pushing this player into vector array of players.
-                players->push_back(player);
+                if (!getPlayerData(player, inputFile)) {
+                    success = false;
+                }
+                else {
+                    //Pushing this player into vector array of players.
+                    players->push_back(player);
+                }
             }
             else
                 //If the name is not in ASCII text.
@@ -132,9 +132,12 @@ bool FileUtil::getPlayerData(const SharedPlayer& player, std::fstream& inputFile
     if (isCorrect) {
         input_util::getline(inputFile, line);
         //Get hand of tiles of the player and check if it was a success or not.
-        player->setHand(giveTilesList(line));
-        if (player->getHand() == nullptr) {
+        std::shared_ptr<LinkedList> tileList = giveTilesList(line);
+        if (tileList == nullptr) {
             isCorrect = false;
+        }
+        else {
+            player->setHand(tileList);
         }
     }
     return isCorrect;
@@ -147,7 +150,7 @@ std::shared_ptr<LinkedList> FileUtil::giveTilesList(string tileList) {
     tileList += ",";
     const int tileSize = 2;
     //Traverse over the line to find all the tiles.
-    for (unsigned int i = 0; i < tileList.size() && tileLL != nullptr; i++) {
+    for (unsigned int i = 0; tileLL != nullptr && i < tileList.size(); i++) {
         //If the current char is not a comma.
         if (tileList[i] != ' ') {
             if (tileList[i] != ',')
@@ -167,7 +170,6 @@ std::shared_ptr<LinkedList> FileUtil::giveTilesList(string tileList) {
             }
         }
         else {
-            std::cout << "Making it a nullptr !" << std::endl;
             tileLL = nullptr;
         }
     }
