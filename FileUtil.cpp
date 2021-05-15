@@ -72,7 +72,7 @@ std::shared_ptr<Game> FileUtil::loadGame(const string& fileName) {
         // To store all the tiles in the tileBag.
         if (success) {
             input_util::getline(inputFile, line);
-            //Call to get all <<current tiles in tileBag and check if it was successful or not.
+            //Call to get all current tiles in tileBag and check if it was successful or not.
             if (line.size() > 0) {
                 tileBag = giveTilesList(line);
                 if (tileBag == nullptr) {
@@ -80,6 +80,7 @@ std::shared_ptr<Game> FileUtil::loadGame(const string& fileName) {
                 }
             }
             else {
+                //If the input line is empty means no tile present in tilebag.
                 tileBag = std::make_shared<LinkedList>();
             }
         }
@@ -153,11 +154,13 @@ std::shared_ptr<LinkedList> FileUtil::giveTilesList(string tileList) {
     std::shared_ptr<LinkedList> tileLL = std::make_shared<LinkedList>();
     string tile = "";
     tileList += ",";
+    //Tile string length
     const int tileSize = 2;
     //Traverse over the line to find all the tiles.
     for (unsigned int i = 0; tileLL != nullptr && i < tileList.size(); i++) {
-        //If the current char is not a comma.
+        //check for spaces in tile hand,
         if (tileList[i] != ' ') {
+            //If the current char is not a comma.
             if (tileList[i] != ',')
                 //Add the char into string tile.
                 tile += tileList[i];
@@ -166,7 +169,8 @@ std::shared_ptr<LinkedList> FileUtil::giveTilesList(string tileList) {
                 //Call to check if the current tile is in correct format or not.
                 if (tile.size() != tileSize || !isTileCorrect(tile)) {
                     tileLL = nullptr;
-                } else {
+                }
+                else {
                     //If the tile is in correct format then store it in the tileLL
                     tileLL->addTile(std::make_shared<Tile>((char)tile[0], ((int)tile[1] - 48)));
                     //Clear the current tile.
@@ -266,6 +270,7 @@ std::shared_ptr<GameBoard> FileUtil::getBoard(std::fstream& inputFile) {
                         SharedTile tile = std::make_shared<Tile>((char)placetile[0], ((int)placetile[1] - 48));
                         //Place the tile in the game board with the given row and col.
                         int col;
+                        //check if the col is in single digit or double digit.
                         if (placetile.size() == minsize) {
                             col = ((int)placetile[4] - 48);
                         }

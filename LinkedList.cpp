@@ -23,8 +23,8 @@ SharedTile LinkedList::getTile(int index) {
     // Check for linkedlist and if index is within range or not.
     if (!this->isEmpty() && index >= 0 && index < this->size()) {
         std::shared_ptr<Node> curr = head;
-        for (int i=0;i<index;i++){
-            curr=curr->next;
+        for (int i = 0;i < index;i++) {
+            curr = curr->next;
         }
         tile = curr->tile;
     }
@@ -32,7 +32,7 @@ SharedTile LinkedList::getTile(int index) {
     return tile;
 }
 
-SharedTile LinkedList::getTile(const Tile& searchTile) {
+SharedTile LinkedList::getTile(const Tile & searchTile) {
     // Check for linkedlist and if index is within range or not.
     SharedTile tile = nullptr;
     std::shared_ptr<Node> curr = head;
@@ -46,7 +46,7 @@ SharedTile LinkedList::getTile(const Tile& searchTile) {
 }
 
 // This method will always add Tile at the back of the LinkedList.
-void LinkedList::addTile(const SharedTile& tile) {
+void LinkedList::addTile(const SharedTile & tile) {
     if (tile != nullptr) {
         std::shared_ptr<Node> newNode = std::make_shared<Node>(tile, nullptr);
         if (this->head == nullptr) {
@@ -63,14 +63,15 @@ void LinkedList::addTile(const SharedTile& tile) {
 
 SharedTile LinkedList::deleteTile(const SharedTile & toRemove) {
     SharedTile tile = nullptr;
-
+    // Check if the linked list is empty or not.
     if (!this->isEmpty()) {
         std::shared_ptr<Node> curr = head;
         std::shared_ptr<Node> prev = nullptr;
 
+        //Loop till the tile is found or reached to end of linked list.
         while (curr != nullptr && tile == nullptr) {
             // same memory location
-            if (toRemove==curr->tile) {
+            if (toRemove == curr->tile) {
                 // middle or end of the list
                 if (prev != nullptr) {
                     prev->next = curr->next;
@@ -79,12 +80,12 @@ SharedTile LinkedList::deleteTile(const SharedTile & toRemove) {
                 else {
                     head = curr->next;
                 }
-                if(curr==tail){
-                    this->tail=prev;
+                if (curr == tail) {
+                    this->tail = prev;
                 }
                 tile = curr->tile;
                 // For development only. Production will never enter this state
-                if(tile == nullptr)
+                if (tile == nullptr)
                     throw std::runtime_error("Reached illegal state - nullptr in list tree. Terminating...");
                 length--;
             }
