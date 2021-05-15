@@ -229,7 +229,6 @@ string GameBoard::toString() {
 
     // Gets all the tiles in the board with their positions
     SharedVector<string> tilesWithPos = this->placedTiles;
-    std::cout << tilesWithPos->size() << std::endl;
     // Appends each string from the vector to the result
     for (unsigned int index = 0; index < tilesWithPos->size(); index++) {
         result = result + tilesWithPos->at(index);
