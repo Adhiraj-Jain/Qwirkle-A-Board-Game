@@ -25,10 +25,7 @@ Game::Game(const SharedVector<SharedPlayer>& players, SharedPlayer currentPlayer
     this->tileBag = std::move(tileBag);
 }
 
-void Game::initiation(unsigned int argSeed) {
-    //Generating a seed for different shuffle every game round
-    unsigned int seed = argSeed > 0 ? argSeed : std::chrono::system_clock::now().time_since_epoch().count();
-
+void Game::initiation(unsigned int seed) {
     std::vector<SharedTile> tileVector = createTileBag();
     shuffleTileBag(tileVector, seed);
     setUpPlayerHands();

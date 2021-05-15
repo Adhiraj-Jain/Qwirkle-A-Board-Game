@@ -14,7 +14,7 @@ class Player {
 public:
 
     // Constructor
-    Player(string name);
+    explicit Player(string name);
 
     // Destructor
     ~Player();

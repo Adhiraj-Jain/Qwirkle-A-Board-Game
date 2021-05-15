@@ -21,7 +21,7 @@
 class Game {
 public:
     // Constructor to create a new Game
-    Game(const std::vector<SharedPlayer>& players);
+    explicit Game(const std::vector<SharedPlayer>& players);
 
     // Constructor to create a loaded Game
     Game(const SharedVector<SharedPlayer>& players, SharedPlayer currentPlayer, std::shared_ptr<GameBoard> board,
