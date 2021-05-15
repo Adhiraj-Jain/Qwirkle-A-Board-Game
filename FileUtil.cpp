@@ -1,7 +1,8 @@
 #include "FileUtil.h"
 #include "input_util.h"
+#include "constants.h"
 
-void FileUtil::saveGame(string fileName, Game* game) {
+void FileUtil::saveGame(const string& fileName, Game* game) {
 
     // Finds and opens the file for writing
     std::fstream outfile;
@@ -18,7 +19,7 @@ void FileUtil::saveGame(string fileName, Game* game) {
     outfile.close();
 }
 
-std::shared_ptr<Game> FileUtil::loadGame(string fileName) {
+std::shared_ptr<Game> FileUtil::loadGame(const string& fileName) {
 
     // Counter for all players.
     SharedVector<SharedPlayer> players = std::make_shared<std::vector<SharedPlayer>>();
@@ -41,7 +42,7 @@ std::shared_ptr<Game> FileUtil::loadGame(string fileName) {
     //Checking for file existence
     if (!inputFile.fail()) {
         //Loop till it reaches end of file and loop while the current state of loading the file is a success.
-        while (!inputFile.eof() && success && players->size() < 2) {
+        while (!inputFile.eof() && success && players->size() < MAX_PLAYERS) {
             //Get a line from text file
             input_util::getline(inputFile, line);
             //Check if the name is in ASCII text means contains all letters.
@@ -60,7 +61,7 @@ std::shared_ptr<Game> FileUtil::loadGame(string fileName) {
         //To get the Game Board data.
         //Only proceeds further if the previous data input was correct
         if (success) {
-            //Call to get the board size and its current state and check if it was successfull or not
+            //Call to get the board size and its current state and check if it was successful or not
             gameBoard = getBoard(inputFile);
             if (gameBoard == nullptr) {
                 success = false;
@@ -69,7 +70,7 @@ std::shared_ptr<Game> FileUtil::loadGame(string fileName) {
         // To store all the tiles in the tileBag.
         if (success) {
             input_util::getline(inputFile, line);
-            //Call to get all current tiles in tileBag and check if it was successfull or not.
+            //Call to get all current tiles in tileBag and check if it was successful or not.
             tileBag = giveTilesList(line);
             if (tileBag == nullptr) {
                 success = false;
@@ -80,7 +81,7 @@ std::shared_ptr<Game> FileUtil::loadGame(string fileName) {
         if (success) {
             input_util::getline(inputFile, line);
             if (isNameCorrect(line)) {
-                for (SharedPlayer player : *players) {
+                for (SharedPlayer& player : *players) {
                     if (player->getName() == line) {
                         currPlayer = player;
                     }
@@ -108,7 +109,7 @@ std::shared_ptr<Game> FileUtil::loadGame(string fileName) {
 }
 
 
-bool FileUtil::getPlayerData(SharedPlayer player, std::fstream& inputFile) {
+bool FileUtil::getPlayerData(const SharedPlayer& player, std::fstream& inputFile) {
 
     string line = "";
     //To keep the current state of input
@@ -168,15 +169,13 @@ std::shared_ptr<LinkedList> FileUtil::giveTilesList(string tileList) {
 bool FileUtil::isTileCorrect(string tile) {
     bool isCorrect = false;
     if (tile.size() == 2) {
-        //Array of char colours
-        Colour colors[] = { RED, ORANGE, YELLOW, GREEN, BLUE, PURPLE };
         const int shape = (int)tile[1] - 48;
         // check if the shape of tile is in correct range or not.
         if (1 <= shape && shape <= 7) {
-            //Looping over the colours array till it founds a correct match or till the end of array.
+            //Looping over the COLOURS array till it founds a correct match or till the end of array.
             for (int index = 0; index < 6 && !isCorrect; index++) {
                 //If the colour matches
-                if (colors[index] == (char)tile[0])
+                if (constants::COLOURS[index] == (char)tile[0])
                     isCorrect = true;
             }
         }
@@ -185,7 +184,6 @@ bool FileUtil::isTileCorrect(string tile) {
 }
 
 
-// TODO replace with regex
 bool FileUtil::isNameCorrect(const string& name) {
     std::regex regex = std::regex("[a-zA-Z]");
     bool isCorrect = std::regex_search(name, regex);
