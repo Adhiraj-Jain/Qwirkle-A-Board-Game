@@ -161,9 +161,10 @@ std::shared_ptr<LinkedList> FileUtil::giveTilesList(string tileList) {
         //check for spaces in tile hand,
         if (tileList[i] != ' ') {
             //If the current char is not a comma.
-            if (tileList[i] != ',')
+            if (tileList[i] != ',') {
                 //Add the char into string tile.
                 tile += tileList[i];
+            }
             else {
                 //If the current char is a comma.
                 //Call to check if the current tile is in correct format or not.
@@ -195,8 +196,9 @@ bool FileUtil::isTileCorrect(string tile) {
             //Looping over the COLOURS array till it founds a correct match or till the end of array.
             for (int index = 0; index < 6 && !isCorrect; index++) {
                 //If the colour matches
-                if (constants::COLOURS[index] == (char)tile[0])
+                if (constants::COLOURS[index] == (char)tile[0]) {
                     isCorrect = true;
+                }
             }
         }
     }
@@ -231,9 +233,10 @@ std::shared_ptr<GameBoard> FileUtil::getBoard(std::fstream& inputFile) {
             //Store the dimension into integer array
             boardSize[j] = std::stoi(dim);
             // Check if the dimension falls within the correct range or not.
-            if (0 > boardSize[j] || boardSize[j] > 26)
+            if (0 > boardSize[j] || boardSize[j] > 26) {
                 //If falls outside the range.
                 success = false;
+            }
             else {
                 j++;
             }

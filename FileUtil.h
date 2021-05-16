@@ -1,15 +1,16 @@
 #ifndef ASSIGN2_FILE_UTIL_H
 #define ASSIGN2_FILE_UTIL_H
 
-#include <memory>
-#include <fstream>
-#include <regex>
 #include "Game.h"
 #include "LinkedList.h"
 #include "constants.h"
 #include "GameBoard.h"
 #include "typedefs.h"
 #include "input_util.h"
+
+#include <memory>
+#include <fstream>
+#include <regex>
 
 class FileUtil {
 

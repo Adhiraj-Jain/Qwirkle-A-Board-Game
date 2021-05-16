@@ -1,22 +1,20 @@
 #ifndef ASSIGN2_GAME_H
 #define ASSIGN2_GAME_H
 
-#include <vector>
-#include <string>
 #include "Player.h"
 #include "GameBoard.h"
 #include "LinkedList.h"
 #include "constants.h"
 #include "Tile.h"
+
+#include <vector>
+#include <string>
 #include <memory>
 #include <random>
 #include <algorithm>
 #include <chrono>
 
-// class GameBoard;
-// class LinkedList;
-// class Player;
-// class Tile;
+
 
 class Game {
 public:
@@ -66,11 +64,11 @@ private:
 
     std::vector<SharedTile> createTileBag();
 
-    void saveCommand(std::stringstream &args);
+    void saveCommand(std::stringstream& args);
 
-    void placeCommand(std::stringstream &args);
+    void placeCommand(std::stringstream& args);
 
-    void replaceCommand(std::stringstream &args);
+    void replaceCommand(std::stringstream& args);
 
     void printPlayerScores();
 

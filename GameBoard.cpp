@@ -1,6 +1,4 @@
 #include "GameBoard.h"
-#include "constants.h"
-#include <iostream>
 
 GameBoard::GameBoard() {
 

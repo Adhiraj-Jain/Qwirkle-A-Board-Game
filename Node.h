@@ -10,8 +10,6 @@ public:
 
     Node(SharedTile tile, std::shared_ptr<Node> next);
 
-    Node(Node& other);
-
     SharedTile tile;
     std::shared_ptr<Node> next;
 };

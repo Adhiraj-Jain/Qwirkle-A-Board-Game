@@ -16,7 +16,7 @@ Game::Game(const std::vector<SharedPlayer>& players) {
 
 Game::~Game() = default;
 
-Game::Game(const SharedVector<SharedPlayer>& players, SharedPlayer currentPlayer, std::shared_ptr<GameBoard> board,
+Game::Game(const SharedVector<SharedPlayer>&players, SharedPlayer currentPlayer, std::shared_ptr<GameBoard> board,
     std::shared_ptr<LinkedList> tileBag) {
     // clone given player vector
     this->players = players;
@@ -41,7 +41,8 @@ void Game::start() {
         auto hand = currentPlayer->getHand();
         if (hand->isEmpty()) {
             std::cout << "<no items>" << std::endl;
-        } else {
+        }
+        else {
             std::cout << hand->toString() << std::endl;
         }
         // While player hasn't finished their turn
@@ -71,29 +72,31 @@ void Game::start() {
 }
 
 void Game::printWinningPlayer() {
-    SharedPlayer maxPlayer= nullptr;
-    for(SharedPlayer& player : *players){
-        if (maxPlayer== nullptr||player->getScore()>maxPlayer->getScore()) {
+    SharedPlayer maxPlayer = nullptr;
+    for (SharedPlayer& player : *players) {
+        if (maxPlayer == nullptr || player->getScore() > maxPlayer->getScore()) {
             maxPlayer = player;
         }
     }
     std::vector<SharedPlayer> tiedPlayers;
-    for(SharedPlayer& player : *players){
-        if(player->getScore()==maxPlayer->getScore()&&player!=maxPlayer)
+    for (SharedPlayer& player : *players) {
+        if (player->getScore() == maxPlayer->getScore() && player != maxPlayer) {
             tiedPlayers.push_back(player);
+        }
     }
-    if(tiedPlayers.empty()) {
+    if (tiedPlayers.empty()) {
         std::cout << "Player " << maxPlayer->getName() << " won!" << std::endl;
     }
     else {
         std::cout << "Players ";
-        for(unsigned int i=0;i<tiedPlayers.size();i++){
+        for (unsigned int i = 0;i < tiedPlayers.size();i++) {
             SharedPlayer tiedPlayer = tiedPlayers.at(i);
             std::cout << tiedPlayer->getName();
-            if(i!=tiedPlayers.size()-1)
+            if (i != tiedPlayers.size() - 1) {
                 std::cout << ", ";
+            }
         }
-        std::cout << " tied with a score of "<<maxPlayer->getScore()<<"!" << std::endl;
+        std::cout << " tied with a score of " << maxPlayer->getScore() << "!" << std::endl;
     }
 }
 
@@ -161,15 +164,16 @@ void Game::setUpPlayerHands() {
 
 bool Game::isFinished() {
     // if tilebag is empty and at least one player has no tiles left.
-    bool isAnyPlayerHandEmpty=false;
-    for (SharedPlayer& player : *players){
-        if(player->getHand()->isEmpty()) {
+    bool isAnyPlayerHandEmpty = false;
+    for (SharedPlayer& player : *players) {
+        if (player->getHand()->isEmpty()) {
             isAnyPlayerHandEmpty = true;
         }
     }
-    bool ret=false;
-    if(tileBag->isEmpty()&&isAnyPlayerHandEmpty)
-        ret=true;
+    bool ret = false;
+    if (tileBag->isEmpty() && isAnyPlayerHandEmpty) {
+        ret = true;
+    }
     return ret;
 }
 
@@ -223,12 +227,15 @@ void Game::placeCommand(std::stringstream & args) {
             currentPlayer->removeTile(playerTile);
             currentPlayer->addScore(points);
             SharedTile next = tileBag->deleteTile(tileBag->getTile(0));
-            if (next != nullptr)
+            if (next != nullptr) {
                 currentPlayer->addTile(next);
+            }
             nextPlayerTurn();
         }
     }
-    else std::cout << "Tile given isn't in your hand" << std::endl;
+    else {
+        std::cout << "Tile given isn't in your hand" << std::endl;
+    }
 }
 
 void Game::saveCommand(std::stringstream & args) {

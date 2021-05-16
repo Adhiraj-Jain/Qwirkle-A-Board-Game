@@ -1,10 +1,13 @@
 #ifndef ASSIGN2_GAMEBOARD_H
 #define ASSIGN2_GAMEBOARD_H
 
+#include "constants.h"
 #include "Tile.h"
+
 #include <vector>
 #include <string>
 #include <memory>
+#include <iostream>
 
 class GameBoard {
 
