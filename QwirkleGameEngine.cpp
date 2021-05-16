@@ -4,7 +4,8 @@
 
 QwirkleGameEngine::~QwirkleGameEngine() = default;
 
-QwirkleGameEngine::QwirkleGameEngine(): QwirkleGameEngine(std::chrono::system_clock::now().time_since_epoch().count()) {}
+QwirkleGameEngine::QwirkleGameEngine(): QwirkleGameEngine(
+        std::chrono::system_clock::now().time_since_epoch().count()) {}
 
 QwirkleGameEngine::QwirkleGameEngine(unsigned int seed) {
     this->seed = seed;
@@ -54,18 +55,20 @@ void QwirkleGameEngine::newGame() {
     int playerSize = 2;
 
     for (int player = 0; player < playerSize; player++) {
-        std::cout << "Enter a name for player " << player+1 << " (uppercase characters only)" << std::endl;
+        std::cout << "Enter a name for player " << player+1
+                  << " (uppercase characters only)" << std::endl;
 
-        string creatingPlayerInput = input_util::getStringInput(std::regex("^[A-Z]+$"));
+        string creatingPlayerInput =
+                input_util::getStringInput(std::regex("^[A-Z]+$"));
 
-        SharedPlayer creatingPlayer = 
+        SharedPlayer creatingPlayer =
         std::make_shared<Player>(creatingPlayerInput);
 
         players.push_back(creatingPlayer);
         std::cout << std::endl;
     }
     std::cout << "Let's Play" << std::endl << std::endl;
-    
+
     //Initialize the game (calling the first constructor of the game)
     std::shared_ptr<Game> newGame = std::make_shared<Game>(players);
     newGame->initiation(seed);
@@ -79,7 +82,8 @@ void QwirkleGameEngine::loadGame() {
     try {
         newGame = FileUtil::loadGame(fileInput);
     } catch (const std::exception& ex) {
-        // in the future, custom exceptions can be thrown if there's an error while loading
+        // in the future, custom exceptions
+        // can be thrown if there's an error while loading
         // for now, we set the newGame to nullptr with no error message
         std::cout << "An error occured while loading: "<<ex.what() << std::endl;
     }
@@ -92,10 +96,14 @@ void QwirkleGameEngine::loadGame() {
 }
 
 void QwirkleGameEngine::credits() {
-    string team_members[TEAM_SIZE] = {"Jainam Doshi", "Adhiraj Jain", "Ryan Samarakoon", "Muhib Hasan"};
-    string student_id[TEAM_SIZE] = {"s3825891", "s3821245", "s3844545", "s3850034"};
-    string email_address[TEAM_SIZE] = {"s3825891@student.rmit.edu.au", "s3821245@student.rmit.edu.au",
-                                       "s3844545@student.rmit.edu.au", "s3850034@student.rmit.edu.au"};
+    string team_members[TEAM_SIZE] = {"Jainam Doshi", "Adhiraj Jain",
+                                      "Ryan Samarakoon", "Muhib Hasan"};
+    string student_id[TEAM_SIZE] = {"s3825891", "s3821245", "s3844545",
+                                    "s3850034"};
+    string email_address[TEAM_SIZE] = {"s3825891@student.rmit.edu.au",
+                                       "s3821245@student.rmit.edu.au",
+                                       "s3844545@student.rmit.edu.au",
+                                       "s3850034@student.rmit.edu.au"};
 
     std::cout << "----------------------------------------" << std::endl;
 

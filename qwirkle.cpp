@@ -9,7 +9,7 @@ int main(int argc, char **argv) {
 
     QwirkleGameEngine *engine = nullptr;
     // We accept one parameter - a seed for testing.
-    // the seed MUST be 1000 passed as: ./qwirkle 1000 < file.input > file.output
+    // Seed MUST be 1000 passed as: ./qwirkle 1000 < file.input > file.output
     // Without a seed, the seed will be the system time.
     // check the README for more information
     if (argc == 1) {
