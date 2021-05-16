@@ -18,7 +18,8 @@ namespace input_util {
     int getIntInput();
 
     // Blocking function to get string input from the user which much match the given regex
-    string getStringInput(const std::regex& regex, const string& error = "Invalid input");
+    string getStringInput(const std::regex& regex, 
+    const string& error = "Invalid input");
 
 
     //  Gets the next line from a given stream (uses std::getline under the hood)

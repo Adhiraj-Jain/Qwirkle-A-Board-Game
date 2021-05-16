@@ -22,8 +22,7 @@ public:
     explicit Game(const std::vector<SharedPlayer>& players);
 
     // Constructor to create a loaded Game
-    Game(const SharedVector<SharedPlayer>& players, SharedPlayer currentPlayer, std::shared_ptr<GameBoard> board,
-        std::shared_ptr<LinkedList> tileBag);
+    Game(const SharedVector<SharedPlayer>& players, SharedPlayer currentPlayer, std::shared_ptr<GameBoard> board, std::shared_ptr<LinkedList> tileBag);
 
     // Destructor
     ~Game();

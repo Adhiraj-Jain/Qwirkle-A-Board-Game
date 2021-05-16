@@ -13,11 +13,11 @@ public:
     // Constructor
     Tile(Colour colour, Shape shape);
 
+    //Checks for Tile equality
     bool isEqual(const Tile &tile);
 
     // Getter methods
     Colour getColour();
-
     Shape getShape();
 
     // ToString method

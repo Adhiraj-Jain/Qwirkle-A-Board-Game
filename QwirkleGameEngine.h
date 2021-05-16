@@ -10,32 +10,41 @@
 #include "Game.h"
 #include "FileUtil.h"
 //Proposed Idea: QwirkleGameEngine
-//We can conenct the base gameplay methods to this class as well in the future (after further discussion)
-//For Instance, Create a constructor that takes in the linked list in the future for instance.
+//We can conenct the base gameplay methods to this class as well in the future 
+
 
 class QwirkleGameEngine {
 public:
+    //Contructor for random seed
     explicit QwirkleGameEngine(unsigned int seed);
 
+    //Constructor
     QwirkleGameEngine();
 
+    //Destructor
     ~QwirkleGameEngine();
 
     //This is like the main functionality for the class.
-    void start(); //just make this menu_selection - will see what to do in Tuesday's Meeting.
+    void start(); 
 
-    //methods pertaining to the main menu.
+    //methods pertaining to the main menu are called in this function
     int mainMenu();
 
+    //New game functionality
     void newGame();
 
+    //Load game functionality
     void loadGame();
 
+    //Credits functionality
     void credits();
 
+    //Quit functionality
     static void quit();
 
 private:
+
+    //Class Variable
     unsigned int seed = 0;
 };
 

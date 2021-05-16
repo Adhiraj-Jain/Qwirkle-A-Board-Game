@@ -55,13 +55,18 @@ void QwirkleGameEngine::newGame() {
 
     for (int player = 0; player < playerSize; player++) {
         std::cout << "Enter a name for player " << player+1 << " (uppercase characters only)" << std::endl;
+
         string creatingPlayerInput = input_util::getStringInput(std::regex("^[A-Z]+$"));
-        SharedPlayer creatingPlayer = std::make_shared<Player>(creatingPlayerInput);
+
+        SharedPlayer creatingPlayer = 
+        std::make_shared<Player>(creatingPlayerInput);
+
         players.push_back(creatingPlayer);
         std::cout << std::endl;
     }
     std::cout << "Let's Play" << std::endl << std::endl;
-    //Initialize the game (calling the first constructor of the game) - initialize method.
+    
+    //Initialize the game (calling the first constructor of the game)
     std::shared_ptr<Game> newGame = std::make_shared<Game>(players);
     newGame->initiation(seed);
     newGame->start();

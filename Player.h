@@ -27,17 +27,16 @@ public:
 
     int getScore();
 
-    /**
-     * Whether the player has the given tile on hand
-     * @return the tile from the hand, or nullptr if no tile is found
-     */
+    // Whether the player has the given tile on hand
     SharedTile hasTile(Colour color, Shape shape);
+    
+    //Return a player's hand
     std::shared_ptr<LinkedList> getHand();
+
+    //Set a player's hand
     void setHand(std::shared_ptr<LinkedList> hand);
-    /**
-     * Remove the given tile from the player
-     * @return true if tile was found and removed, false otherwise
-     */
+    
+    //Remove the given tile from the player
     bool removeTile(const SharedTile& tile);
 
     // Adds score to the player
