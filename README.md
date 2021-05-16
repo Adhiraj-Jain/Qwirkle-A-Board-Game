@@ -1,0 +1,3 @@
+# Qwirkle - C++ edition
+### Authors:
+###

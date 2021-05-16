@@ -250,7 +250,7 @@ std::shared_ptr<GameBoard> FileUtil::getBoard(std::fstream& inputFile) {
         //A Const to check to for the size of each placetile
         const int maxsize = 6;
         const int minsize = 5;
-        std::string placetile = "";
+        string placetile = "";
         line += ",";
         //Loop till end of line or the input format till that point is correct.
         if (line.size() > 1 && line != "\n") {
