@@ -7,6 +7,8 @@
 - Ryan Samarakoon, s3844545
 - Muhib Hasan, s3850034
 
+Github: https://github.com/Ry-DS/2021-APT-A2-TEAM-JAM
+
 ## Important: Running test cases
 
 Some of our tests require the seed to be a constant value (1000).
