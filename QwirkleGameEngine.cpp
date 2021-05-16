@@ -4,7 +4,7 @@
 
 QwirkleGameEngine::~QwirkleGameEngine() = default;
 
-QwirkleGameEngine::QwirkleGameEngine(): QwirkleGameEngine(
+QwirkleGameEngine::QwirkleGameEngine() : QwirkleGameEngine(
         std::chrono::system_clock::now().time_since_epoch().count()) {}
 
 QwirkleGameEngine::QwirkleGameEngine(unsigned int seed) {
@@ -19,14 +19,11 @@ void QwirkleGameEngine::start() {
         selection = mainMenu();
         if (selection == NEW_GAME) {
             newGame();
-        }
-        else if (selection == LOAD_GAME) {
+        } else if (selection == LOAD_GAME) {
             loadGame();
-        }
-        else if (selection == CREDITS) {
+        } else if (selection == CREDITS) {
             credits();
-        }
-        else if (selection == QUIT) {
+        } else if (selection == QUIT) {
             quit();
         }
     } while (selection != QUIT);
@@ -55,14 +52,14 @@ void QwirkleGameEngine::newGame() {
     int playerSize = 2;
 
     for (int player = 0; player < playerSize; player++) {
-        std::cout << "Enter a name for player " << player+1
+        std::cout << "Enter a name for player " << player + 1
                   << " (uppercase characters only)" << std::endl;
 
         string creatingPlayerInput =
                 input_util::getStringInput(std::regex("^[A-Z]+$"));
 
         SharedPlayer creatingPlayer =
-        std::make_shared<Player>(creatingPlayerInput);
+                std::make_shared<Player>(creatingPlayerInput);
 
         players.push_back(creatingPlayer);
         std::cout << std::endl;
@@ -81,11 +78,12 @@ void QwirkleGameEngine::loadGame() {
     std::shared_ptr<Game> newGame;
     try {
         newGame = FileUtil::loadGame(fileInput);
-    } catch (const std::exception& ex) {
+    } catch (const std::exception &ex) {
         // in the future, custom exceptions
         // can be thrown if there's an error while loading
         // for now, we set the newGame to nullptr with no error message
-        std::cout << "An error occured while loading: "<<ex.what() << std::endl;
+        std::cout << "An error occured while loading: " << ex.what()
+                  << std::endl;
     }
     if (newGame != nullptr) {
         std::cout << "Qwirkle game successfully loaded" << std::endl;

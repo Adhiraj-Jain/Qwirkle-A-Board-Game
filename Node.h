@@ -7,10 +7,10 @@
 
 class Node {
 public:
-    
+
     //Constructor
     Node(SharedTile tile, std::shared_ptr<Node> next);
-    
+
     //return the tile
     SharedTile &getTile();
 

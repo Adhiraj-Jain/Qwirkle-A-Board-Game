@@ -17,16 +17,15 @@ int input_util::getOptionUserInput(int max) {
         input = getIntInput();
         if (input < 1 || input > max) {
             std::cout << "Input must be between 1 and " << max << std::endl;
-        }
-        else {
+        } else {
             valid = true;
         }
     }
     return input;
 }
 
-string input_util::getStringInput(const std::regex& regex,
-                                  const string& error) {
+string input_util::getStringInput(const std::regex &regex,
+                                  const string &error) {
     string input;
     bool valid = false;
     while (!valid) {
@@ -37,12 +36,10 @@ string input_util::getStringInput(const std::regex& regex,
             bool found = std::regex_search(input, regex);
             if (!found) {
                 std::cout << error << std::endl;
-            }
-            else {
+            } else {
                 valid = true;
             }
-        }
-        else {
+        } else {
             // if input read is eof, terminate
             QwirkleGameEngine::quit();
         }
@@ -52,7 +49,7 @@ string input_util::getStringInput(const std::regex& regex,
 }
 
 
-void input_util::getline(std::basic_istream<char>& stream, string& input) {
+void input_util::getline(std::basic_istream<char> &stream, string &input) {
     std::getline(stream, input);
     // if on windows,
     // lines might have CR (\r) at the end, so remove if its there...

@@ -25,7 +25,7 @@ public:
     ~QwirkleGameEngine();
 
     //This is like the main functionality for the class.
-    void start(); 
+    void start();
 
     //methods pertaining to the main menu are called in this function
     int mainMenu();

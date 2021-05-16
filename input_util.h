@@ -20,14 +20,14 @@ namespace input_util {
 
     // Blocking function to get string input from the user which much match the 
     // given regex
-    string getStringInput(const std::regex& regex,
-        const string& error = "Invalid input");
+    string getStringInput(const std::regex &regex,
+                          const string &error = "Invalid input");
 
 
     //  Gets the next line from a given stream (uses std::getline under the 
     // hood)
     // The key difference : getline ensures to remove carriage returns(CR) from
     //  windows
-    void getline(std::basic_istream<char>& stream, string& input);
+    void getline(std::basic_istream<char> &stream, string &input);
 }
 #endif //ASSIGN2_INPUT_UTIL_H

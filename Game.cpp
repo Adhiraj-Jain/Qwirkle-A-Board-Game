@@ -7,7 +7,7 @@
 #include <iostream>
 #include <sstream>
 
-Game::Game(const std::vector<SharedPlayer>& players) {
+Game::Game(const std::vector<SharedPlayer> &players) {
     this->players = std::make_shared<std::vector<SharedPlayer>>(players);
     this->board = std::make_shared<GameBoard>();
     this->tileBag = std::make_shared<LinkedList>();
@@ -16,8 +16,9 @@ Game::Game(const std::vector<SharedPlayer>& players) {
 
 Game::~Game() = default;
 
-Game::Game(const SharedVector<SharedPlayer>&players, SharedPlayer currentPlayer, std::shared_ptr<GameBoard> board,
-    std::shared_ptr<LinkedList> tileBag) {
+Game::Game(const SharedVector<SharedPlayer> &players,
+           SharedPlayer currentPlayer, std::shared_ptr<GameBoard> board,
+           std::shared_ptr<LinkedList> tileBag) {
 
     this->players = players;
     this->currentPlayer = std::move(currentPlayer);
@@ -34,31 +35,30 @@ void Game::initiation(unsigned int seed) {
 void Game::start() {
     while (!isFinished()) {
         auto lastPlayer = currentPlayer;
-        std::cout << std::endl << currentPlayer->getName() << ", it's your turn" << std::endl;
+        std::cout << std::endl << currentPlayer->getName() << ", it's your turn"
+                  << std::endl;
         printPlayerScores();
         board->displayBoard();
         std::cout << "Your hand is" << std::endl;
         auto hand = currentPlayer->getHand();
         if (hand->isEmpty()) {
             std::cout << "<no items>" << std::endl;
-        }
-        else {
+        } else {
             std::cout << hand->toString() << std::endl;
         }
         // While player hasn't finished their turn
         while (lastPlayer == currentPlayer) {
-            string input = input_util::getStringInput(std::regex(COMMAND_REGEX));
+            string input = input_util::getStringInput(
+                    std::regex(COMMAND_REGEX));
             std::stringstream args = std::stringstream(input);
             string command;
             args >> command;
             if (command == "save") {
                 saveCommand(args);
-            }
-            else if (command == "place") {
+            } else if (command == "place") {
                 placeCommand(args);
 
-            }
-            else if (command == "replace") {
+            } else if (command == "replace") {
                 replaceCommand(args);
             }
         }
@@ -73,37 +73,40 @@ void Game::start() {
 
 void Game::printWinningPlayer() {
     SharedPlayer maxPlayer = nullptr;
-    for (SharedPlayer& player : *players) {
-        if (maxPlayer == nullptr || player->getScore() > maxPlayer->getScore()) {
+    for (SharedPlayer &player : *players) {
+        if (maxPlayer == nullptr ||
+            player->getScore() > maxPlayer->getScore()) {
             maxPlayer = player;
         }
     }
     std::vector<SharedPlayer> tiedPlayers;
-    for (SharedPlayer& player : *players) {
-        if (player->getScore() == maxPlayer->getScore() && player != maxPlayer) {
+    for (SharedPlayer &player : *players) {
+        if (player->getScore() == maxPlayer->getScore() &&
+            player != maxPlayer) {
             tiedPlayers.push_back(player);
         }
     }
     if (tiedPlayers.empty()) {
         std::cout << "Player " << maxPlayer->getName() << " won!" << std::endl;
-    }
-    else {
+    } else {
         tiedPlayers.push_back(maxPlayer);
         std::cout << "Players ";
-        for (unsigned int i = 0;i < tiedPlayers.size();i++) {
+        for (unsigned int i = 0; i < tiedPlayers.size(); i++) {
             SharedPlayer tiedPlayer = tiedPlayers.at(i);
             std::cout << tiedPlayer->getName();
             if (i != tiedPlayers.size() - 1) {
                 std::cout << ", ";
             }
         }
-        std::cout << " tied with a score of " << maxPlayer->getScore() << "!" << std::endl;
+        std::cout << " tied with a score of " << maxPlayer->getScore() << "!"
+                  << std::endl;
     }
 }
 
 void Game::printPlayerScores() {
-    for (SharedPlayer& player : *players) {
-        std::cout << "Score for " + player->getName() << ": " << player->getScore() << std::endl;
+    for (SharedPlayer &player : *players) {
+        std::cout << "Score for " + player->getName() << ": "
+                  << player->getScore() << std::endl;
     }
 }
 
@@ -111,7 +114,7 @@ string Game::toString() {
     string results = "";
 
     // Getting a string format of all the players in the game
-    for (SharedPlayer& player : *players) {
+    for (SharedPlayer &player : *players) {
         results += player->toString();
     }
 
@@ -127,8 +130,8 @@ std::vector<SharedTile> Game::createTileBag() {
     std::vector<SharedTile> tileVector;
 
     //First we would have to create the tile bag
-    for (const Colour& colour : constants::COLOURS) {
-        for (const Shape& shape : constants::SHAPES) {
+    for (const Colour &colour : constants::COLOURS) {
+        for (const Shape &shape : constants::SHAPES) {
             //Create two tiles that are the same since there are 72 tiles (2 of each) in the tile bag.
             SharedTile currentTile = std::make_shared<Tile>(colour, shape);
             SharedTile currentTile2 = std::make_shared<Tile>(colour, shape);
@@ -139,12 +142,14 @@ std::vector<SharedTile> Game::createTileBag() {
     return tileVector;
 }
 
-void Game::shuffleTileBag(std::vector<SharedTile> tileVector, unsigned int seed) {
+void
+Game::shuffleTileBag(std::vector<SharedTile> tileVector, unsigned int seed) {
     //Proceed to shuffle these this tile vector with the seed generated from the system clock
-    std::shuffle(std::begin(tileVector), std::end(tileVector), std::default_random_engine(seed));
+    std::shuffle(std::begin(tileVector), std::end(tileVector),
+                 std::default_random_engine(seed));
 
     //convert vector into tileBag Linked List
-    for (auto& tile : tileVector) {
+    for (auto &tile : tileVector) {
         tileBag->addTile(tile);
     }
 
@@ -152,11 +157,12 @@ void Game::shuffleTileBag(std::vector<SharedTile> tileVector, unsigned int seed)
 
 void Game::setUpPlayerHands() {
     //Go through every player
-    for (SharedPlayer& player : *players) {
+    for (SharedPlayer &player : *players) {
         //pick out 6 tiles for the player
         for (int tiles = 0; tiles < HAND_SIZE; tiles++) {
             //select the tile
-            SharedTile tilePicked = tileBag->deleteTile(tileBag->getTile(0)); //will perhaps change into a shared pointer
+            SharedTile tilePicked = tileBag->deleteTile(tileBag->getTile(
+                    0)); //will perhaps change into a shared pointer
             //add the tile to the persons hand.
             player->addTile(tilePicked);
         }
@@ -166,7 +172,7 @@ void Game::setUpPlayerHands() {
 bool Game::isFinished() {
     // if tilebag is empty and at least one player has no tiles left.
     bool isAnyPlayerHandEmpty = false;
-    for (SharedPlayer& player : *players) {
+    for (SharedPlayer &player : *players) {
         if (player->getHand()->isEmpty()) {
             isAnyPlayerHandEmpty = true;
         }
@@ -182,7 +188,7 @@ bool Game::isFinished() {
 SharedPlayer Game::nextPlayerTurn() {
     SharedPlayer newCurrentPlayer = nullptr;
     for (unsigned int i = 0; i < players->size() &&
-        newCurrentPlayer == nullptr; i++) {
+                             newCurrentPlayer == nullptr; i++) {
         auto player = players->at(i);
         if (player == currentPlayer) {
             currentPlayer = players->at((i + 1) % players->size());
@@ -192,27 +198,27 @@ SharedPlayer Game::nextPlayerTurn() {
     return newCurrentPlayer;
 }
 
-void Game::replaceCommand(std::stringstream & args) {
+void Game::replaceCommand(std::stringstream &args) {
     string tileStr;
     args >> tileStr;
     SharedTile playerTile = currentPlayer->hasTile(tileStr[0],
-        std::stoi(tileStr.substr(1)));
+                                                   std::stoi(
+                                                           tileStr.substr(1)));
     if (playerTile != nullptr) {
         currentPlayer->removeTile(playerTile);
         tileBag->addTile(playerTile);
         SharedTile newTile = tileBag->deleteTile(tileBag->getTile(0));
         currentPlayer->addTile(newTile);
         std::cout << std::endl << "Added "
-            << newTile->toString()
-            << " to your hand" << std::endl;
+                  << newTile->toString()
+                  << " to your hand" << std::endl;
         nextPlayerTurn();
-    }
-    else {
+    } else {
         std::cout << "Tile given isn't in your hand" << std::endl;
     }
 }
 
-void Game::placeCommand(std::stringstream & args) {
+void Game::placeCommand(std::stringstream &args) {
     string tileStr;
     string pos;
     args >> tileStr;
@@ -220,14 +226,14 @@ void Game::placeCommand(std::stringstream & args) {
     args >> pos;
     args >> pos;
     SharedTile playerTile = currentPlayer->hasTile(tileStr[0],
-        std::stoi(tileStr.substr(1)));
+                                                   std::stoi(
+                                                           tileStr.substr(1)));
     if (playerTile != nullptr) {
         int points = board->placeTile(playerTile, pos[0],
-            std::stoi(pos.substr(1)));
+                                      std::stoi(pos.substr(1)));
         if (points == -1) {
             std::cout << "Cannot place a tile here" << std::endl;
-        }
-        else {
+        } else {
             if (points >= 12) {
                 std::cout << "QWIRKLE!" << std::endl;
             }
@@ -239,20 +245,19 @@ void Game::placeCommand(std::stringstream & args) {
             }
             nextPlayerTurn();
         }
-    }
-    else {
+    } else {
         std::cout << "Tile given isn't in your hand" << std::endl;
     }
 }
 
-void Game::saveCommand(std::stringstream & args) {
+void Game::saveCommand(std::stringstream &args) {
     string filename;
     args >> filename;
     try {
         FileUtil::saveGame(filename, this);
         std::cout << "Game saved successfully" << std::endl;
     }
-    catch (const std::exception& ex) {
+    catch (const std::exception &ex) {
         std::cout << "Failed to save: " << ex.what() << std::endl;
     }
 }

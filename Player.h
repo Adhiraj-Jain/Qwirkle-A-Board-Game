@@ -20,7 +20,7 @@ public:
     ~Player();
 
     // Adds a Tile to the player's hand with the given tile
-    void addTile(const SharedTile& tile);
+    void addTile(const SharedTile &tile);
 
     // Getter methods
     string getName();
@@ -29,15 +29,15 @@ public:
 
     // Whether the player has the given tile on hand
     SharedTile hasTile(Colour color, Shape shape);
-    
+
     //Return a player's hand
     std::shared_ptr<LinkedList> getHand();
 
     //Set a player's hand
     void setHand(std::shared_ptr<LinkedList> hand);
-    
+
     //Remove the given tile from the player
-    bool removeTile(const SharedTile& tile);
+    bool removeTile(const SharedTile &tile);
 
     // Adds score to the player
     void addScore(int score);

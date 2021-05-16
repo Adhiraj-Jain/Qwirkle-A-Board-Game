@@ -15,18 +15,18 @@
 #include <chrono>
 
 
-
 class Game {
 public:
     // Constructor to create a new Game
-    explicit Game(const std::vector<SharedPlayer>& players);
+    explicit Game(const std::vector<SharedPlayer> &players);
 
     // Constructor to create a loaded Game
-    Game(const SharedVector<SharedPlayer>& players, SharedPlayer currentPlayer,
-        std::shared_ptr<GameBoard> board, std::shared_ptr<LinkedList> tileBag);
+    Game(const SharedVector<SharedPlayer> &players, SharedPlayer currentPlayer,
+         std::shared_ptr<GameBoard> board, std::shared_ptr<LinkedList> tileBag);
 
     // Destructor
     ~Game();
+
     /**
      * Whether the game has finished and there's a winner
      */
@@ -37,6 +37,7 @@ public:
 
     //initializing the game method
     void initiation(unsigned int seed);
+
     /**
      * Blocking method which starts the game and doesn't return until the game
      *  is finished.
@@ -65,11 +66,11 @@ private:
 
     std::vector<SharedTile> createTileBag();
 
-    void saveCommand(std::stringstream& args);
+    void saveCommand(std::stringstream &args);
 
-    void placeCommand(std::stringstream& args);
+    void placeCommand(std::stringstream &args);
 
-    void replaceCommand(std::stringstream& args);
+    void replaceCommand(std::stringstream &args);
 
     void printPlayerScores();
 

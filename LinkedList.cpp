@@ -21,7 +21,7 @@ SharedTile LinkedList::getTile(int index) {
     // Check for linkedlist and if index is within range or not.
     if (!this->isEmpty() && index >= 0 && index < this->size()) {
         std::shared_ptr<Node> curr = head;
-        for (int i = 0;i < index;i++) {
+        for (int i = 0; i < index; i++) {
             curr = curr->getNext();
         }
         tile = curr->getTile();
@@ -30,7 +30,7 @@ SharedTile LinkedList::getTile(int index) {
     return tile;
 }
 
-SharedTile LinkedList::getTile(const Tile & searchTile) {
+SharedTile LinkedList::getTile(const Tile &searchTile) {
     // Check for linkedlist and if index is within range or not.
     SharedTile tile = nullptr;
     std::shared_ptr<Node> curr = head;
@@ -44,14 +44,13 @@ SharedTile LinkedList::getTile(const Tile & searchTile) {
 }
 
 // This method will always add Tile at the back of the LinkedList.
-void LinkedList::addTile(const SharedTile & tile) {
+void LinkedList::addTile(const SharedTile &tile) {
     if (tile != nullptr) {
         std::shared_ptr<Node> newNode = std::make_shared<Node>(tile, nullptr);
         if (this->head == nullptr) {
             this->head = newNode;
             this->tail = newNode;
-        }
-        else {
+        } else {
             this->tail->setNext(newNode);
             this->tail = newNode;
         }
@@ -59,7 +58,7 @@ void LinkedList::addTile(const SharedTile & tile) {
     }
 }
 
-SharedTile LinkedList::deleteTile(const SharedTile & toRemove) {
+SharedTile LinkedList::deleteTile(const SharedTile &toRemove) {
     SharedTile tile = nullptr;
     // Check if the linked list is empty or not.
     if (!this->isEmpty()) {
@@ -74,7 +73,7 @@ SharedTile LinkedList::deleteTile(const SharedTile & toRemove) {
                 if (prev != nullptr) {
                     prev->setNext(curr->getNext());
                 }
-                // beginning of list
+                    // beginning of list
                 else {
                     head = curr->getNext();
                 }
@@ -84,7 +83,8 @@ SharedTile LinkedList::deleteTile(const SharedTile & toRemove) {
                 tile = curr->getTile();
                 // For development only. Production will never enter this state
                 if (tile == nullptr)
-                    throw std::runtime_error("Reached illegal state Terminating...");
+                    throw std::runtime_error(
+                            "Reached illegal state Terminating...");
                 length--;
             }
 

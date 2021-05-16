@@ -14,7 +14,7 @@ string Player::getName() {
 
 string Player::toString() {
     return this->name + "\n" + std::to_string(this->score) + "\n"
-    + this->hand->toString();
+           + this->hand->toString();
 }
 
 std::shared_ptr<LinkedList> Player::getHand() {
@@ -36,11 +36,11 @@ void Player::setScore(int score) {
 
 Player::~Player() = default;
 
-void Player::addTile(const SharedTile& tile) {
+void Player::addTile(const SharedTile &tile) {
     hand->addTile(tile);
 }
 
-bool Player::removeTile(const SharedTile & toRemove) {
+bool Player::removeTile(const SharedTile &toRemove) {
     return this->hand->deleteTile(toRemove) != nullptr;
 }
 

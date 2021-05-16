@@ -36,8 +36,10 @@
 
 namespace constants {
     // const static is a hint to the compiler to define these only once.
-    const static Colour COLOURS[COLOURS_SIZE] = {RED, ORANGE, YELLOW, GREEN, BLUE, PURPLE};
-    const static Shape SHAPES[SHAPES_SIZE] = {CIRCLE, STAR_4, DIAMOND, SQUARE, STAR_6, CLOVER};
+    const static Colour COLOURS[COLOURS_SIZE] = {RED, ORANGE, YELLOW, GREEN,
+                                                 BLUE, PURPLE};
+    const static Shape SHAPES[SHAPES_SIZE] = {CIRCLE, STAR_4, DIAMOND, SQUARE,
+                                              STAR_6, CLOVER};
 }
 
 #endif // ASSIGN2_CONSTANTS_H

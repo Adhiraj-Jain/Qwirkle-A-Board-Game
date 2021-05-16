@@ -23,16 +23,16 @@ public:
     // return Tile at index i
     SharedTile getTile(int i);
 
-    SharedTile getTile(const Tile& searchTile);
+    SharedTile getTile(const Tile &searchTile);
 
     // Add tile
-    void addTile(const SharedTile& tile);
+    void addTile(const SharedTile &tile);
 
     //Check if LinkedList is empty or not.
     bool isEmpty();
 
     // delete tile at index i
-    SharedTile deleteTile(const SharedTile& toRemove);
+    SharedTile deleteTile(const SharedTile &toRemove);
 
     // To String method
     string toString();
