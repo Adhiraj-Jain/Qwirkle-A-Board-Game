@@ -22,7 +22,8 @@ public:
     explicit Game(const std::vector<SharedPlayer>& players);
 
     // Constructor to create a loaded Game
-    Game(const SharedVector<SharedPlayer>& players, SharedPlayer currentPlayer, std::shared_ptr<GameBoard> board, std::shared_ptr<LinkedList> tileBag);
+    Game(const SharedVector<SharedPlayer>& players, SharedPlayer currentPlayer,
+        std::shared_ptr<GameBoard> board, std::shared_ptr<LinkedList> tileBag);
 
     // Destructor
     ~Game();
@@ -37,7 +38,8 @@ public:
     //initializing the game method
     void initiation(unsigned int seed);
     /**
-     * Blocking method which starts the game and doesn't return until the game is finished.
+     * Blocking method which starts the game and doesn't return until the game
+     *  is finished.
      */
     void start();
 

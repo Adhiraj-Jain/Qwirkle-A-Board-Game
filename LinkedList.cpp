@@ -84,7 +84,7 @@ SharedTile LinkedList::deleteTile(const SharedTile & toRemove) {
                 tile = curr->getTile();
                 // For development only. Production will never enter this state
                 if (tile == nullptr)
-                    throw std::runtime_error("Reached illegal state - nullptr in list tree. Terminating...");
+                    throw std::runtime_error("Reached illegal state Terminating...");
                 length--;
             }
 

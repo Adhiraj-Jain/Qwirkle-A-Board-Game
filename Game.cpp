@@ -181,7 +181,8 @@ bool Game::isFinished() {
 
 SharedPlayer Game::nextPlayerTurn() {
     SharedPlayer newCurrentPlayer = nullptr;
-    for (unsigned int i = 0; i < players->size() && newCurrentPlayer == nullptr; i++) {
+    for (unsigned int i = 0; i < players->size() &&
+        newCurrentPlayer == nullptr; i++) {
         auto player = players->at(i);
         if (player == currentPlayer) {
             currentPlayer = players->at((i + 1) % players->size());
@@ -194,15 +195,19 @@ SharedPlayer Game::nextPlayerTurn() {
 void Game::replaceCommand(std::stringstream & args) {
     string tileStr;
     args >> tileStr;
-    SharedTile playerTile = currentPlayer->hasTile(tileStr[0], std::stoi(tileStr.substr(1)));
+    SharedTile playerTile = currentPlayer->hasTile(tileStr[0],
+        std::stoi(tileStr.substr(1)));
     if (playerTile != nullptr) {
         currentPlayer->removeTile(playerTile);
         tileBag->addTile(playerTile);
         SharedTile newTile = tileBag->deleteTile(tileBag->getTile(0));
         currentPlayer->addTile(newTile);
-        std::cout << std::endl << "Added " << newTile->toString() << " to your hand" << std::endl;
+        std::cout << std::endl << "Added "
+            << newTile->toString()
+            << " to your hand" << std::endl;
         nextPlayerTurn();
-    } else {
+    }
+    else {
         std::cout << "Tile given isn't in your hand" << std::endl;
     }
 }
@@ -214,9 +219,11 @@ void Game::placeCommand(std::stringstream & args) {
     // do it twice to filter out the 'at'
     args >> pos;
     args >> pos;
-    SharedTile playerTile = currentPlayer->hasTile(tileStr[0], std::stoi(tileStr.substr(1)));
+    SharedTile playerTile = currentPlayer->hasTile(tileStr[0],
+        std::stoi(tileStr.substr(1)));
     if (playerTile != nullptr) {
-        int points = board->placeTile(playerTile, pos[0], std::stoi(pos.substr(1)));
+        int points = board->placeTile(playerTile, pos[0],
+            std::stoi(pos.substr(1)));
         if (points == -1) {
             std::cout << "Cannot place a tile here" << std::endl;
         }
