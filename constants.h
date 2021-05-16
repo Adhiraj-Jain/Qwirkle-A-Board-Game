@@ -34,7 +34,7 @@
 #define QWIRKLE_POINTS 6
 
 namespace constants {
-    // const static is a hint to the compiler to define these only once, despite being in a header file.
+    // const static is a hint to the compiler to define these only once.
     const static Colour COLOURS[COLOURS_SIZE] = {RED, ORANGE, YELLOW, GREEN, BLUE, PURPLE};
     const static Shape SHAPES[SHAPES_SIZE] = {CIRCLE, STAR_4, DIAMOND, SQUARE, STAR_6, CLOVER};
 }

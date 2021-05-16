@@ -1,5 +1,11 @@
 #include "FileUtil.h"
 
+// Y5@A1 vs Y5@A22
+#define PLACED_TILE_STRING_MIN_LENGTH 5
+#define PLACED_TILE_STRING_MAX_LENGTH 6
+// length of Tile string serialized
+#define TILE_STRING_LENGTH 2
+
 void FileUtil::saveGame(const string& fileName, Game* game) {
 
     // Finds and opens the file for writing
@@ -73,7 +79,7 @@ std::shared_ptr<Game> FileUtil::loadGame(const string& fileName) {
         if (success) {
             input_util::getline(inputFile, line);
             //Call to get all current tiles in tileBag and check if it was successful or not.
-            if (line.size() > 0) {
+            if (!line.empty()) {
                 tileBag = giveTilesList(line);
                 if (tileBag == nullptr) {
                     success = false;
@@ -99,8 +105,8 @@ std::shared_ptr<Game> FileUtil::loadGame(const string& fileName) {
                 success = false;
             }
         }
-    }
-    else {
+    } else {
+        std::cout << "File not found" << std::endl;
         success = false;
     }
     //Close the file.
@@ -154,8 +160,6 @@ std::shared_ptr<LinkedList> FileUtil::giveTilesList(string tileList) {
     std::shared_ptr<LinkedList> tileLL = std::make_shared<LinkedList>();
     string tile = "";
     tileList += ",";
-    //Tile string length
-    const int tileSize = 2;
     //Traverse over the line to find all the tiles.
     for (unsigned int i = 0; tileLL != nullptr && i < tileList.size(); i++) {
         //check for spaces in tile hand,
@@ -168,12 +172,12 @@ std::shared_ptr<LinkedList> FileUtil::giveTilesList(string tileList) {
             else {
                 //If the current char is a comma.
                 //Call to check if the current tile is in correct format or not.
-                if (tile.size() != tileSize || !isTileCorrect(tile)) {
+                if (tile.size() != TILE_STRING_LENGTH || !isTileCorrect(tile)) {
                     tileLL = nullptr;
                 }
                 else {
                     //If the tile is in correct format then store it in the tileLL
-                    tileLL->addTile(std::make_shared<Tile>((char)tile[0], ((int)tile[1] - 48)));
+                    tileLL->addTile(std::make_shared<Tile>((char)tile[0], ((int)tile[1] - '0')));
                     //Clear the current tile.
                 }
                 tile = "";
@@ -190,11 +194,12 @@ std::shared_ptr<LinkedList> FileUtil::giveTilesList(string tileList) {
 bool FileUtil::isTileCorrect(string tile) {
     bool isCorrect = false;
     if (tile.size() == 2) {
-        const int shape = (int)tile[1] - 48;
+        // Number range is only 0-9 so this is safe
+        const int shape = (int)tile[1] - '0';
         // check if the shape of tile is in correct range or not.
-        if (1 <= shape && shape <= 7) {
+        if (CIRCLE <= shape && shape <= CLOVER) {
             //Looping over the COLOURS array till it founds a correct match or till the end of array.
-            for (int index = 0; index < 6 && !isCorrect; index++) {
+            for (int index = 0; index < COLOURS_SIZE && !isCorrect; index++) {
                 //If the colour matches
                 if (constants::COLOURS[index] == (char)tile[0]) {
                     isCorrect = true;
@@ -207,7 +212,7 @@ bool FileUtil::isTileCorrect(string tile) {
 
 
 bool FileUtil::isNameCorrect(const string& name) {
-    std::regex regex = std::regex("[a-zA-Z]");
+    std::regex regex = std::regex("[A-Z]");
     bool isCorrect = std::regex_search(name, regex);
     //Return
     return isCorrect;
@@ -220,12 +225,11 @@ std::shared_ptr<GameBoard> FileUtil::getBoard(std::fstream& inputFile) {
     string line = "";
     input_util::getline(inputFile, line);
     //Integer array to store dimensions of the game board.
-    int boardSize[2];
+    int boardSize[2] = {0};
     //Loop over the line got through input stream.
     line += ",";
     string dim = "";
     for (unsigned int i = 0, j = 0; i < line.size() && success; i++) {
-
         if (line[i] != ',') {
             dim += line[i];
         }
@@ -233,7 +237,7 @@ std::shared_ptr<GameBoard> FileUtil::getBoard(std::fstream& inputFile) {
             //Store the dimension into integer array
             boardSize[j] = std::stoi(dim);
             // Check if the dimension falls within the correct range or not.
-            if (0 > boardSize[j] || boardSize[j] > 26) {
+            if (0 > boardSize[j] || boardSize[j] > MAX_BOARD_SIZE) {
                 //If falls outside the range.
                 success = false;
             }
@@ -251,8 +255,6 @@ std::shared_ptr<GameBoard> FileUtil::getBoard(std::fstream& inputFile) {
         // Take input for the current state of the board i.e., currently placed tiles on the board.
         input_util::getline(inputFile, line);
         //A Const to check to for the size of each placetile
-        const int maxsize = 6;
-        const int minsize = 5;
         string placetile = "";
         line += ",";
         //Loop till end of line or the input format till that point is correct.
@@ -263,19 +265,19 @@ std::shared_ptr<GameBoard> FileUtil::getBoard(std::fstream& inputFile) {
                     placetile += line[index];
                 }
                 //Check if it is a comma means end of string of one placed tile data and the length of tile is 5 eg. Y5@A1
-                else if ((line[index] == ',') && placetile.size() >= minsize && placetile.size() <= maxsize) {
+                else if ((line[index] == ',') && placetile.size() >= PLACED_TILE_STRING_MIN_LENGTH && placetile.size() <= PLACED_TILE_STRING_MAX_LENGTH) {
                     //if the tile input is completed.
                     //Create a new tile.
                     string stile = "";
                     stile.append(1, (char)placetile[0]);
                     stile.append(1, (char)placetile[1]);
                     if (isTileCorrect(stile)) {
-                        SharedTile tile = std::make_shared<Tile>((char)placetile[0], ((int)placetile[1] - 48));
+                        SharedTile tile = std::make_shared<Tile>((char)placetile[0], ((int)placetile[1] - '0'));
                         //Place the tile in the game board with the given row and col.
                         int col;
                         //check if the col is in single digit or double digit.
-                        if (placetile.size() == minsize) {
-                            col = ((int)placetile[4] - 48);
+                        if (placetile.size() == PLACED_TILE_STRING_MIN_LENGTH) {
+                            col = ((int)placetile[4] - '0');
                         }
                         else {
                             string strcol = "";

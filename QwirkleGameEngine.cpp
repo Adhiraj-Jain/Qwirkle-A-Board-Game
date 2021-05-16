@@ -71,12 +71,18 @@ void QwirkleGameEngine::loadGame() {
     std::cout << "Enter file path:" << std::endl;
     string fileInput = input_util::getStringInput(std::regex(".+"));
     std::shared_ptr<Game> newGame;
-    newGame = FileUtil::loadGame(fileInput);
+    try {
+        newGame = FileUtil::loadGame(fileInput);
+    } catch (const std::exception& ex) {
+        // in the future, custom exceptions can be thrown if there's an error while loading
+        // for now, we set the newGame to nullptr with no error message
+        std::cout << "An error occured while loading: "<<ex.what() << std::endl;
+    }
     if (newGame != nullptr) {
         std::cout << "Qwirkle game successfully loaded" << std::endl;
         newGame->start();
     } else {
-        std::cout << "Invalid Game" << std::endl;
+        std::cout << "Failed to load game" << std::endl;
     }
 }
 
