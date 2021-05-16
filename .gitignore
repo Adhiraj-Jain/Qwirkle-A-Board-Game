@@ -1,4 +1,5 @@
 qwirkle
 *.o
+*.actual.save
 .idea/
 .vscode

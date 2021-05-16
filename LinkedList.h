@@ -14,9 +14,6 @@ public:
     //Constructor
     LinkedList();
 
-    //Copy Constructor
-    LinkedList(LinkedList& Other);
-
     //Destructor
     ~LinkedList();
 

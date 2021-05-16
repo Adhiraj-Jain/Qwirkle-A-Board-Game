@@ -8,8 +8,10 @@ int main(int argc, char **argv) {
     std::cout << "------------------" << std::endl;
 
     QwirkleGameEngine *engine = nullptr;
-    // we accept one parameter, a seed for testing. If future enhancements add more commandline args, this code must
-    // be improved
+    // We accept one parameter - a seed for testing.
+    // the seed MUST be 1000 passed as: ./qwirkle 1000 < file.input > file.output
+    // Without a seed, the seed will be the system time.
+    // check the README for more information
     if (argc == 1) {
         // no args
         engine = new QwirkleGameEngine();
