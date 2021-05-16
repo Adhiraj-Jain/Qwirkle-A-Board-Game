@@ -46,7 +46,8 @@ private:
     int currentHeight;
     int currentWidth;
 
-    // Returns a vector of strings of format <tile color><tile shape>@<row index><col index>
+    // Returns a vector of strings of format
+    // <tile color><tile shape>@<row index><col index>
     void addTilesWithPos(const SharedTile& tile, int row, int col);
 
     // Returns an integer from 0-25 for characters A-Z
@@ -62,8 +63,10 @@ private:
     // Returns true if legal, false if illegal
     bool isValidTileToPlace(const SharedTile& tile, int row, int col);
 
-    // This method collects all the Tiles from all four directions of the given index
-    // i.e. it returns all the Tiles in (left and right combined, up and down combined) of the given row and col
+    // This method collects all the Tiles from
+    // all four directions of the given index
+    // i.e. it returns all the Tiles in
+    // (left and right combined, up and down combined) of the given row and col
     SharedVector<SharedVector<SharedTile>> getAllTilesIn2Direction(int row, 
     int col);
 
@@ -73,7 +76,9 @@ private:
     int changeInRow, int changeInCol);
 
     // Appends vector1 at the back of vector2
-    std::shared_ptr<std::vector<SharedTile>> addTwoVectors(SharedVector<SharedTile> vector1, SharedVector<SharedTile> vector2);
+    std::shared_ptr<std::vector<SharedTile>>
+    addTwoVectors(SharedVector<SharedTile> vector1,
+                  SharedVector<SharedTile> vector2);
 
     // Returns true if there is a tile in the board
     // Returns false if there is no tile in the board

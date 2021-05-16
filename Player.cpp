@@ -13,7 +13,8 @@ string Player::getName() {
 }
 
 string Player::toString() {
-    return this->name + "\n" + std::to_string(this->score) + "\n" + this->hand->toString();
+    return this->name + "\n" + std::to_string(this->score) + "\n"
+    + this->hand->toString();
 }
 
 std::shared_ptr<LinkedList> Player::getHand() {
