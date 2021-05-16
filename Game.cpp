@@ -18,7 +18,7 @@ Game::~Game() = default;
 
 Game::Game(const SharedVector<SharedPlayer>&players, SharedPlayer currentPlayer, std::shared_ptr<GameBoard> board,
     std::shared_ptr<LinkedList> tileBag) {
-    // clone given player vector
+
     this->players = players;
     this->currentPlayer = std::move(currentPlayer);
     this->board = std::move(board);
@@ -88,6 +88,7 @@ void Game::printWinningPlayer() {
         std::cout << "Player " << maxPlayer->getName() << " won!" << std::endl;
     }
     else {
+        tiedPlayers.push_back(maxPlayer);
         std::cout << "Players ";
         for (unsigned int i = 0;i < tiedPlayers.size();i++) {
             SharedPlayer tiedPlayer = tiedPlayers.at(i);
@@ -153,7 +154,7 @@ void Game::setUpPlayerHands() {
     //Go through every player
     for (SharedPlayer& player : *players) {
         //pick out 6 tiles for the player
-        for (int tiles = 0; tiles < 6; tiles++) {
+        for (int tiles = 0; tiles < HAND_SIZE; tiles++) {
             //select the tile
             SharedTile tilePicked = tileBag->deleteTile(tileBag->getTile(0)); //will perhaps change into a shared pointer
             //add the tile to the persons hand.
@@ -201,8 +202,7 @@ void Game::replaceCommand(std::stringstream & args) {
         currentPlayer->addTile(newTile);
         std::cout << std::endl << "Added " << newTile->toString() << " to your hand" << std::endl;
         nextPlayerTurn();
-    }
-    else {
+    } else {
         std::cout << "Tile given isn't in your hand" << std::endl;
     }
 }
