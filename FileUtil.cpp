@@ -8,7 +8,7 @@
 
 void FileUtil::saveGame(const string& fileName, Game* game, std::map<string, bool> enhancements) {
 
-    // Finds and opens the file for writing
+    // Finds and opens the file for writicleng
     std::fstream outfile;
     outfile.open(fileName, std::ios::out);
     string initial_lines = "";
