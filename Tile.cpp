@@ -15,6 +15,7 @@ Colour Tile::getColour() {
 
 string Tile::toString(bool isColour) {
     string tile = "";
+    // If the isColour is passed true then returns a string with color codes.
     if (isColour) {
         if (this->colour == RED) {
             tile += RED_C;
@@ -37,6 +38,7 @@ string Tile::toString(bool isColour) {
         tile += this->colour + std::to_string(this->shape) + RESET;
     }
     else {
+        // If the Iscolour is passed false then return string without colour codes
         tile = this->colour + std::to_string(this->shape);
     }
     return tile;

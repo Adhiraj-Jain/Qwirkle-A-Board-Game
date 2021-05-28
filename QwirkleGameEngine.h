@@ -45,10 +45,13 @@ private:
     //Class Variable
     unsigned int seed = 0;
 
+    // Initialise enhancements with a false value.
     void setDefaultEnhancements();
 
+    // To store the enhancements.
     std::map<string, bool> enhancements;
 
+    // Toggle on or off an enhancement passed to it.
     void changeEnhancement(string enhancement);
 };
 

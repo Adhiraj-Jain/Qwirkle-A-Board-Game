@@ -43,6 +43,7 @@ private:
 
     std::map<string, bool> enhancements;
 
+    // Check for any enhancements while loading
     static bool checkForEnhancements(std::fstream& inputFile, std::map<string, bool> enhancements);
 
 };

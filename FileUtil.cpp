@@ -12,6 +12,7 @@ void FileUtil::saveGame(const string& fileName, Game* game, std::map<string, boo
     std::fstream outfile;
     outfile.open(fileName, std::ios::out);
     string initial_lines = "";
+    // Store all the enhancements enabled for this game.
     for (std::map<string, bool>::iterator iterator = enhancements.begin(); iterator != enhancements.end(); ++iterator) {
         if (iterator->second == true) {
             initial_lines += iterator->first + "\n";
