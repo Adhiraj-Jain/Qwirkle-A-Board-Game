@@ -19,15 +19,15 @@ public:
     // Loads the game details from the given fileName
     // Returns a game instance if read successfully
     // Returns a nullptr if read unsuccessfully
-    static std::shared_ptr<Game> loadGame(const string &fileName);
+    static std::shared_ptr<Game> loadGame(const string& fileName, std::map<string, bool> enhancements);
 
     // Saves the game's data in the file in the given file name
-    static void saveGame(const string &fileName, Game *game);
+    static void saveGame(const string& fileName, Game* game, std::map<string, bool> enhancements);
 
 private:
     // Method to get all the data of the player passed.
     static bool
-    getPlayerData(const SharedPlayer &player, std::fstream &inputFile);
+        getPlayerData(const SharedPlayer& player, std::fstream& inputFile);
 
     // Method to input tiles from the file and store in the linked list passed as params.
     static std::shared_ptr<LinkedList> giveTilesList(string tileList);
@@ -36,10 +36,15 @@ private:
     static bool isTileCorrect(string tile);
 
     // Method to check if the player name passed as param is in correct format or not.
-    static bool isNameCorrect(const string &name);
+    static bool isNameCorrect(const string& name);
 
     // Method to get all the data of the Game board including board size and the current state.
-    static std::shared_ptr<GameBoard> getBoard(std::fstream &inputFile);
+    static std::shared_ptr<GameBoard> getBoard(std::fstream& inputFile, std::map<string, bool> enhancements);
+
+    std::map<string, bool> enhancements;
+
+    static bool checkForEnhancements(std::fstream& inputFile, std::map<string, bool> enhancements);
+
 };
 
 #endif // ASSIGN2_FILE_UTIL_H

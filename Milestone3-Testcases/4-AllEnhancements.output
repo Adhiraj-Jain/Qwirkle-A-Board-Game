@@ -1,0 +1,211 @@
+Welcome to Qwirkle
+------------------
+
+
+Menu
+----
+1. New Game
+2. Load Game
+3. Credits
+4. Expansion Board
+5. Multiple Players
+6. COLOURS_STR
+7. Quit
+
+> The enhancement EXPAND is turned On
+Menu
+----
+1. New Game
+2. Load Game
+3. Credits
+4. Expansion Board
+5. Multiple Players
+6. COLOURS_STR
+7. Quit
+
+> The enhancement MULTIPLAYER is turned On
+Menu
+----
+1. New Game
+2. Load Game
+3. Credits
+4. Expansion Board
+5. Multiple Players
+6. COLOURS_STR
+7. Quit
+
+> The enhancement COLOURS is turned On
+Menu
+----
+1. New Game
+2. Load Game
+3. Credits
+4. Expansion Board
+5. Multiple Players
+6. COLOURS_STR
+7. Quit
+
+> Enter file path:
+> Qwirkle game successfully loaded
+
+A, it's your turn
+Score for A: 0
+Score for B: 0
+Score for C: 0
+   0
+  ----
+A |  |
+Your hand is
+[38;5;202mO6[0m,[32mG1[0m,[35mP5[0m,[38;5;21mB1[0m,[38;5;21mB5[0m,[35mP4[0m
+
+> 
+B, it's your turn
+Score for A: 1
+Score for B: 0
+Score for C: 0
+   0  1  2  3  4  5  6
+  ----------------------
+A |  |  |  |  |  |  |  |
+B |  |  |  |  |  |  |  |
+C |  |  |  |  |  |  |  |
+D |  |  |  |  |  |  |  |
+E |  |  |  |  |  |  |  |
+F |  |  |  |  |  |  |  |
+G |  |  |  |  |  |  |  |
+H |  |  |  |  |  |  |  |
+I |  |  |  |  |  |  |  |
+J |  |  |  |  |  |  |  |
+K |  |  |  |  |  |  |  |
+L |  |  |  |  |  |  |  |
+M |  |  |  |  |  |[38;5;21mB1[0m|  |
+N |  |  |  |  |  |  |  |
+Your hand is
+[38;5;202mO6[0m,[31mR2[0m,[38;5;21mB5[0m,[35mP2[0m,[35mP3[0m,[33mY4[0m
+
+> 
+C, it's your turn
+Score for A: 1
+Score for B: 2
+Score for C: 0
+   0  1  2  3  4  5  6  7
+  -------------------------
+A |  |  |  |  |  |  |  |  |
+B |  |  |  |  |  |  |  |  |
+C |  |  |  |  |  |  |  |  |
+D |  |  |  |  |  |  |  |  |
+E |  |  |  |  |  |  |  |  |
+F |  |  |  |  |  |  |  |  |
+G |  |  |  |  |  |  |  |  |
+H |  |  |  |  |  |  |  |  |
+I |  |  |  |  |  |  |  |  |
+J |  |  |  |  |  |  |  |  |
+K |  |  |  |  |  |  |  |  |
+L |  |  |  |  |  |  |  |  |
+M |  |  |  |  |  |[38;5;21mB1[0m|[38;5;21mB5[0m|  |
+N |  |  |  |  |  |  |  |  |
+Your hand is
+[35mP2[0m,[38;5;21mB6[0m,[32mG4[0m,[31mR1[0m,[33mY5[0m,[38;5;21mB2[0m
+
+> 
+A, it's your turn
+Score for A: 1
+Score for B: 2
+Score for C: 2
+   0  1  2  3  4  5  6  7
+  -------------------------
+A |  |  |  |  |  |  |  |  |
+B |  |  |  |  |  |  |  |  |
+C |  |  |  |  |  |  |  |  |
+D |  |  |  |  |  |  |  |  |
+E |  |  |  |  |  |  |  |  |
+F |  |  |  |  |  |  |  |  |
+G |  |  |  |  |  |  |  |  |
+H |  |  |  |  |  |  |  |  |
+I |  |  |  |  |  |  |  |  |
+J |  |  |  |  |  |  |  |  |
+K |  |  |  |  |  |  |  |  |
+L |  |  |  |  |  |  |  |  |
+M |  |  |  |  |  |[38;5;21mB1[0m|[38;5;21mB5[0m|  |
+N |  |  |  |  |  |  |[33mY5[0m|  |
+O |  |  |  |  |  |  |  |  |
+Your hand is
+[38;5;202mO6[0m,[32mG1[0m,[35mP5[0m,[38;5;21mB5[0m,[35mP4[0m,[38;5;21mB3[0m
+
+> 
+B, it's your turn
+Score for A: 4
+Score for B: 2
+Score for C: 2
+   0  1  2  3  4  5  6  7
+  -------------------------
+A |  |  |  |  |  |  |  |  |
+B |  |  |  |  |  |  |  |  |
+C |  |  |  |  |  |  |  |  |
+D |  |  |  |  |  |  |  |  |
+E |  |  |  |  |  |  |  |  |
+F |  |  |  |  |  |  |  |  |
+G |  |  |  |  |  |  |  |  |
+H |  |  |  |  |  |  |  |  |
+I |  |  |  |  |  |  |  |  |
+J |  |  |  |  |  |  |  |  |
+K |  |  |  |  |  |  |  |  |
+L |  |  |  |  |  |  |[35mP5[0m|  |
+M |  |  |  |  |  |[38;5;21mB1[0m|[38;5;21mB5[0m|  |
+N |  |  |  |  |  |  |[33mY5[0m|  |
+O |  |  |  |  |  |  |  |  |
+Your hand is
+[38;5;202mO6[0m,[31mR2[0m,[35mP2[0m,[35mP3[0m,[33mY4[0m,[31mR5[0m
+
+> 
+C, it's your turn
+Score for A: 4
+Score for B: 6
+Score for C: 2
+   0  1  2  3  4  5  6  7
+  -------------------------
+A |  |  |  |  |  |  |  |  |
+B |  |  |  |  |  |  |  |  |
+C |  |  |  |  |  |  |  |  |
+D |  |  |  |  |  |  |  |  |
+E |  |  |  |  |  |  |  |  |
+F |  |  |  |  |  |  |  |  |
+G |  |  |  |  |  |  |  |  |
+H |  |  |  |  |  |  |  |  |
+I |  |  |  |  |  |  |  |  |
+J |  |  |  |  |  |  |  |  |
+K |  |  |  |  |  |  |  |  |
+L |  |  |  |  |  |  |[35mP5[0m|  |
+M |  |  |  |  |  |[38;5;21mB1[0m|[38;5;21mB5[0m|  |
+N |  |  |  |  |  |  |[33mY5[0m|  |
+O |  |  |  |  |  |  |[31mR5[0m|  |
+P |  |  |  |  |  |  |  |  |
+Your hand is
+[35mP2[0m,[38;5;21mB6[0m,[32mG4[0m,[31mR1[0m,[38;5;21mB2[0m,[38;5;21mB3[0m
+
+> 
+A, it's your turn
+Score for A: 4
+Score for B: 6
+Score for C: 4
+   0  1  2  3  4  5  6  7  8
+  ----------------------------
+A |  |  |  |  |  |  |  |  |  |
+B |  |  |  |  |  |  |  |  |  |
+C |  |  |  |  |  |  |  |  |  |
+D |  |  |  |  |  |  |  |  |  |
+E |  |  |  |  |  |  |  |  |  |
+F |  |  |  |  |  |  |  |  |  |
+G |  |  |  |  |  |  |  |  |  |
+H |  |  |  |  |  |  |  |  |  |
+I |  |  |  |  |  |  |  |  |  |
+J |  |  |  |  |  |  |  |  |  |
+K |  |  |  |  |  |  |  |  |  |
+L |  |  |  |  |  |  |[35mP5[0m|  |  |
+M |  |  |  |  |  |[38;5;21mB1[0m|[38;5;21mB5[0m|  |  |
+N |  |  |  |  |  |  |[33mY5[0m|  |  |
+O |  |  |  |  |  |  |[31mR5[0m|[31mR1[0m|  |
+P |  |  |  |  |  |  |  |  |  |
+Your hand is
+[38;5;202mO6[0m,[32mG1[0m,[38;5;21mB5[0m,[35mP4[0m,[38;5;21mB3[0m,[31mR4[0m
+
+> Goodbye

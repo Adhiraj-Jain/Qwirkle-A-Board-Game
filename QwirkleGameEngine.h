@@ -1,14 +1,12 @@
 #ifndef ASSIGN2_GAME_ENGINE
 #define ASSIGN2_GAME_ENGINE
 
-#define NEW_GAME 1
-#define LOAD_GAME 2
-#define CREDITS 3
-#define QUIT 4
 
+#include "constants.h"
 #include "Player.h"
 #include "Game.h"
 #include "FileUtil.h"
+#include <map>
 //Proposed Idea: QwirkleGameEngine
 //We can conenct the base gameplay methods to this class as well in the future 
 
@@ -46,6 +44,12 @@ private:
 
     //Class Variable
     unsigned int seed = 0;
+
+    void setDefaultEnhancements();
+
+    std::map<string, bool> enhancements;
+
+    void changeEnhancement(string enhancement);
 };
 
 #endif

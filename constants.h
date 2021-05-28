@@ -3,6 +3,29 @@
 
 #include "typedefs.h"
 
+#define NEW_GAME 1
+#define LOAD_GAME 2
+#define CREDITS 3
+#define EXPANSION_BOARD 4
+#define MULTIPLE_PLAYERS 5
+#define COLOUR 6
+#define QUIT 7
+#define EXPANSION_BOARD_STR "EXPAND"
+#define MULTIPLE_PLAYERS_STR "MULTIPLAYER"
+#define COLOURS_STR "COLOURS"
+
+//Color codes
+#define RESET   "\033[0m"
+#define RED_C     "\033[31m"      /* Red */
+#define GREEN_C   "\033[32m"      /* Green */
+#define YELLOW_C "\033[33m"      /* Yellow */
+#define BLUE_C    "\033[38;5;21m"      /* Blue */
+#define MAGENTA_C "\033[35m"
+#define ORANGE_C    "\033[38;5;202m"      /* Cyan */
+#define WHITE_C   "\033[37m"
+
+
+
 // Colours
 
 #define COLOURS_SIZE 6
@@ -36,10 +59,10 @@
 
 namespace constants {
     // const static is a hint to the compiler to define these only once.
-    const static Colour COLOURS[COLOURS_SIZE] = {RED, ORANGE, YELLOW, GREEN,
-                                                 BLUE, PURPLE};
-    const static Shape SHAPES[SHAPES_SIZE] = {CIRCLE, STAR_4, DIAMOND, SQUARE,
-                                              STAR_6, CLOVER};
+    const static Colour COLOURS[COLOURS_SIZE] = { RED, ORANGE, YELLOW, GREEN,
+                                                 BLUE, PURPLE };
+    const static Shape SHAPES[SHAPES_SIZE] = { CIRCLE, STAR_4, DIAMOND, SQUARE,
+                                              STAR_6, CLOVER };
 }
 
 #endif // ASSIGN2_CONSTANTS_H

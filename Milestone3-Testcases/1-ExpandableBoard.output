@@ -1,0 +1,100 @@
+Welcome to Qwirkle
+------------------
+
+
+Menu
+----
+1. New Game
+2. Load Game
+3. Credits
+4. Expansion Board
+5. Multiple Players
+6. COLOURS_STR
+7. Quit
+
+> The enhancement EXPAND is turned On
+Menu
+----
+1. New Game
+2. Load Game
+3. Credits
+4. Expansion Board
+5. Multiple Players
+6. COLOURS_STR
+7. Quit
+
+> Enter file path:
+> Qwirkle game successfully loaded
+
+A, it's your turn
+Score for A: 0
+Score for B: 0
+   0
+  ----
+A |  |
+Your hand is
+O6,G1,P5,B1,B5,P4
+
+> 
+B, it's your turn
+Score for A: 1
+Score for B: 0
+   0  1  2  3  4  5  6  7  8  9  10 11 
+  -------------------------------------
+A |  |  |  |  |  |  |  |  |  |  |  |  |
+B |  |  |  |  |  |  |  |  |  |  |  |  |
+C |  |  |  |  |  |  |  |  |  |  |  |  |
+D |  |  |  |  |  |  |  |  |  |  |  |  |
+E |  |  |  |  |  |  |  |  |  |  |  |  |
+F |  |  |  |  |  |  |  |  |  |  |  |  |
+G |  |  |  |  |  |  |  |  |  |  |  |  |
+H |  |  |  |  |  |  |  |  |  |  |  |  |
+I |  |  |  |  |  |  |  |  |  |  |  |  |
+J |  |  |  |  |  |  |  |  |  |  |B1|  |
+K |  |  |  |  |  |  |  |  |  |  |  |  |
+Your hand is
+O6,R2,B5,P2,P3,Y4
+
+> 
+A, it's your turn
+Score for A: 1
+Score for B: 2
+   0  1  2  3  4  5  6  7  8  9  10 11 12 
+  ----------------------------------------
+A |  |  |  |  |  |  |  |  |  |  |  |  |  |
+B |  |  |  |  |  |  |  |  |  |  |  |  |  |
+C |  |  |  |  |  |  |  |  |  |  |  |  |  |
+D |  |  |  |  |  |  |  |  |  |  |  |  |  |
+E |  |  |  |  |  |  |  |  |  |  |  |  |  |
+F |  |  |  |  |  |  |  |  |  |  |  |  |  |
+G |  |  |  |  |  |  |  |  |  |  |  |  |  |
+H |  |  |  |  |  |  |  |  |  |  |  |  |  |
+I |  |  |  |  |  |  |  |  |  |  |  |  |  |
+J |  |  |  |  |  |  |  |  |  |  |B1|B5|  |
+K |  |  |  |  |  |  |  |  |  |  |  |  |  |
+Your hand is
+O6,G1,P5,B5,P4,P2
+
+> 
+B, it's your turn
+Score for A: 3
+Score for B: 2
+   0  1  2  3  4  5  6  7  8  9  10 11 12 
+  ----------------------------------------
+A |  |  |  |  |  |  |  |  |  |  |  |  |  |
+B |  |  |  |  |  |  |  |  |  |  |  |  |  |
+C |  |  |  |  |  |  |  |  |  |  |  |  |  |
+D |  |  |  |  |  |  |  |  |  |  |  |  |  |
+E |  |  |  |  |  |  |  |  |  |  |  |  |  |
+F |  |  |  |  |  |  |  |  |  |  |  |  |  |
+G |  |  |  |  |  |  |  |  |  |  |  |  |  |
+H |  |  |  |  |  |  |  |  |  |  |  |  |  |
+I |  |  |  |  |  |  |  |  |  |  |  |  |  |
+J |  |  |  |  |  |  |  |  |  |  |B1|B5|  |
+K |  |  |  |  |  |  |  |  |  |  |  |P5|  |
+L |  |  |  |  |  |  |  |  |  |  |  |  |  |
+Your hand is
+O6,R2,P2,P3,Y4,B6
+
+> Game saved successfully
+> Goodbye

@@ -30,7 +30,7 @@ SharedTile LinkedList::getTile(int index) {
     return tile;
 }
 
-SharedTile LinkedList::getTile(const Tile &searchTile) {
+SharedTile LinkedList::getTile(const Tile & searchTile) {
     // Check for linkedlist and if index is within range or not.
     SharedTile tile = nullptr;
     std::shared_ptr<Node> curr = head;
@@ -44,13 +44,14 @@ SharedTile LinkedList::getTile(const Tile &searchTile) {
 }
 
 // This method will always add Tile at the back of the LinkedList.
-void LinkedList::addTile(const SharedTile &tile) {
+void LinkedList::addTile(const SharedTile & tile) {
     if (tile != nullptr) {
         std::shared_ptr<Node> newNode = std::make_shared<Node>(tile, nullptr);
         if (this->head == nullptr) {
             this->head = newNode;
             this->tail = newNode;
-        } else {
+        }
+        else {
             this->tail->setNext(newNode);
             this->tail = newNode;
         }
@@ -58,7 +59,7 @@ void LinkedList::addTile(const SharedTile &tile) {
     }
 }
 
-SharedTile LinkedList::deleteTile(const SharedTile &toRemove) {
+SharedTile LinkedList::deleteTile(const SharedTile & toRemove) {
     SharedTile tile = nullptr;
     // Check if the linked list is empty or not.
     if (!this->isEmpty()) {
@@ -73,7 +74,7 @@ SharedTile LinkedList::deleteTile(const SharedTile &toRemove) {
                 if (prev != nullptr) {
                     prev->setNext(curr->getNext());
                 }
-                    // beginning of list
+                // beginning of list
                 else {
                     head = curr->getNext();
                 }
@@ -84,7 +85,7 @@ SharedTile LinkedList::deleteTile(const SharedTile &toRemove) {
                 // For development only. Production will never enter this state
                 if (tile == nullptr)
                     throw std::runtime_error(
-                            "Reached illegal state Terminating...");
+                        "Reached illegal state Terminating...");
                 length--;
             }
 
@@ -95,13 +96,18 @@ SharedTile LinkedList::deleteTile(const SharedTile &toRemove) {
     return tile;
 }
 
-string LinkedList::toString() {
+string LinkedList::toString(bool Iscolours) {
     string result = "";
 
     // Get and converts each tile in the list to a string
     std::shared_ptr<Node> curr = head;
     while (curr != nullptr) {
-        result += curr->getTile()->toString();
+        if (Iscolours) {
+            result += curr->getTile()->toString(true);
+        }
+        else {
+            result += curr->getTile()->toString(false);
+        }
 
         // Does not produce a comma after the last tile
         if (curr->getNext() != nullptr) {
@@ -112,4 +118,3 @@ string LinkedList::toString() {
 
     return result + "\n";
 }
-

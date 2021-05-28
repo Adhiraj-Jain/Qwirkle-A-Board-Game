@@ -1,30 +1,29 @@
 #include "GameBoard.h"
 
-GameBoard::GameBoard() {
-
+GameBoard::GameBoard(std::map<string, bool> enhancements) {
+    this->enhancements = enhancements;
     this->currentHeight = 0;
     this->currentWidth = 0;
     placedTiles = std::make_shared<std::vector<string>>();
     // Initializing the board with 26 x 26 space
     this->board = std::make_shared<std::vector<SharedVector<SharedTile>>>();
     for (int i = 0; i < MAX_BOARD_SIZE; i++) {
-        SharedVector<SharedTile> row = std::make_shared<std::vector<SharedTile>>(
-                MAX_BOARD_SIZE, nullptr);
+        SharedVector<SharedTile> row = std::make_shared<std::vector<SharedTile>>(MAX_BOARD_SIZE, nullptr);
         board->push_back(row);
     }
 }
 
-GameBoard::GameBoard(int height, int width) : GameBoard() {
+GameBoard::GameBoard(int height, int width, std::map<string, bool> enhancements) : GameBoard(enhancements) {
     this->currentHeight = height;
     this->currentWidth = width;
 }
 
 int GameBoard::mapCharToRow(char target) {
-    return (int) target - 'A';
+    return (int)target - 'A';
 }
 
 char GameBoard::mapRowToChar(int target) {
-    return (char) (target + 'A');
+    return (char)(target + 'A');
 }
 
 SharedTile GameBoard::getTile(int row, int col) {
@@ -34,16 +33,16 @@ SharedTile GameBoard::getTile(int row, int col) {
 GameBoard::~GameBoard() = default;
 
 
-void GameBoard::addTilesWithPos(const SharedTile &tile, int row, int col) {
+void GameBoard::addTilesWithPos(const SharedTile & tile, int row, int col) {
     // Builds a string of the tile at the position in format <colour><shape>@<row><col>
     if (tile != nullptr) {
-        placedTiles->push_back(tile->toString() + "@"
-                               + this->mapRowToChar(row)
-                               + std::to_string(col));
+        placedTiles->push_back(tile->toString(false) + "@"
+            + this->mapRowToChar(row)
+            + std::to_string(col));
     }
 }
 
-int GameBoard::placeTile(const SharedTile &tile, char rowChar, int col) {
+int GameBoard::placeTile(const SharedTile & tile, char rowChar, int col) {
 
     int score = -1;
     int row = this->mapCharToRow(rowChar);
@@ -71,23 +70,23 @@ int GameBoard::placeTile(const SharedTile &tile, char rowChar, int col) {
     return score;
 }
 
-void GameBoard::placeTileInLoading(const SharedTile &tile, char rowChar,
-                                   int col) {
+void GameBoard::placeTileInLoading(const SharedTile & tile, char rowChar,
+    int col) {
     int row = this->mapCharToRow(rowChar);
     this->board->at(row)->at(col) = tile;
     this->addTilesWithPos(tile, row, col);
 }
 
-bool GameBoard::isValidTileToPlace(const SharedTile &tile, int row, int col) {
+bool GameBoard::isValidTileToPlace(const SharedTile & tile, int row, int col) {
     bool valid = true;
     bool neighbourningTile = false;
     SharedVector<SharedVector<SharedTile>> allTilesIn2Direction = this->getAllTilesIn2Direction(
-            row, col);
+        row, col);
 
     // Iterates of all of the directions (left-right and up-down) and until the tile is valid to place
     for (unsigned int i = 0; i < allTilesIn2Direction->size() && valid; i++) {
         SharedVector<SharedTile> tilesIn1Direction = allTilesIn2Direction->at(
-                i);
+            i);
 
         // Checks the placed tile does not add to the Qwirkle
         if (tilesIn1Direction->size() < QWIRKLE_LENGTH) {
@@ -95,18 +94,19 @@ bool GameBoard::isValidTileToPlace(const SharedTile &tile, int row, int col) {
             if (tilesIn1Direction->size() <= 0 && isThereAnyTilePlaced() &&
                 !neighbourningTile) {
                 neighbourningTile = false;
-            } else {
+            }
+            else {
                 neighbourningTile = true;
             }
             // Iterates over all the tiles in each directions and until the tile is valid to place
             for (unsigned int j = 0; j < tilesIn1Direction->size() && valid;
-                 j++) {
+                j++) {
                 SharedTile currentTile = tilesIn1Direction->at(j);
 
                 // The tile is not valid if the two tiles are same or both the shape and the colour are not different
                 if (currentTile->isEqual(*tile) ||
                     (currentTile->getShape() != tile->getShape() &&
-                     currentTile->getColour() != tile->getColour())) {
+                        currentTile->getColour() != tile->getColour())) {
                     valid = false;
                 }
             }
@@ -125,9 +125,9 @@ bool GameBoard::isThereAnyTilePlaced() {
     bool isThereTile = false;
 
     for (unsigned int row = 0; row < this->board->size() && !isThereTile;
-         row++) {
+        row++) {
         for (unsigned int col = 0;
-             col < this->board->at(row)->size() && !isThereTile; col++) {
+            col < this->board->at(row)->size() && !isThereTile; col++) {
             if (this->board->at(row)->at(col) != nullptr) {
                 isThereTile = true;
             }
@@ -141,7 +141,7 @@ bool GameBoard::isThereAnyTilePlaced() {
 int GameBoard::calculateScore(int row, int col) {
     int score = 0;
     SharedVector<SharedVector<SharedTile>> allTilesIn4Direction =
-            this->getAllTilesIn2Direction(row, col);
+        this->getAllTilesIn2Direction(row, col);
 
     // Iterates over the 4 directions (left, right, up, down)
     for (auto tilesIn1Direction : *allTilesIn4Direction) {
@@ -170,17 +170,17 @@ SharedVector<SharedVector<SharedTile>>
 GameBoard::getAllTilesIn2Direction(int row, int col) {
 
     SharedVector<SharedVector<SharedTile>> tiles =
-            std::make_shared<std::vector<SharedVector<SharedTile>>>();
+        std::make_shared<std::vector<SharedVector<SharedTile>>>();
 
     // Get tiles from each direction and add it in a vector
     SharedVector<SharedTile> getAllTilesLeft = this->getAllTilesIn1Direction(
-            row, col, 0, -1);
+        row, col, 0, -1);
     SharedVector<SharedTile> getAllTilesRight = this->getAllTilesIn1Direction(
-            row, col, 0, 1);
+        row, col, 0, 1);
     SharedVector<SharedTile> getAllTilesUp = this->getAllTilesIn1Direction
-            (row, col, -1, 0);
+    (row, col, -1, 0);
     SharedVector<SharedTile> getAllTilesDown = this->getAllTilesIn1Direction(
-            row, col, 1, 0);
+        row, col, 1, 0);
 
     // Merging the left and up vectors with right and down vectors of tiles respectively
     tiles->push_back(addTwoVectors(getAllTilesLeft, getAllTilesRight));
@@ -193,7 +193,7 @@ GameBoard::getAllTilesIn2Direction(int row, int col) {
 
 SharedVector<SharedTile>
 GameBoard::addTwoVectors(SharedVector<SharedTile> vector1,
-                         SharedVector<SharedTile> vector2) {
+    SharedVector<SharedTile> vector2) {
 
     // Loops and adds all the elements from vector1 into vector2
     for (auto element : *vector1) {
@@ -204,7 +204,7 @@ GameBoard::addTwoVectors(SharedVector<SharedTile> vector1,
 
 SharedVector<SharedTile>
 GameBoard::getAllTilesIn1Direction(int row, int col, int changeInRow,
-                                   int changeInCol) {
+    int changeInCol) {
 
     SharedVector<SharedTile> tiles = std::make_shared<std::vector<SharedTile>>();
 
@@ -225,7 +225,8 @@ GameBoard::getAllTilesIn1Direction(int row, int col, int changeInRow,
         if (row >= 0 && col >= 0 && row <= MAX_BOARD_SIZE - 1 &&
             col <= MAX_BOARD_SIZE - 1) {
             currentTile = this->board->at(row)->at(col);
-        } else {
+        }
+        else {
             currentTile = nullptr;
         }
 
@@ -235,7 +236,7 @@ GameBoard::getAllTilesIn1Direction(int row, int col, int changeInRow,
 
 string GameBoard::toString() {
     string result = std::to_string(this->currentHeight) + "," +
-                    std::to_string(this->currentWidth) + "\n";
+        std::to_string(this->currentWidth) + "\n";
 
     // Gets all the tiles in the board with their positions
     SharedVector<string> tilesWithPos = this->placedTiles;
@@ -252,13 +253,32 @@ string GameBoard::toString() {
 }
 
 void GameBoard::displayBoard() {
+
+    int height;
+    int width;
+    if (this->enhancements[EXPANSION_BOARD_STR]) {
+        height = this->currentHeight + 1;
+        width = this->currentWidth + 1;
+        if (this->currentHeight + 1 > 26) {
+            height--;
+        }
+        if (this->currentWidth + 1 > 26) {
+            width--;
+        }
+    }
+    else {
+        height = board->size();
+        width = board->size();
+    }
+
     //printing the numbers
     std::cout << "   ";
-    for (unsigned int col = 0; col < board->size(); col++) {
+    for (unsigned int col = 0; col < width; col++) {
         std::cout << col;
         if (col >= 10) {
             std::cout << " ";
-        } else if (col != board->size() - 1 && col < 10) {
+        }
+        else if (col != width - 1 && col < 10) {
             std::cout << "  ";
         }
     }
@@ -267,24 +287,31 @@ void GameBoard::displayBoard() {
 
     //printing the dashed lines
     std::cout << "  ";
-    for (unsigned int col = 0; col < board->size(); col++) {
+    for (unsigned int col = 0; col < width; col++) {
         if (col == 0) {
             std::cout << "----";
-        } else {
+        }
+        else {
             std::cout << "---";
         }
     }
 
     std::cout << std::endl;
     //printing the tiles
-    for (unsigned int row = 0; row < board->size(); row++) {
+    for (unsigned int row = 0; row < height; row++) {
 
         std::cout << this->mapRowToChar(row) << " |";
-        for (unsigned int col = 0; col < board->size(); col++) {
+        for (unsigned int col = 0; col < width; col++) {
             if (getTile(row, col) == nullptr) {
                 std::cout << "  |";
-            } else {
-                std::cout << getTile(row, col)->toString() << "|";
+            }
+            else {
+                if (enhancements[COLOURS_STR]) {
+                    std::cout << getTile(row, col)->toString(true) << "|";
+                }
+                else {
+                    std::cout << getTile(row, col)->toString(false) << "|";
+                }
             }
         }
         std::cout << std::endl;

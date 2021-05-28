@@ -4,6 +4,7 @@
 #include <string>
 #include <memory>
 #include "typedefs.h"
+#include "constants.h"
 
 
 class Tile {
@@ -14,7 +15,7 @@ public:
     Tile(Colour colour, Shape shape);
 
     //Checks for Tile equality
-    bool isEqual(const Tile &tile);
+    bool isEqual(const Tile& tile);
 
     // Getter methods
     Colour getColour();
@@ -22,7 +23,7 @@ public:
     Shape getShape();
 
     // ToString method
-    string toString();
+    string toString(bool isColour);
 
 private:
 
