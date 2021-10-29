@@ -4,16 +4,13 @@
 
 - Adhiraj Jain, s3821245
 
-Github: https://github.com/s3821245/2021-APT-A2-TEAM-JAM
+Github: https://github.com/Adhiraj-Jain/Qwirkle-A-Board-Game
 
 
-Enhancements Implemented
-- 3-4 Player mode
-- Colour
-- Expandable Board
-
---  New Testcases have been created for the above mentioned enhancements which can be found in Milestone3-Testcases/
-
+Highlights
+- By default its a 2-player game, but it can be played with a 3-4 Player mode.
+- Colours can be turned on for better UI experience.
+- Game Board is Expandable simply by switching it on.
 
 ## Important: Running test cases
 
